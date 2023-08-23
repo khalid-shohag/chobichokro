@@ -1,6 +1,30 @@
 import React from "react";
-
+import { useState } from "react";
+import axios from "axios";
+import './Login.css'
 const Login = () => {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await axios.post('http://localhost:port/api/login', {
+        username,
+        password
+      });
+
+
+      const token = response.data.token; // Adjust according to your API response
+      // Store the token in local storage or state management
+
+    } catch (error) {
+      console.error('Error occured', error);
+    }
+  };
+
     return(
         <div
         
@@ -34,6 +58,7 @@ const Login = () => {
               id="username"
               name="username"
               style={{ width: '100%' }}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div style={{ marginBottom: '10px' }}>
@@ -43,6 +68,7 @@ const Login = () => {
               id="password"
               name="password"
               style={{ width: '100%' }}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <button
@@ -56,6 +82,7 @@ const Login = () => {
               cursor: 'pointer',
               width: '100%',
             }}
+            onClick={handleSubmit}
           >
             Sign In
           </button>
