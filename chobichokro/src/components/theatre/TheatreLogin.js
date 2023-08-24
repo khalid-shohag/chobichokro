@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../navbar";
 import Login from "../Login";
 
-const AdminLogin = (props) => {
+const TheatreLogin = (props) => {
     return(
         <div>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminLogin = (props) => {
     );
 }
 
-export default AdminLogin;
+export default TheatreLogin;

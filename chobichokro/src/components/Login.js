@@ -2,8 +2,12 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import './Login.css'
-import ImageAdmin from '../assets/film-596009_640.jpg'
-const Login = () => {
+import ImageAdmin from '../assets/camera-219958_1280.jpg'
+
+function Login(props) {
+
+  console.log(props.value);
+  console.log('Checking');
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -26,7 +30,20 @@ const Login = () => {
   };
 
     return(
-        <div
+      <div className="container">
+        <div className="column" style={{
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          width: '100vw',
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <h1 className="animation-container animated-text" style={{color: 'black'}}>{props.value}</h1>
+        </div>
+      
+        <div className="column"
         
       style={{
         backgroundSize: 'cover',
@@ -41,7 +58,8 @@ const Login = () => {
         
       <div
         style={{
-          backgroundImage: `url(${ImageAdmin})`,
+          // backgroundImage: `url(${ImageAdmin})`,
+          backgroundColor: '#B2C3D2',
           background: 'rgba(255, 255, 255, 0.8)',
           padding: '20px',
           borderRadius: '10px',
@@ -90,6 +108,7 @@ const Login = () => {
           </button>
         </form>
       </div>
+    </div>
     </div>
     );
 }
