@@ -8,6 +8,7 @@ import AudienceLogin from './components/audience/AudienceLogin';
 import DistributorLogin from './components/distributor/DistributorLogin';
 import TheatreLogin from './components/theatre/TheatreLogin';
 import { useState } from 'react';
+import LicenseRegistration from './components/LicenseRegistration';
 function App() {
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/audience_login' element={<AudienceLogin value='Audience Login'/>}/>
         <Route path='/distributor_login' element={<DistributorLogin value='Distributor Login'/>}/>
         <Route path='/theatre_login' element={<TheatreLogin value='Theatre Login'/>}/>
+        <Route path='/license_registration' element={<LicenseRegistration />} />
       </Routes>
     </BrowserRouter>
   );

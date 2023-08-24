@@ -13,3 +13,7 @@ h1, h4, p, a {
   color: #2A925E;
   text-decoration: none; 
 }
+
+h6 {
+  color: #2A925E;
+}

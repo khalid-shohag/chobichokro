@@ -1,0 +1,51 @@
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  input[type="radio"]:checked {
+    border-color: yellow;
+    background-color: yellow;
+  }
+
+  .container {
+    display: flex;
+}
+
+.column {
+    flex: 1; 
+    padding: 20px; 
+  }
+
+  .animation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 450px;
+    background-color: #2A925E;
+    border-radius: 32px;
+  }
+  
+  .animated-text {
+    animation: bounce 1s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  
+  

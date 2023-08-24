@@ -10,7 +10,7 @@ const DropdownMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const menuItems = ['Admin', 'Distributor', 'Theatre', 'Audience'];
+  const menuItems = ['Admin', 'Distributor', 'Theatre', 'Audience', 'Get License'];
 
   const handleItemClick = (item) => {
     setIsMenuOpen(false);
@@ -29,6 +29,9 @@ const DropdownMenu = () => {
       case 'Distributor':
         navigate('/distributor_login');
         break;
+        case 'Get License':
+          navigate('/license_registration');
+          break;
       default:
         break;
     }
@@ -47,12 +50,13 @@ const DropdownMenu = () => {
         <div
           style={{
             position: 'absolute',
-            top: '100%',
-            left: 0,
+            top: 50,
+            left: -50,
             background: 'white',
             border: '1px solid #ccc',
             borderRadius: '5px',
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            width: '300px'
           }}
         >
           {menuItems.map((item) => (
@@ -63,7 +67,8 @@ const DropdownMenu = () => {
                 padding: '10px 20px',
                 cursor: 'pointer',
                 background: 'transparent',
-                color: '#333',
+                backgroundColor: '#2A925E',
+                color: 'black',
               }}
             >
               {item}
