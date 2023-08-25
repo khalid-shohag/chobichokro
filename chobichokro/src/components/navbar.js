@@ -4,6 +4,7 @@ import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import Hamburger from 'hamburger-react'
 import DropdownMenu from "./SelectedLoginUser";
+import { Link } from "react-router-dom";
 
 const Navbar = ()=> {
 
@@ -23,8 +24,10 @@ const Navbar = ()=> {
 
     return(
         <div className="header">
-            <h1>ছবিচক্র</h1>
+            <Link to='/'>
             
+                <h1>ছবিচক্র</h1>
+            </Link>
 
             
             <ul className="nav-menu">

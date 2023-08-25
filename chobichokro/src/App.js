@@ -9,13 +9,14 @@ import DistributorLogin from './components/distributor/DistributorLogin';
 import TheatreLogin from './components/theatre/TheatreLogin';
 import { useState } from 'react';
 import LicenseRegistration from './components/LicenseRegistration';
+import Home from './components/Home';
 function App() {
 
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Navbar />} />
+        <Route path='/' element={<Home />} />
         <Route path='/admin' element={<Admin />}/>
 
         {/*Route for different Login users*/}
