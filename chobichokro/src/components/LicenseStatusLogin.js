@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import './Login.css'
 import LicenseStatus from "./LicenseStatus";
+import { useNavigate } from "react-router-dom";
 
 
 function Login() {
@@ -12,6 +13,7 @@ function Login() {
   console.log('Checking');
 
   const [number, setNumber] = useState('');
+  const navigate = useNavigate();
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ function Login() {
 
 
       const token = response.data.token; 
-      < LicenseStatus />
+      navigate('/licese_status');
 
     } catch (error) {
       console.error('Error occured', error);
