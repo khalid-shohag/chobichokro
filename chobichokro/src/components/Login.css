@@ -1,11 +1,11 @@
 .first-content {
     background-size: cover;
     background-position: center;
-    width: '100vw';
-    height: '100vh';
-    display: 'flex';
-    justify-content: 'center';
-    align-items: 'center';
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {

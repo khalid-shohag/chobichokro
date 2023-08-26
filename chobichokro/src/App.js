@@ -12,6 +12,7 @@ import LicenseRegistration from './components/LicenseRegistration';
 import Home from './components/Home';
 import LicenseStatus from './components/LicenseStatus';
 import LicenseStatusLogin from './components/LicenseStatusLogin';
+import DistributorPage from './components/distributor/DistributorPage';
 function App() {
 
 
@@ -29,6 +30,9 @@ function App() {
         <Route path='/license_registration' element={<LicenseRegistration />} />
         <Route path='license_status' element={<LicenseStatus />} />
         <Route path='/license_status_check' element={<LicenseStatusLogin />}/>
+
+        {/*Route for pages*/}
+        <Route path='/distributor_page' element={<DistributorPage />} />
       </Routes>
     </BrowserRouter>
   );
