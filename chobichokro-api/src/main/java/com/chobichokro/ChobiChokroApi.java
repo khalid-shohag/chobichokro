@@ -1,13 +1,13 @@
-package com.chobichokro.api;
+package com.chobichokro;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ChobichokroApiApplication {
+public class ChobiChokroApi {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ChobichokroApiApplication.class, args);
+		SpringApplication.run(ChobiChokroApi.class, args);
 	}
 
 }
