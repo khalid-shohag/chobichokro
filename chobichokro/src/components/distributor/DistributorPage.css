@@ -1,0 +1,94 @@
+.first-content {
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the left */
+    /* padding-right: auto; Add some left padding for better alignment */
+}
+
+.card-value {
+    height: 170px;
+    width: 120px;
+    background-color: gray;
+    border-radius: 10px;
+
+   
+}
+
+.card-internal1{
+     height: 30px;
+     width: 120px;
+     margin-top: 10px;
+     /* background-color: lightgoldenrodyellow;    */
+}
+
+
+
+
+.btn1 {
+    background-color: green;
+    /* margin-left: 15px; */
+    border-radius: 5px;
+    width: 120px;
+    cursor: pointer;
+    /* height: 40px; */
+    /* color: #2A925E; */
+}
+
+.card-internal2{
+    height: 30px;
+    width: 120px;
+    /* background-color: orange;  */
+    margin-top: 10px;  
+}
+
+
+
+
+.btn2 {
+   background-color: maroon;
+   /* margin-left: 15px; */
+   border-radius: 5px;
+   width: 120px;
+   /* color: #2A925E; */
+   cursor: pointer;
+}
+
+
+
+.container {
+    display: flex;
+}
+
+.column {
+    flex: 1; 
+    padding: 20px; 
+  }
+
+  .animation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 380px;
+    background-color: #2A925E;
+    border-radius: 32px;
+  }
+  
+  .animated-text {
+    animation: bounce 1s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  
