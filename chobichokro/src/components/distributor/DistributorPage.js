@@ -7,6 +7,7 @@ import reelImage from '../../assets/film-596009_640.jpg'
 import MovieReleaseAnnouncement from "./MovieReleaseAnnouncement";
 import ReleasedMovie from "./ReleasedMovie";
 import Pagination from "./Pagination";
+import CineVideo from '../../assets/CinemaVideo.mp4'
 
 function DistributorPage() {
 
@@ -29,10 +30,30 @@ function DistributorPage() {
     }
 
     return(
-        <div style={{backgroundColor: 'gray', width: '100vw', height:'100vh'}}>
+        <div style={{width: '100vw', height:'100vh'}}>
             <Navbar />
-            <div className="container">
+            
+            <div className="container" >
+            <video
+        style={{
+          position: 'absolute', // Position the video absolutely within the div
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover', // Maintain aspect ratio and cover entire div
+          zIndex: -1, // Place it behind other content
+        }}
+        autoPlay
+        loop
+        muted
+      >
+        <source src={CineVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+            
         <div className="column first-content" >
+            
           <Card className="card-value">
             
             <Card.Body>
@@ -76,6 +97,7 @@ function DistributorPage() {
             )}
         </div>
     </div>
+   
         </div>
     );
 }
