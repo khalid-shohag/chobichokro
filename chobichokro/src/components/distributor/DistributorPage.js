@@ -5,12 +5,27 @@ import { Button, Card } from "react-bootstrap";
 import { useState } from "react";
 import reelImage from '../../assets/film-596009_640.jpg'
 import MovieReleaseAnnouncement from "./MovieReleaseAnnouncement";
+import ReleasedMovie from "./ReleasedMovie";
+import Pagination from "./Pagination";
 
 function DistributorPage() {
+
+    const [viewDetails, setViewDetails] = useState(false)
+
+    const handleView = () => {
+        setViewDetails(true);
+    }
 
     const [announce, setAnnounce] = useState(false);
     const hanldeAnnounce = () => {
         setAnnounce(true);
+        setRelease(false);
+    }
+
+    const [release, setRelease] = useState(false);
+    const handleRelease = () => {
+        setRelease(true);
+        setAnnounce(false);
     }
 
     return(
@@ -23,7 +38,7 @@ function DistributorPage() {
             <Card.Body>
                 <Card className="card-internal1">
                     <Card.Body>
-                        <Button className="btn1">Released</Button>
+                        <Button className="btn1" onClick={handleRelease}>Released</Button>
                     </Card.Body>
                 </Card>
                 <Card className="card-internal2" >
@@ -50,7 +65,16 @@ function DistributorPage() {
             
             <MovieReleaseAnnouncement />
             )}
+            {release && (
+            
+            <ReleasedMovie handle = {handleView}/>
+            )}
         </div>     
+        <div className="column first-content">
+            {viewDetails && (
+                <Pagination name='007' body = 'James Bond' />
+            )}
+        </div>
     </div>
         </div>
     );
