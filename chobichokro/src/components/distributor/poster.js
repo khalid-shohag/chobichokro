@@ -35,7 +35,7 @@ const Poster = () => {
           <ul>
             {selectedImages.map((imageDataUrl, index) => (
               <li key={index}>
-                <img src={imageDataUrl} alt={`Image ${index + 1}`} />
+                <img src={imageDataUrl} alt={`Image ${index + 1}`} style={{height: '50px', width: '50px'}} />
                 <button onClick={() => handleRemoveImage(index)}>Remove</button>
               </li>
             ))}
