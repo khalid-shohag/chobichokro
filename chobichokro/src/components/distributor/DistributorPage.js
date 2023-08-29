@@ -21,6 +21,7 @@ function DistributorPage() {
     const hanldeAnnounce = () => {
         setAnnounce(true);
         setRelease(false);
+        setViewDetails(false);
     }
 
     const [release, setRelease] = useState(false);
