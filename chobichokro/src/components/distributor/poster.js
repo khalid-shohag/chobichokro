@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaLeaf } from 'react-icons/fa';
 
 const Poster = () => {
   const [selectedImages, setSelectedImages] = useState([]);
@@ -31,15 +32,15 @@ const Poster = () => {
     <h3>Select Posters</h3>
       <input type="file" accept="image/*" multiple onChange={handleImageChange} />
       {selectedImages.length > 0 && (
-        <div> 
-          <ul>
+        <div style={{display: 'flex'}}> 
+          {/* <ul style={{listStyleType: 'n'}}> */}
             {selectedImages.map((imageDataUrl, index) => (
-              <li key={index}>
+              <div key={index} style={{flex: 0.15}}>
                 <img src={imageDataUrl} alt={`Image ${index + 1}`} style={{height: '50px', width: '50px'}} />
                 <button onClick={() => handleRemoveImage(index)}>Remove</button>
-              </li>
+              </div>
             ))}
-          </ul>
+          {/* </ul> */}
         </div>
       )}
     </div>
