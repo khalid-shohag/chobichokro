@@ -1,0 +1,174 @@
+import React from "react";
+import { Button } from "react-bootstrap";
+import './SeatBooking.css'
+import { Card } from "react-bootstrap";
+import { CardTitle } from "reactstrap";
+function SeatBooking() {
+    return(
+        <div>
+            <Card style={{backgroundColor: 'lightblue', marginLeft: '250px', borderRadius: '7px'}}>
+                <Card.Header>
+                    Tickets
+                </Card.Header>
+                <Card.Body>
+                <ul style={{display: 'flex', marginBottom: '10px'}}>
+                <li><button>A01</button></li>
+                <li><button>A02</button></li>
+                <li><button>A03</button></li>
+                <li><button>A04</button></li>
+                <li><button>A05</button></li>
+                <li><button>A06</button></li>
+                <li><button>A07</button></li>
+                <li><button>A08</button></li>
+                <li><button>A09</button></li>
+                <li><button>A10</button></li>
+                <li><button>A11</button></li>
+                <li><button>A12</button></li>
+                <li><button>A13</button></li>
+                <li><button>A14</button></li>
+                <li><button>A15</button></li>
+                <li><button>A16</button></li>
+                <li><button>A17</button></li>
+                <li><button>A18</button></li>
+                <li><button>A19</button></li>
+                <li><button>A20</button></li>
+            </ul>
+            <ul style={{display: 'flex', marginBottom: '10px'}}>
+                <li><button>B01</button></li>
+                <li><button>B02</button></li>
+                <li><button>B03</button></li>
+                <li><button>B04</button></li>
+                <li><button>B05</button></li>
+                <li><button>B06</button></li>
+                <li><button>B07</button></li>
+                <li><button>B08</button></li>
+                <li><button>B09</button></li>
+                <li><button>B10</button></li>
+                <li><button>B11</button></li>
+                <li><button>B12</button></li>
+                <li><button>B13</button></li>
+                <li><button>B14</button></li>
+                <li><button>B15</button></li>
+                <li><button>B16</button></li>
+                <li><button>B17</button></li>
+                <li><button>B18</button></li>
+                <li><button>B19</button></li>
+                <li><button>B20</button></li>
+            </ul>
+            <ul style={{display: 'flex', marginBottom: '10px'}}>
+                <li><button>C01</button></li>
+                <li><button>C02</button></li>
+                <li><button>C03</button></li>
+                <li><button>C04</button></li>
+                <li><button>C05</button></li>
+                <li><button>C06</button></li>
+                <li><button>C07</button></li>
+                <li><button>C08</button></li>
+                <li><button>C09</button></li>
+                <li><button>C10</button></li>
+                <li><button>C11</button></li>
+                <li><button>C12</button></li>
+                <li><button>C13</button></li>
+                <li><button>C14</button></li>
+                <li><button>C15</button></li>
+                <li><button>C16</button></li>
+                <li><button>C17</button></li>
+                <li><button>C18</button></li>
+                <li><button>C19</button></li>
+                <li><button>C20</button></li>
+            </ul>
+            <ul style={{display: 'flex', marginBottom: '10px'}}>
+                <li><button>D01</button></li>
+                <li><button>D02</button></li>
+                <li><button>D03</button></li>
+                <li><button>D04</button></li>
+                <li><button>D05</button></li>
+                <li><button>D06</button></li>
+                <li><button>D07</button></li>
+                <li><button>D08</button></li>
+                <li><button>D09</button></li>
+                <li><button>D10</button></li>
+                <li><button>D11</button></li>
+                <li><button>D12</button></li>
+                <li><button>D13</button></li>
+                <li><button>D14</button></li>
+                <li><button>D15</button></li>
+                <li><button>D16</button></li>
+                <li><button>D17</button></li>
+                <li><button>D18</button></li>
+                <li><button>D19</button></li>
+                <li><button>D20</button></li>
+            </ul>
+            <ul style={{display: 'flex', marginBottom: '10px'}}>
+                <li><button>E01</button></li>
+                <li><button>E02</button></li>
+                <li><button>E03</button></li>
+                <li><button>E04</button></li>
+                <li><button>E05</button></li>
+                <li><button>E06</button></li>
+                <li><button>E07</button></li>
+                <li><button>E08</button></li>
+                <li><button>E09</button></li>
+                <li><button>E10</button></li>
+                <li><button>E11</button></li>
+                <li><button>E12</button></li>
+                <li><button>E13</button></li>
+                <li><button>E14</button></li>
+                <li><button>E15</button></li>
+                <li><button>E16</button></li>
+                <li><button>E17</button></li>
+                <li><button>E18</button></li>
+                <li><button>E19</button></li>
+                <li><button>E20</button></li>
+            </ul>
+            <ul style={{display: 'flex', marginBottom: '10px'}}>
+                <li><button>F01</button></li>
+                <li><button>F02</button></li>
+                <li><button>F03</button></li>
+                <li><button>F04</button></li>
+                <li><button>F05</button></li>
+                <li><button>F06</button></li>
+                <li><button>F07</button></li>
+                <li><button>F08</button></li>
+                <li><button>F09</button></li>
+                <li><button>F10</button></li>
+                <li><button>F11</button></li>
+                <li><button>F12</button></li>
+                <li><button>F13</button></li>
+                <li><button>F14</button></li>
+                <li><button>F15</button></li>
+                <li><button>F16</button></li>
+                <li><button>F17</button></li>
+                <li><button>F18</button></li>
+                <li><button>F19</button></li>
+                <li><button>F20</button></li>
+            </ul>
+            <ul style={{display: 'flex', marginBottom: '10px'}}>
+                <li><button>G01</button></li>
+                <li><button>G02</button></li>
+                <li><button>G03</button></li>
+                <li><button>G04</button></li>
+                <li><button>G05</button></li>
+                <li><button>G06</button></li>
+                <li><button>G07</button></li>
+                <li><button>G08</button></li>
+                <li><button>G09</button></li>
+                <li><button>G10</button></li>
+                <li><button>G11</button></li>
+                <li><button>G12</button></li>
+                <li><button>G13</button></li>
+                <li><button>G14</button></li>
+                <li><button>G15</button></li>
+                <li><button>G16</button></li>
+                <li><button>G17</button></li>
+                <li><button>G18</button></li>
+                <li><button>G19</button></li>
+                <li><button>G20</button></li>
+            </ul>
+                </Card.Body>
+            </Card>
+        </div>
+    );
+}
+
+export default SeatBooking;

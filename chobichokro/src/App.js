@@ -13,6 +13,7 @@ import Home from './components/Home';
 import LicenseStatus from './components/LicenseStatus';
 import LicenseStatusLogin from './components/LicenseStatusLogin';
 import DistributorPage from './components/distributor/DistributorPage';
+import TheatrePage from './components/theatre/TheatrePage';
 function App() {
 
 
@@ -33,6 +34,7 @@ function App() {
 
         {/*Route for pages*/}
         <Route path='/distributor_page' element={<DistributorPage />} />
+        <Route path='/theatre_page' element={<TheatrePage />} />
       </Routes>
     </BrowserRouter>
   );
