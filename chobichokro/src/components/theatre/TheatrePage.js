@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../navbar";
 import '../distributor/DistributorPage.css'
 import { Button, Card } from "react-bootstrap";
 import { CardBody } from "reactstrap";
 import './TheatrePage.css'
 import SeatBooking from "./SeatBooking";
+import NewShow from "./show/NewShow";
 function TheatrePage() {
+
+    const [ticket, setTicket] = useState(false);
+    const [show, setShow] = useState(false);
+    const handleTicket = () => {
+        setTicket(true);
+        setShow(false);
+    }
+    const handleShow = () => {
+        setTicket(false);
+        setShow(true);
+    }
 
   return (
     <div className="container">
@@ -25,7 +37,8 @@ function TheatrePage() {
             </Button>
         </div>
         <div className="column">
-            <Button className="btn">
+            <Button className="btn"
+            onClick={handleShow}>
                 <Card>
                     <Card.Body>
                         Add Show
@@ -34,7 +47,8 @@ function TheatrePage() {
             </Button>
         </div>
         <div className="column">
-            <Button className="btn">
+            <Button className="btn"
+            onClick={handleTicket}>
                 <Card>
                     <Card.Body>
                         Ticket
@@ -53,9 +67,20 @@ function TheatrePage() {
         </div>
         {/* <div className="column">Row 2 - Column 2</div> */}
       </div>
-      <div className="row">
-        <SeatBooking />
-      </div>
+      {
+        (ticket &&
+         <div className="row">
+            <SeatBooking />
+        </div>)
+        
+      }
+      {
+        (show &&
+            <div className="row">
+               <NewShow />
+           </div>)
+      }
+      
     </div>
   );
 }
