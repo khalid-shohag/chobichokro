@@ -12,6 +12,7 @@ function Login(props) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,14 +27,15 @@ function Login(props) {
 
       const token = response.data.accessToken; 
       const type = response.data.tokenType;
+      setToken(token);
       console.log(token)
       console.log(response.status)
       if (props.value==='admin')
-        navigate('/admin');
+        navigate('/admin', {state: {token}});
       else if (props.value==='distributor')
-        navigate('/distributor_page');
+        navigate('/distributor_page', {state: {token}});
       else if (props.value==='theatre')
-        navigate('/theatre_page');
+        navigate('/theatre_page', {state: {token}});
 
     } catch (error) {
       console.error('Error occured', error);

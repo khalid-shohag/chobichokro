@@ -8,8 +8,37 @@ import MovieReleaseAnnouncement from "./MovieReleaseAnnouncement";
 import ReleasedMovie from "./ReleasedMovie";
 import Pagination from "./Pagination";
 import CineVideo from '../../assets/CinemaVideo.mp4'
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 function DistributorPage() {
+    const location = useLocation();
+    const accessToken = location.state?.token || ''; 
+
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:8080', // Replace with your API's base URL
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          
+        },
+      });
+      
+      console.log(accessToken);
+
+    const getAllMovies = async () => {
+        try {
+          const response = await axiosInstance.get('/api/movies/all');
+          
+          // Handle the response data here, e.g., set it in your component state.
+          const movies = response.json;
+          console.log('All Movies:', movies);
+        } catch (error) {
+          // Handle any errors that occur during the request
+          console.log('fix the errors');
+          console.error('fix the errors Error fetching movies:', error);
+        }
+      };
+      
 
     const [viewDetails, setViewDetails] = useState(false)
 
@@ -28,6 +57,7 @@ function DistributorPage() {
     const handleRelease = () => {
         setRelease(true);
         setAnnounce(false);
+        getAllMovies();
     }
 
     return(
