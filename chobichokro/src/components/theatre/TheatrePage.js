@@ -6,17 +6,27 @@ import { CardBody } from "reactstrap";
 import './TheatrePage.css'
 import SeatBooking from "./SeatBooking";
 import NewShow from "./show/NewShow";
+import ShowList from "./show/ShowList";
+import { RunningShow } from "./show/RunningShow";
 function TheatrePage() {
 
     const [ticket, setTicket] = useState(false);
     const [show, setShow] = useState(false);
+    const [runningShow, setRunningShow] = useState(true);
     const handleTicket = () => {
         setTicket(true);
         setShow(false);
+        setRunningShow(false)
     }
     const handleShow = () => {
         setTicket(false);
         setShow(true);
+        setRunningShow(false);
+    }
+    const handleRunningShow = () => {
+        setTicket(false);
+        setShow(false);
+        setRunningShow(true);
     }
 
   return (
@@ -28,7 +38,7 @@ function TheatrePage() {
       </div>
       <div className="row" style={{marginTop: '100px'}}>
         <div className="column">
-            <Button className="btn">
+            <Button className="btn" onClick={handleRunningShow}>
                 <Card>
                     <Card.Body>
                         Running
@@ -78,6 +88,12 @@ function TheatrePage() {
         (show &&
             <div className="row">
                <NewShow />
+           </div>)
+      }
+      {
+        (runningShow &&
+            <div className="row">
+               <RunningShow />
            </div>)
       }
       

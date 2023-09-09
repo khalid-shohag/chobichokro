@@ -15,11 +15,11 @@ input[type="radio"] {
     background-color: yellow;
   }
 
-  .container {
+  .container-license {
     display: flex;
 }
 
-.column {
+.column-license {
     flex: 1; 
     padding: 20px; 
   }

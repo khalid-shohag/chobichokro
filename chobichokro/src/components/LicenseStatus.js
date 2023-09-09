@@ -42,7 +42,7 @@ function LicenseStatus() {
     return(
         <div>
             <Navbar />
-            <div className="column"
+            <div className="column-license"
         
             style={{
                 backgroundSize: 'cover',
@@ -90,7 +90,7 @@ function LicenseStatus() {
                 <Card style={{backgroundColor: 'lightBlue', borderRadius: '6px', width: '300px', marginTop: '20px'}}>
                     <Card.Header><h6>Registration</h6></Card.Header>
                     <Card.Body style={{marginLeft: '90px'}}>
-                        <Button style={{cursor: 'pointer', backgroundColor: 'red', borderRadius: '3px'}}
+                        <Button style={{cursor: 'pointer', backgroundColor: 'red', borderRadius: '3px', height: '30px', width: 'auto'}}
                         onClick={handleCodeRequest}>
                             Update
                         </Button>
@@ -110,7 +110,8 @@ function LicenseStatus() {
                     />
                     
                     </Card.Body>
-                    <Button style={{marginTop: '10px', marginLeft: '50px', borderRadius: '3px', backgroundColor: 'green'}} onClick={handleVerification}>Verify</Button>
+                    <Button style={{marginTop: '10px', marginLeft: '50px', borderRadius: '3px', backgroundColor: 'green',
+                  height: '30px', width: 'auto'}} onClick={handleVerification}>Verify</Button>
                 </Card>
             
             {isVerified && (

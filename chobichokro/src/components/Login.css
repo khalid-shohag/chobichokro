@@ -1,4 +1,4 @@
-.first-content {
+.first-content-v {
     background-size: cover;
     background-position: center;
     width: 100vw;
@@ -8,13 +8,15 @@
     align-items: center;
 }
 
-.container {
+.container-v {
     display: flex;
 }
 
-.column {
-    flex: 1; 
-    padding: 20px; 
+.column-v {
+    /* flex: 1; 
+    padding: 20px;  */
+    flex: 1;
+    
   }
 
   .animation-container {

@@ -48,7 +48,7 @@ function ReleasedMovie(props) {
     };
 
 
-    const numberOfTimes = 5;
+  const numberOfTimes = 5;
 
   const renderMovieLists = () => {
     const movieLists = [];

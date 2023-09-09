@@ -37,7 +37,7 @@ function Login() {
     return(
         <div>
             <Navbar />
-      <div className="container">
+      <div className="container-license">
         <div className="column" style={{
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -50,7 +50,7 @@ function Login() {
           <h1 className="animation-container animated-text" style={{color: 'black'}}>License Status Check</h1>
         </div>
       
-        <div className="column"
+        <div className="column-license"
         
       style={{
         backgroundSize: 'cover',

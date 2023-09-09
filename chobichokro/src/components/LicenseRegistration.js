@@ -42,8 +42,8 @@ function LicenseRegistration() {
     return(
         <div>
             <Navbar />
-            <div className="container">
-        <div className="column" style={{
+            <div className="container-license">
+        <div className="column-license" style={{
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           width: '100vw',
@@ -55,7 +55,7 @@ function LicenseRegistration() {
           <h1 className="animation-container animated-text" style={{color: 'black'}}>License Registration &#x1F92D;</h1>
         </div>
       
-        <div className="column"
+        <div className="column-liccense"
         
       style={{
         backgroundSize: 'cover',

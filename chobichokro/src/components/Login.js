@@ -30,30 +30,14 @@ function Login(props) {
   };
 
     return(
-      <div className="container">
-        <div className="column" style={{
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+      <div className="container-v" >
+        <div className="column-v first-content-v">
           <h1 className="animation-container animated-text" style={{color: 'black'}}>{props.value}</h1>
         </div>
       
-        <div className="column"
+        <div className="column-v first-content-v"
         
-      style={{
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
+      
     >
         
       <div
@@ -110,6 +94,15 @@ function Login(props) {
       </div>
     </div>
     </div>
+  //   <div style={{width: '100vw', height:'100vh'}} className="container-v">
+  //     <div className="column-v">
+  //   <div className="first-content-v">Hello</div>
+  // </div>
+  // <div className="column-v">
+  //   <div className="first-content-v">World</div>
+  // </div>
+
+  //   </div>
     );
 }
 
