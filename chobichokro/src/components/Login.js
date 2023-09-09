@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import './Login.css'
 import ImageAdmin from '../assets/camera-219958_1280.jpg'
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 
 function Login(props) {
 
@@ -11,21 +12,32 @@ function Login(props) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('http://localhost:port/api/login', {
+      const response = await axios.post('http://localhost:8080/api/auth/signin', {
         username,
         password
       });
 
 
-      const token = response.data.token; 
+      const token = response.data.accessToken; 
+      const type = response.data.tokenType;
+      console.log(token)
+      console.log(response.status)
+      if (props.value==='admin')
+        navigate('/admin');
+      else if (props.value==='distributor')
+        navigate('/distributor_page');
+      else if (props.value==='theatre')
+        navigate('/theatre_page');
 
     } catch (error) {
       console.error('Error occured', error);
+      alert('Invalid');
     }
   };
 

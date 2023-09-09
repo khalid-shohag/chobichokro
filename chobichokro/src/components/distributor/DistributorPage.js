@@ -34,7 +34,7 @@ function DistributorPage() {
         <div style={{width: '100vw', height:'100vh'}}>
             <Navbar />
             
-            <div className="container" >
+            <div className="container-dis" >
             <video
         style={{
           position: 'absolute', // Position the video absolutely within the div
@@ -53,36 +53,36 @@ function DistributorPage() {
         Your browser does not support the video tag.
       </video>
             
-        <div className="column first-content" >
+        <div className="column-dis first-content-dis" >
             
-          <Card className="card-value">
+          <Card className="card-value-dis">
             
             <Card.Body>
-                <Card className="card-internal1">
+                <Card className="card-internal1-dis">
                     <Card.Body>
-                        <Button className="btn1" onClick={handleRelease}>Released</Button>
+                        <button className="btn1-dis" onClick={handleRelease}>Released</button>
                     </Card.Body>
                 </Card>
-                <Card className="card-internal2" >
+                <Card className="card-internal2-dis" >
                     <Card.Body>
-                        <Button className="btn2">Running</Button>
+                        <button className="btn2-dis">Running</button>
                     </Card.Body>
                 </Card>
-                <Card className="card-internal1">
+                <Card className="card-internal1-dis">
                     <Card.Body>
-                        <Button className="btn1" style={{backgroundColor: 'blue'}}>Upcoming</Button>
+                        <button className="btn1-dis" style={{backgroundColor: 'blue'}}>Upcoming</button>
                     </Card.Body>
                 </Card>
-                <Card className="card-internal2" >
+                <Card className="card-internal2-dis" >
                     <Card.Body>
-                        <Button className="btn2" style={{backgroundColor: 'white'}}
-                        onClick={hanldeAnnounce}>Announce</Button>
+                        <button className="btn2-dis" style={{backgroundColor: 'white'}}
+                        onClick={hanldeAnnounce}>Announce</button>
                     </Card.Body>
                 </Card>
             </Card.Body>
           </Card>
         </div>  
-        <div className="column first-content">
+        <div className="column-dis first-content-dis">
             {announce && (
             
             <MovieReleaseAnnouncement />
@@ -92,7 +92,7 @@ function DistributorPage() {
             <ReleasedMovie handle = {handleView}/>
             )}
         </div>     
-        <div className="column first-content">
+        <div className="column-dis first-content-dis">
             {viewDetails && (
                 <Pagination name='007' body = 'James Bond' />
             )}

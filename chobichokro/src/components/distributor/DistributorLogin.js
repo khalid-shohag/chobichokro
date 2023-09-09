@@ -2,11 +2,11 @@ import React from "react";
 import Navbar from "../navbar";
 import Login from "../Login";
 
-const DistributorLogin = (props) => {
+const DistributorLogin = () => {
     return(
         <div>
             <div><Navbar /></div>
-            <Login value={props.value} /> 
+            <Login value={'distributor'} /> 
         </div>
     );
 }

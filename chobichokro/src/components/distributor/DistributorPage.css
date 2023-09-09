@@ -1,4 +1,4 @@
-.first-content {
+.first-content-dis {
     background-size: cover;
     background-position: center;
     width: 100vw;
@@ -9,7 +9,7 @@
     /* padding-right: auto; Add some left padding for better alignment */
 }
 
-.card-value {
+.card-value-dis {
     height: 170px;
     width: 120px;
     /* background-color: gray; */
@@ -18,7 +18,7 @@
    
 }
 
-.card-internal1{
+.card-internal1-dis{
      height: 30px;
      width: 120px;
      margin-top: 10px;
@@ -28,7 +28,7 @@
 
 
 
-.btn1 {
+.btn1-dis {
     background-color: green;
     /* margin-left: 15px; */
     border-radius: 5px;
@@ -38,7 +38,7 @@
     /* color: #2A925E; */
 }
 
-.card-internal2{
+.card-internal2-dis {
     height: 30px;
     width: 120px;
     /* background-color: orange;  */
@@ -48,7 +48,7 @@
 
 
 
-.btn2 {
+.btn2-dis {
    background-color: maroon;
    /* margin-left: 15px; */
    border-radius: 5px;
@@ -59,11 +59,11 @@
 
 
 
-.container {
+.container-dis {
     display: flex;
 }
 
-.column {
+.column-dis {
     flex: 1; 
     padding: 20px; 
   }
