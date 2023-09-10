@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 
-const Genre = () => {
+const Genre = ({ onGenreSelect }) => {
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedOptionsList, setSelectedOptionsList] = useState([]);
 
   const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-    if (event.target.value && !selectedOptionsList.includes(event.target.value)) {
-      setSelectedOptionsList([...selectedOptionsList, event.target.value]);
+    const selectedGenre = event.target.value;
+    setSelectedOption(selectedGenre);
+    if (selectedGenre && !selectedOptionsList.includes(selectedGenre)) {
+      setSelectedOptionsList([...selectedOptionsList, selectedGenre]);
+      onGenreSelect([...selectedOptionsList, selectedGenre]); // Callback to parent component
     }
   };
+
 
   const handleRemoveOption = (option) => {
     const updatedOptionsList = selectedOptionsList.filter((item) => item !== option);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Cast = () => {
+const Cast = ({onCastsSelect}) => {
   const [personName, setPersonName] = useState('');
   const [selectedPersons, setSelectedPersons] = useState([]);
 
@@ -13,6 +13,7 @@ const Cast = () => {
     if (personName.trim() !== '') {
         if (!selectedPersons.includes(personName)) {
             setSelectedPersons([...selectedPersons, personName]);
+            onCastsSelect([...selectedPersons, personName]);
           }
         
     }

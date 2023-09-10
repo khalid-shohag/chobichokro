@@ -24,7 +24,7 @@ function DistributorPage() {
     const [status, setStatus] = useState('');
     const [date, setDate] = useState('');
 
-    const handleMovieDetail = (name, imageSrc, genre, link, status, date) => {
+    const handleMovieDetail = (name, imageSrc, genre, link, status, date, description) => {
       // Do something with the data received from the child
       console.log("Data received from child:");
       setName(name);
@@ -65,22 +65,34 @@ function DistributorPage() {
 
     const [viewDetails, setViewDetails] = useState(false)
 
+    const [running, setRunning] = useState(false);
+    const [announce, setAnnounce] = useState(false);
     const handleView = () => {
         setViewDetails(true);
     }
 
-    const [announce, setAnnounce] = useState(false);
+    
     const hanldeAnnounce = () => {
         setAnnounce(true);
         setRelease(false);
         setViewDetails(false);
+        setRunning(false);
     }
 
     const [release, setRelease] = useState(false);
     const handleRelease = () => {
         setRelease(true);
         setAnnounce(false);
+        setRunning(false);
         getAllMovies();
+    }
+
+    
+    const handleRunning = () => {
+      setRelease(false);
+      setAnnounce(false);
+      setRunning(true);
+      getAllMovies();
     }
 
     return(
@@ -118,7 +130,7 @@ function DistributorPage() {
                 </Card>
                 <Card className="card-internal2-dis" >
                     <Card.Body>
-                        <button className="btn2-dis">Running</button>
+                        <button className="btn2-dis" onClick={handleRunning}>Running</button>
                     </Card.Body>
                 </Card>
                 <Card className="card-internal1-dis">
@@ -142,7 +154,11 @@ function DistributorPage() {
             )}
             {release && (
             
-            <ReleasedMovie handle = {handleView} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            <ReleasedMovie handle = {handleView} stat={'marketout'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            )}
+            {running && (
+            
+            <ReleasedMovie handle = {handleView} stat={'Released'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
             )}
         </div>     
         <div className="column-dis first-content-dis">
@@ -150,7 +166,7 @@ function DistributorPage() {
             {viewDetails && (
               //  console.log('val not getting'),
               //  console.log(name, genre, link, status, date),
-                <Pagination name={name} imageSrc={imageSrc} genre={genre} link={link} status = {status} date={date} />
+                <Pagination name={name} imageSrc={imageSrc} genre={genre} link={link} status = {status} date={date} description={description} />
             )}
         </div>
     </div>

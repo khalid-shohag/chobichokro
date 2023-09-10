@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaLeaf } from 'react-icons/fa';
 
-const Poster = () => {
+const Poster = ({ onPosterSelect }) => {
   const [selectedImages, setSelectedImages] = useState([]);
 
   const handleImageChange = (event) => {
@@ -16,10 +16,12 @@ const Poster = () => {
         imagePreviews.push(reader.result);
         if (imagePreviews.length === imageFiles.length) {
           setSelectedImages([...selectedImages, ...imagePreviews]);
+          onPosterSelect([...selectedImages, ...imagePreviews]); // Callback to parent component
         }
       };
     });
   };
+
 
   const handleRemoveImage = (index) => {
     const updatedImages = [...selectedImages];

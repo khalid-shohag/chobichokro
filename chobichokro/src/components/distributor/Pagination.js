@@ -26,17 +26,17 @@ function Pagination(props) {
 
   return(
     <div>
-      <Card style={{width: '300px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
+      <Card style={{width: '350px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
         <CardHeader style={{ color: 'black', fontWeight: 'bold'}}>{props.name}</CardHeader>
         <CardBody>
           {/* console.log({props.imageSrc}); */}
         <img src={imageSrc} alt='Poster' style={{height: '200px', width: '100%'}}/>
-
-          <div>{props.genre}</div>
-          
+        <div>{props.genre}</div>
+        <div style={{border: '3px solid black'}}>{props.description}</div>          
           <div><a href={props.link} style={{color: 'darkred'}}>Trailer</a></div>
           <div>{props.status}</div>
           <div>{props.date.slice(0, 10)}</div>
+
           
         </CardBody>
       </Card>

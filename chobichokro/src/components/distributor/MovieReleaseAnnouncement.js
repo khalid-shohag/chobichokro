@@ -4,14 +4,25 @@ import Genre from './genre';
 import Cast from './cast';
 import Poster from './poster';
 import './DistributorPage.css'
+import axios from 'axios';
 
 const MovieReleaseAnnouncement = () => {
-  const [movieDetails, setMovieDetails] = useState({
-    movieName: '',
-    releaseDate: '',
-    genre: '',
-    trailer: ''
-  });
+  // const [movieDetails, setMovieDetails] = useState({
+  //   movieName: '',
+  //   releaseDate: '',
+  //   genre: '',
+  //   trailer: ''
+  // });
+
+  const [inputValue, setInputValue] = useState("");
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // Calculate the input size based on the length of the input value
+    
+  };
+
 
   let value = '', onChange = null;
   const [date, setDate] = useState(value || '');
@@ -23,6 +34,65 @@ const MovieReleaseAnnouncement = () => {
       onChange(value);
     }
   };
+
+  const [movieDetails, setMovieDetails] = useState({
+    movieName: '',
+    releaseDate: '',
+    trailer: '',
+  });
+
+  const [selectedGenres, setSelectedGenres] = useState([]); // State to hold selected genres
+  const [selectedPosters, setSelectedPosters] = useState([]); // State to hold selected posters
+  const [selectedCasts, setSelectedCasts] = useState([]);
+  // ... Other code remains the same
+
+  // Callback function to handle selected genres from Genre component
+  const handleGenreSelect = (genres) => {
+    setSelectedGenres(genres);
+  };
+
+  // Callback function to handle selected posters from Poster component
+  const handlePosterSelect = (posters) => {
+    setSelectedPosters(posters);
+  };
+  const handleCastSelect = (casts) => {
+    setSelectedCasts(casts);
+  };
+
+  // Send data to the backend API
+  const sendMovieReleaseData = async () => {
+    console.log('Post Values')
+    console.log(movieDetails.movieName, movieDetails.trailer, date, selectedGenres, selectedPosters);
+    console.log(selectedCasts);
+    try {
+      const response = await axios.post('localhost:8080/api/movies/add', {
+        movieName: movieDetails.movieName,
+        releaseDate: date,
+        trailer: movieDetails.trailer,
+        genre: selectedGenres, // Pass the selected genres
+        posters: selectedPosters,
+        status: "upcoming",
+        description: inputValue, // Pass the selected posters
+        // ... Other data fields
+      });
+
+      // Handle success and reset the form as needed
+      console.log('Data sent successfully:', response.data);
+      setMovieDetails({
+        movieName: '',
+        releaseDate: '',
+        trailer: '',
+      });
+      setSelectedGenres([]);
+      setSelectedPosters([]);
+      // ... Reset other form fields as needed
+
+    } catch (error) {
+      // Handle error
+      console.error('Error sending data:', error);
+    }
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +121,17 @@ const MovieReleaseAnnouncement = () => {
           style={{borderRadius: '7px', width: '300px'}}
         />
         <div>
-            <Genre />
+            <Genre onGenreSelect={handleGenreSelect}/>
+        </div>
+        <h3>Description</h3>
+        <div>
+          <textarea
+          style={{ width: '400px', height: "2rem" }}
+          onChange={handleInputChange}
+          value={inputValue}
+          placeholder="Add description..."
+          />
+
         </div>
         <h3>Release Date</h3>
         <div>
@@ -75,15 +155,15 @@ const MovieReleaseAnnouncement = () => {
             />
         </div>
         <div>
-            <Cast />
+            <Cast onCastsSelect={handleCastSelect}/>
         </div>
         <div>
-            <Poster />
+            <Poster onPosterSelect={handlePosterSelect}/>
         </div>
         
         
         {/* Other form fields for release date and genre */}
-        <button type="submit" style={{borderRadius: '3px', marginTop: '10px', backgroundColor: 'yellow'}}>Announce Release</button>
+        <button type="submit" style={{borderRadius: '3px', marginTop: '10px', backgroundColor: 'yellow'}} onClick={sendMovieReleaseData}>Announce Release</button>
       </form>
       </div>
     </div>
