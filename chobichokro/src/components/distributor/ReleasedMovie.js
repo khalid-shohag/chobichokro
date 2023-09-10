@@ -7,56 +7,47 @@ import { useState } from "react";
 
 function ReleasedMovie(props) {
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageNo, setPageNo] = useState(1);
-    const [startIndex, setStartIndex] = useState(1);
-    const [endIndex, setEndInedx] = useState(5);
-
-    // const [viewDetails, setViewDetails] = useState(false)
-
-    // const handleView = () => {
-    //     setViewDetails(true);
-    // }
+  const [pageNo, setPageNo] = useState(1);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(4); // Display up to 5 movies per page
 
   const incrementPageNo = () => {
-    if (pageNo == 15)
-        setPageNo(15);
-    else
-        setPageNo(pageNo + 1);
     if (pageNo < 15) {
-        setStartIndex(5*(pageNo-1) + 1);
-        setEndInedx(5*pageNo)
+      setPageNo(pageNo + 1);
+      setStartIndex(startIndex + 5);
+      setEndIndex(endIndex + 5);
     }
-
   };
+
   const decrementPageNo = () => {
-    if (pageNo == 1)
-        setPageNo(1);
-    else
-        setPageNo(pageNo - 1);
     if (pageNo > 1) {
-        setStartIndex(5*(pageNo-1) + 1);
-        setEndInedx(5*pageNo)
+      setPageNo(pageNo - 1);
+      setStartIndex(startIndex - 5);
+      setEndIndex(endIndex - 5);
     }
-    
-
   };
-
-
-    const handlePageChange = newPage => {
-        setCurrentPage(newPage);
-    };
-
-
-  const numberOfTimes = 5;
 
   const renderMovieLists = () => {
     const movieLists = [];
-    for (let i = startIndex-1; i < endIndex; i++) {
-      let colors = 'aqua';
-     i%2 === 0 ? colors = 'aqua' : colors = 'lime'
-        
-      movieLists.push(<MovieList key={i} colorValue = {colors} handleChange = {props.handle}/>);
+
+    for (let i = startIndex; i <= endIndex && i < props.allMovies.length; i++) {
+      const movie = props.allMovies[i];
+      movieLists.push(
+        <MovieList
+          key={i}
+          colorValue={i % 2 === 0 ? "aqua" : "lime"}
+          handleChange={props.handle}
+          sentMoviesData = {props.sentMoviesData}
+          name={movie.movieName} // Use the movieName property from your JSON data
+          genre={movie.genre} // Use the description property from your JSON data
+          poster = {movie.posterImageLink}
+          trailer = {movie.trailerLink}
+          date = {movie.releaseDate}
+          status = {movie.status}
+        />
+      
+      );
+      console.log(movie.movieName);
     }
     return movieLists;
   };

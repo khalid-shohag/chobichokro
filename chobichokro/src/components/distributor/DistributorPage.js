@@ -14,6 +14,29 @@ import axios from "axios";
 function DistributorPage() {
     const location = useLocation();
     const accessToken = location.state?.token || ''; 
+    const [movies, setMovies] = useState([]);
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [imageSrc, setImageSrc] = useState('');
+    const [genre, setGenre] = useState('');
+    const [link, setLink] = useState('');
+    const [status, setStatus] = useState('');
+    const [date, setDate] = useState('');
+
+    const handleMovieDetail = (name, imageSrc, genre, link, status, date) => {
+      // Do something with the data received from the child
+      console.log("Data received from child:");
+      setName(name);
+      setGenre(genre);
+      setImageSrc(imageSrc);
+      setDescription(description);
+      setLink(link);
+      setStatus(status);
+      setDate(date);
+    };
+  
+
 
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:8080', // Replace with your API's base URL
@@ -30,8 +53,8 @@ function DistributorPage() {
           const response = await axiosInstance.get('/api/movies/all');
           
           // Handle the response data here, e.g., set it in your component state.
-          const movies = response.json;
-          console.log('All Movies:', movies);
+          setMovies(response.data);
+          console.log('All Movies:', response.data);
         } catch (error) {
           // Handle any errors that occur during the request
           console.log('fix the errors');
@@ -119,12 +142,15 @@ function DistributorPage() {
             )}
             {release && (
             
-            <ReleasedMovie handle = {handleView}/>
+            <ReleasedMovie handle = {handleView} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
             )}
         </div>     
         <div className="column-dis first-content-dis">
+          
             {viewDetails && (
-                <Pagination name='007' body = 'James Bond' />
+              //  console.log('val not getting'),
+              //  console.log(name, genre, link, status, date),
+                <Pagination name={name} imageSrc={imageSrc} genre={genre} link={link} status = {status} date={date} />
             )}
         </div>
     </div>

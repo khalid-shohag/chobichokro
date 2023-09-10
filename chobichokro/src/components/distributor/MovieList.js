@@ -5,18 +5,25 @@ import { useState } from "react";
 
 function MovieList(props) {
 
+  const passMovieDetail = () => {
+    props.sentMoviesData(props.name, props.poster, props.genre, props.trailer, props.status, props.date)
+  }
   
 
   return(
     <div>
-      <Button style={{marginBottom: '30px', borderRadius: '10px', cursor: 'pointer', backgroundColor: props.colorValue}}
-      onClick={props.handleChange}>
+      <Button style={{marginBottom: '30px', width: '300px', borderRadius: '10px', cursor: 'pointer', backgroundColor: props.colorValue}}
+      onClick={() => {
+        props.handleChange();
+        passMovieDetail();
+      }}
+    >
         <Card>
           <CardHeader>
-            <h3>Name</h3>
+            <h3>{props.name}</h3>
           </CardHeader>
           <CardBody>
-            Movie description
+            {props.genre}
           </CardBody>
         </Card>
       </Button>
