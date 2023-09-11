@@ -96,7 +96,7 @@ function DistributorPage() {
     }
 
     return(
-        <div style={{width: '100vw', height:'100vh'}}>
+        <div className="scrollable-page-dis" style={{width: '100vw', height:'100vh'}}>
             <Navbar />
             
             <div className="container-dis" >
@@ -106,7 +106,7 @@ function DistributorPage() {
           top: 0,
           left: 0,
           width: '100%',
-          height: '100%',
+          height: 'auto',
           objectFit: 'cover', // Maintain aspect ratio and cover entire div
           zIndex: -1, // Place it behind other content
         }}
@@ -118,7 +118,7 @@ function DistributorPage() {
         Your browser does not support the video tag.
       </video>
             
-        <div className="column-dis first-content-dis" >
+        <div className="column2-dis first-content-dis " >
             
           <Card className="card-value-dis">
             
@@ -147,7 +147,7 @@ function DistributorPage() {
             </Card.Body>
           </Card>
         </div>  
-        <div className="column-dis first-content-dis">
+        <div className="column-dis first-content-dis" >
             {announce && (
             
             <MovieReleaseAnnouncement />

@@ -45,6 +45,14 @@
     margin-top: 10px;  
 }
 
+.scrollable-page-dis {
+  width: 100%;
+  height: 100vh; /* Set the height to fill the viewport */
+  overflow-y: scroll; /* Enable vertical scrolling */
+
+  /* Adjust the padding-top to match the height of the navbar */
+  padding-top: 60px;  /* Enable vertical scrolling */
+}
 
 
 
@@ -61,11 +69,18 @@
 
 .container-dis {
     display: flex;
+    
 }
 
 .column-dis {
     flex: 1; 
     padding: 20px; 
+    /* height: 100vw; */
+  }
+  .column2-dis {
+    flex: 1; 
+    padding: 20px; 
+    /* height: 100vw; */
   }
 
   .animation-container {

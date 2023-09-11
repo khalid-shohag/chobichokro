@@ -23,7 +23,7 @@ const Navbar = ()=> {
   };
 
     return(
-        <div className="header">
+        <div className="header navbar">
             <Link to='/'>
             
                 <h1>ছবিচক্র</h1>
