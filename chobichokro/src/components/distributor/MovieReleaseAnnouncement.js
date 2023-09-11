@@ -65,12 +65,13 @@ const MovieReleaseAnnouncement = () => {
     console.log(movieDetails.movieName, movieDetails.trailer, date, selectedGenres, selectedPosters);
     console.log(selectedCasts);
     try {
-      const response = await axios.post('localhost:8080/api/movies/add', {
+      const response = await axios.post('http://localhost:8080/api/movies/add', {
+        distributorId: "64f35e979a849b4b2960866d",
         movieName: movieDetails.movieName,
-        releaseDate: date,
+        releaseDate: "11/09/2023",
         trailer: movieDetails.trailer,
         genre: selectedGenres, // Pass the selected genres
-        posters: selectedPosters,
+        // image: selectedPosters,
         status: "upcoming",
         description: inputValue, // Pass the selected posters
         // ... Other data fields

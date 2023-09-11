@@ -70,7 +70,16 @@ function TheatrePage() {
             <Button className="btn">
                 <Card>
                     <Card.Body>
-                        Profit
+                        Upcoming
+                    </Card.Body>
+                </Card>
+            </Button>
+        </div>
+        <div className="column">
+            <Button className="btn">
+                <Card>
+                    <Card.Body>
+                        Reel
                     </Card.Body>
                 </Card>
             </Button>
