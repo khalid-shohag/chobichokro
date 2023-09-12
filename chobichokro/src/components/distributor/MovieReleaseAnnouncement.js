@@ -5,6 +5,7 @@ import Cast from './cast';
 import Poster from './poster';
 import './DistributorPage.css'
 import axios from 'axios';
+import { render } from '@testing-library/react';
 
 const MovieReleaseAnnouncement = () => {
   // const [movieDetails, setMovieDetails] = useState({
@@ -59,23 +60,72 @@ const MovieReleaseAnnouncement = () => {
     setSelectedCasts(casts);
   };
 
+  // const [sendMovieDataasJson, setSendMovieDataasJson] = useState('');
+
   // Send data to the backend API
   const sendMovieReleaseData = async () => {
+
+    const formData = new FormData();
+    formData.append('movieName', movieDetails.movieName);
+    formData.append('genre', selectedGenres);
+    formData.append('director', 'ABCD')
+    formData.append('releaseDate', "11/09/2023")
+    formData.append('trailerLink', movieDetails.trailer)
+    formData.append('status', 'upcoming')
+    formData.append('description', inputValue)
+    formData.append('distributorId', "64f35e979a849b4b2960866d")
+    formData.append('image', selectedPosters[0])
+
+
+    const movieData = {
+      
+      movieName: movieDetails.movieName,
+      genre: selectedGenres,
+      cast: selectedCasts,
+      director: 'ABCD',
+      releaseDate: "11/09/2023",
+      trailerLink: movieDetails.trailer,
+       // Pass the selected genres
+      
+      status: "upcoming",
+      description: inputValue,
+      distributorId: "64f35e979a849b4b2960866d",
+      image: selectedPosters[0],
+      
+    }
+
+    const sendMovieDataasJson = JSON.stringify(movieData);
+
+    console.log("Movie JSON",sendMovieDataasJson);
+
+
     console.log('Post Values')
     console.log(movieDetails.movieName, movieDetails.trailer, date, selectedGenres, selectedPosters);
-    console.log(selectedCasts);
+    
+    console.log("Posters", selectedPosters);
+    const reader = new FileReader();
+    // reader.readAsDataURL(selectedPosters[0]);
+    console.log("Image File", selectedPosters[0])
+
+    console.log("Form Data: ", formData.get('image'));
     try {
-      const response = await axios.post('http://localhost:8080/api/movies/add', {
-        distributorId: "64f35e979a849b4b2960866d",
-        movieName: movieDetails.movieName,
-        releaseDate: "11/09/2023",
-        trailer: movieDetails.trailer,
-        genre: selectedGenres, // Pass the selected genres
-        // image: selectedPosters,
-        status: "upcoming",
-        description: inputValue, // Pass the selected posters
-        // ... Other data fields
-      });
+      const response = await axios.post('http://localhost:8080/api/movies/add', 
+      //   distributorId: "64f35e979a849b4b2960866d",
+      //   movieName: movieDetails.movieName,
+      //   releaseDate: "11/09/2023",
+      //   trailer: movieDetails.trailer,
+      //   genre: selectedGenres, // Pass the selected genres
+      //   // image: selectedPosters,
+      //   status: "upcoming",
+      //   description: inputValue, // Pass the selected posters
+      //   // ... Other data fields
+      // }
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      }
+);
 
       // Handle success and reset the form as needed
       console.log('Data sent successfully:', response.data);

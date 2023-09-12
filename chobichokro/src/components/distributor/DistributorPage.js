@@ -96,7 +96,7 @@ function DistributorPage() {
     }
 
     return(
-        <div className="scrollable-page-dis" style={{width: '100vw', height:'100vh'}}>
+        <div style={{width: '100vw', height:'100vh'}}>
             <Navbar />
             
             <div className="container-dis" >
@@ -158,7 +158,7 @@ function DistributorPage() {
             )}
             {running && (
             
-            <ReleasedMovie handle = {handleView} stat={'Released'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
             )}
         </div>     
         <div className="column-dis first-content-dis">
