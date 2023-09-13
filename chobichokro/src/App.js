@@ -14,6 +14,7 @@ import LicenseStatus from './components/LicenseStatus';
 import LicenseStatusLogin from './components/LicenseStatusLogin';
 import DistributorPage from './components/distributor/DistributorPage';
 import TheatrePage from './components/theatre/TheatrePage';
+import Dashboard from './components/audience/dashboard';
 function App() {
 
 
@@ -35,6 +36,7 @@ function App() {
         {/*Route for pages*/}
         <Route path='/distributor_page' element={<DistributorPage />} />
         <Route path='/theatre_page' element={<TheatrePage />} />
+        <Route path='/audience_dashboard' element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

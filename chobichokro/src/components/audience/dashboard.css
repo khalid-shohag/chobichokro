@@ -1,0 +1,45 @@
+.first-content-das {
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;/* Align content to the left */
+    /* padding-right: auto; Add some left padding for better alignment */
+}
+
+.start-content-das {
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-top: 100px;
+}
+
+.container-das {
+    display: flex;
+}
+
+.column-das {
+    flex: 1;
+    padding: 20px;
+}
+
+.btn-das {
+    height: 150px;
+    width: 220px;
+}
+
+.scrollable-page-das {
+    width: 100%;
+    height: 100vh; /* Set the height to fill the viewport */
+    overflow-y: scroll; /* Enable vertical scrolling */
+  
+    /* Adjust the padding-top to match the height of the navbar */
+    padding-top: 60px;  /* Enable vertical scrolling */
+  }
+  
