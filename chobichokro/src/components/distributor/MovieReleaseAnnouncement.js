@@ -7,7 +7,7 @@ import './DistributorPage.css'
 import axios from 'axios';
 import { render } from '@testing-library/react';
 
-const MovieReleaseAnnouncement = () => {
+const MovieReleaseAnnouncement = (props) => {
   // const [movieDetails, setMovieDetails] = useState({
   //   movieName: '',
   //   releaseDate: '',
@@ -75,7 +75,17 @@ const MovieReleaseAnnouncement = () => {
     formData.append('description', inputValue)
     formData.append('distributorId', "64f35e979a849b4b2960866d")
     formData.append('image', selectedPosters[0])
+    // formData.append('Authentication', `Bearer ${props.token}`)
 
+    console.log('Authentication', `Bearer ${props.token}`)
+
+    const axiosInstance = axios.create({
+      baseURL: 'http://localhost:8080', // Replace with your API's base URL
+      headers: {
+        Authorization: `Bearer ${props.token}`,
+        
+      },
+    });
 
     const movieData = {
       
@@ -108,8 +118,9 @@ const MovieReleaseAnnouncement = () => {
     console.log("Image File", selectedPosters[0])
 
     console.log("Form Data: ", formData.get('image'));
+    console.log("Token: ", props.token)
     try {
-      const response = await axios.post('http://localhost:8080/api/movies/add', 
+      const response = await axiosInstance.post('/api/movies/add', 
       //   distributorId: "64f35e979a849b4b2960866d",
       //   movieName: movieDetails.movieName,
       //   releaseDate: "11/09/2023",
@@ -123,6 +134,7 @@ const MovieReleaseAnnouncement = () => {
       formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          
         }
       }
 );

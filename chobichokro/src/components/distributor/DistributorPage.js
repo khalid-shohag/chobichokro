@@ -150,7 +150,7 @@ function DistributorPage() {
         <div className="column-dis first-content-dis" >
             {announce && (
             
-            <MovieReleaseAnnouncement />
+            <MovieReleaseAnnouncement  token={accessToken}/>
             )}
             {release && (
             

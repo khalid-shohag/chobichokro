@@ -5,6 +5,7 @@ import './Login.css'
 import ImageAdmin from '../assets/camera-219958_1280.jpg'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 
+
 function Login(props) {
 
   console.log(props.value);
@@ -17,12 +18,18 @@ function Login(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData()
+    formData.append("username", username)
+    formData.append("password", password)
     
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/signin', {
-        username,
-        password
-      });
+      const response = await axios.post('http://localhost:8080/api/auth/signin', formData
+      // {
+      //   username,
+      //   password
+      // }
+      );
 
 
       const token = response.data.accessToken; 
