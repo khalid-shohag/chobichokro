@@ -1,6 +1,7 @@
 import React from "react";
 import { CardBody } from "reactstrap";
 import { Card } from "react-bootstrap";
+import { FaStar } from "react-icons/fa";
 
 function ReviewList() {
 
@@ -12,7 +13,8 @@ function ReviewList() {
             "date" : "11 September, 2023",
             "Theatre": "Matihar",
             "Hall": "2",
-            "poster": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJawan_%2528film%2529&psig=AOvVaw3yVzg00H-6QctLW1VhM5ni&ust=1694675495527000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCMj-uKiEp4EDFQAAAAAdAAAAABAE"
+            "poster": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJawan_%2528film%2529&psig=AOvVaw3yVzg00H-6QctLW1VhM5ni&ust=1694675495527000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCMj-uKiEp4EDFQAAAAAdAAAAABAE",
+            "rating": "4"
         },
 
         {
@@ -20,8 +22,9 @@ function ReviewList() {
             "name": "Titanic",
             "review": "James Cameron's Titanic is a masterpiece and a tour de force of filmmaking Titanic is world famous. The film that broke every box office record on release and wore the box office champion crown for many years(until it was overtaken by Jim Cameron's Avatar) is special because not only does it showcase the Titanic disaster in all its glory the film is a technical achievement of the highest order. The sinking sequence is astonishing and it feels like you are watching the actual ship sink. The characters and actors are amazing and even with a large running length you never dare look at the watch. James Cameron is a master director and Titanic is his stamp of authority.",
             "date": "16 August, 2018",
-            "poster": "https://www.imdb.com/title/tt0120338/mediaviewer/rm2647458304/?ref_=tt_ov_i"
-        }
+            "poster": "E:\\series\\titanic-movie-poster-1997-EJWP0H.jpg",
+            "rating": "4.2",
+        }   
     ]
 
     return(
@@ -38,9 +41,10 @@ function ReviewList() {
                         <img src={movie.poster} alt={movie.name} />
                         <p style={{color: 'darkred', fontWeight: 'bold'}}>Review</p>
                         <p style={{border: '3px solid black', fontWeight: 'bold'}}>{movie.review}</p>
-                        <p>Date: {movie.date}</p>
-                        <p>Theatre: {movie.Theatre}</p>
-                        <p>Hall: {movie.Hall}</p>
+                        <p style={{color: 'black'}}>Date: {movie.date}</p>
+                        <p style={{color: 'black'}}>Theatre: {movie.Theatre}</p>
+                        <p style={{color: 'black'}}>Hall: {movie.Hall}</p>
+                        {movie.rating}<FaStar style={{color: 'red'}}></FaStar>
                     </div>
                     </CardBody>
             </Card>

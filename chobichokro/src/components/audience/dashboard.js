@@ -9,6 +9,7 @@ import { FaIcons } from "react-icons/fa";
 import { FaFilm, FaStar, FaHeart, FaPen } from "react-icons/fa";
 import ReviewList from "./dashList/ReviewList";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
+import bgImage from '../../assets/light.gif'
 
 function Dashboard() {
 
@@ -19,9 +20,19 @@ function Dashboard() {
     }
 
     return(
-        <div>
+        <div className="scrollable-page-das" >
+            
             <Navbar />
             <div className="container-das scrollable-page-das">
+            <img src={bgImage} style={{
+          position: 'absolute', // Position the video absolutely within the div
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: 'auto',
+          objectFit: 'cover', // Maintain aspect ratio and cover entire div
+          zIndex: -1, // Place it behind other content
+        }}/>
                 <div className="column-das first-content-das" style={{flexDirection: 'column'}}>
                     <div>
                     <img src={profileImage} alt='profile' style={{width: '100px', height: '100px', borderRadius: '50%'}} />
