@@ -23,7 +23,7 @@ const Navbar = ()=> {
   };
 
     return(
-        <div className="header navbar">
+        <div className="header navbar" style={{backgroundColor: 'black'}}>
             <Link to='/'>
             
                 <h1>ছবিচক্র</h1>

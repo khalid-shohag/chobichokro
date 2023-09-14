@@ -28,12 +28,14 @@ function Home() {
     console.log("Movies", movies);
 
     return(
-
+        <div>
+        < Navbar />
+        <div style={{marginTop: '40px'}} >
         <Container>
             {/* {getAllMovies} */}
             <Card style={{backgroundColor: 'darkred'}}>
                 <CardBody>
-                <h4>Trending</h4>
+                <h1 style={{color: 'black'}}>Trending</h1>
                 </CardBody>
             </Card>
             <Content>
@@ -61,7 +63,7 @@ function Home() {
             </Content>
             <Card style={{backgroundColor: 'black'}}>
                 <CardBody>
-                <h4>Running</h4>
+                <h1>Running</h1>
                 </CardBody>
             </Card>
             <Content>
@@ -90,7 +92,7 @@ function Home() {
             </Content>
             <Card style={{backgroundColor: 'gray'}}>
                 <CardBody>
-                <h4>Upcoming</h4>
+                <h1 style={{color: 'black'}}>Upcoming</h1>
                 </CardBody>
             </Card>
             
@@ -119,6 +121,8 @@ function Home() {
             </Content>
             
         </Container>
+        </div>
+        </div>
     
 
         // <div className="scrollable-page-h">
