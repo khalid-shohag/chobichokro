@@ -1,4 +1,5 @@
 import React, { useState, useEffect  } from 'react'
+
 import styled from '@emotion/styled';
 import ReactPlayer from 'react-player'
 // import 'font-awesome/css/font-awesome.min.css'
@@ -14,6 +15,9 @@ import Navbar from '../navbar';
 import { CardBody } from 'reactstrap';
 import { Card } from 'react-bootstrap';
 import speakerImage from '../../assets/speaker.jpg'
+import { Button } from 'bootstrap';
+import TicketBooking from './TicketBooking';
+import SeatBooking from '../theatre/SeatBooking';
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
@@ -51,6 +55,27 @@ const MovieDetails = (props) => {
     console.log(genreString)
 
 
+    //handle the book tickets button
+    const [booking, getBooking] = useState(false);
+    const handleBooking = () => {
+        getBooking(true);
+    }
+
+    const [theatre, setTheatre] = useState('');
+    const hanldleTheatre = (theatre) => {
+        setTheatre(theatre)
+    }
+    const [hall, setHall] = useState('');
+    const handleHall = (hall) => {
+        setHall(hall);
+    }
+
+    const [show, setShow] = useState('')
+    const handleShow = (show) => {
+        setShow(show);
+    }
+
+
     // const name = movie.movieName
     // const id = movie.id
     // const description = movie.description
@@ -83,15 +108,18 @@ const MovieDetails = (props) => {
                 <Description>
                     {description}
                 </Description>
-                <Link to={'/booking/'+id} style={{"text-decoration":"none"}}>
-                    <BookTicket>
+                {/* <Link to={'/booking/'+id} style={{"text-decoration":"none"}}> */}
+                    {/* <button onClick={handleBooking}>
+                         <div style={{"text-decoration":"none"}}> */}
+                    <BookTicket onClick={handleBooking}>
                         <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} />
                         {/* <FaTicketAlt></FaTicketAlt> */}
                         <span >BOOK TICKETS</span>
                         
                     </BookTicket>
-                   
-                </Link>
+                    {/* </div>
+                    </button> */}
+                {/* </Link> */}
                 <BookTicket>
                         {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
                         <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
@@ -108,6 +136,28 @@ const MovieDetails = (props) => {
                 </MovieTrailerPlayer>
             </Trailer>
         </Container>
+
+        {booking && (
+            <div>
+                <Card style={{backgroundColor: 'purple'}}>
+                    <CardBody>
+                        <h5>{name}</h5>
+                    </CardBody>
+                </Card>
+                
+                
+                
+                <h5>Theatre: {<TicketBooking onSelectedOptions = {hanldleTheatre}  name={"Theatre"} val1={"Mothihar"} val2={"Katakhali"} val3={"High-Tech_park"} />}</h5>
+                <h5>Hall: {<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val1={"Hall 1"} val2={"Hall 2"} val3={"Hall 3"} />}</h5>
+                <h5>Show: {<TicketBooking onSelectedOptions = {handleShow} name={"Show"} val1={"12:30 pm"} val2={"3:30 pm"} val3={"6:30 pm"} />}</h5>
+                <SeatBooking />
+
+                {console.log("Theatre: ", theatre)}
+                {console.log("Hall: ", hall)}
+                {console.log("Show: ", show)}
+
+            </div>
+        )}
         </div>
     )
 }
