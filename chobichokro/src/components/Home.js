@@ -3,15 +3,18 @@ import Navbar from "./navbar";
 import './Home.css'
 import RunningMovies from "./appear/RunningMovie";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { Card, CardBody } from "reactstrap";
 import axios from "axios";
+import { Button } from "react-bootstrap";
+
 
 //help from the github repo tfs frontend
 
 function Home() {
 
     const [movies, setMovies] = useState([]);
+    const navigate = useNavigate()
 
     const getAllMovies = async() => {
         try{
@@ -22,6 +25,10 @@ function Home() {
         }
         
     }
+
+    // const navigateAndPassData = (id, data) => {
+    //     navigate(`/movie/${id}`, {data})
+    // }
 
     getAllMovies();
 
@@ -51,12 +58,26 @@ function Home() {
                     console.log("Poster", poster)
                 }
                 const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
+                const id = movie.id
+                const movieName = movie.movieName
+                const description = movie.description
+                const trailerLink = movie.trailerLink
+                const linkMovieDetails = {
+                    "id": id,
+                    "name": movieName,
+                    "description": description,
+                    "trailer": trailerLink
+                  };
+                
                 return (
-                    <Link to={`/movie/${movie.id}`} key={key}>
+                    // <Link to={{ pathname: `/movie/${id}`, state: {he: '1254'} }}  key = {movie.id} movieName={movie.movieName} description={movie.description} trailer={movie.trailerLink}>
+                    <Link to={ `/movie/${id}`} state={{id: movie.movieName}}>
+                    // {/* <Button onClick={navigateAndPassData(movie.id, linkMovieDetails)}> */}
                     <Wrap>
                         <img src={posterImageUrl} alt={movie.movieName} />
                     </Wrap>
-                    </Link>
+                    //  {/* </Button> */}
+                      </Link>
                 );
             }})}
         

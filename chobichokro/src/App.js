@@ -15,6 +15,7 @@ import LicenseStatusLogin from './components/LicenseStatusLogin';
 import DistributorPage from './components/distributor/DistributorPage';
 import TheatrePage from './components/theatre/TheatrePage';
 import Dashboard from './components/audience/dashboard';
+import MovieDetails from './components/appear/movieDetails';
 function App() {
 
 
@@ -37,6 +38,7 @@ function App() {
         <Route path='/distributor_page' element={<DistributorPage />} />
         <Route path='/theatre_page' element={<TheatrePage />} />
         <Route path='/audience_dashboard' element={<Dashboard />} />
+        <Route path='/movie/:movie_id' element={<MovieDetails />} />
       </Routes>
     </BrowserRouter>
   );
