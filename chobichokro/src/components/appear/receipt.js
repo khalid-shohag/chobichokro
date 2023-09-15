@@ -1,72 +1,95 @@
-import React from "react";
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBTypography,
-} from "mdb-react-ui-kit";
 
-export default function App() {
-  return (
-    <MDBContainer className="py-5">
-      <MDBCard>
-        <MDBCardBody className="mx-4">
-          <MDBContainer>
-            <p className="my-5 text-center" style={{ fontSize: "30px" }}>
-              Thank for your purchase
-            </p>
-            <MDBRow>
-              <MDBTypography listUnStyled>
-                <li className="text-black">John Doe</li>
-                <li className="text-muted mt-1">
-                  <span className="text-black">Invoice</span> #12345
-                </li>
-                <li className="text-black mt-1">April 17 2021</li>
-              </MDBTypography>
-              <hr />
-              <MDBCol xl="10">
-                <p>Pro Package</p>
-              </MDBCol>
-              <MDBCol xl="2">
-                <p className="float-end">$199.00</p>
-              </MDBCol>
-              <hr />
-            </MDBRow>
-            <MDBRow>
-              <MDBCol xl="10">
-                <p>Consulting</p>
-              </MDBCol>
-              <MDBCol xl="2">
-                <p className="float-end">$100.00</p>
-              </MDBCol>
-              <hr />
-            </MDBRow>
-            <MDBRow>
-              <MDBCol xl="10">
-                <p>Support</p>
-              </MDBCol>
-              <MDBCol xl="2">
-                <p className="float-end">$10.00</p>
-              </MDBCol>
-              <hr style={{ border: "2px solid black" }} />
-            </MDBRow>
-            <MDBRow className="text-black">
-              <MDBCol xl="12">
-                <p className="float-end fw-bold">Total: $10.00</p>
-              </MDBCol>
-              <hr style={{ border: "2px solid black" }} />
-            </MDBRow>
-            <div className="text-center" style={{ marginTop: "90px" }}>
-              <a>
-                <u className="text-info">View in browser</u>
-              </a>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-            </div>
-          </MDBContainer>
-        </MDBCardBody>
-      </MDBCard>
-    </MDBContainer>
+import React from 'react';
+import { Document, Page, Text, View, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
+import recieptBG from '..//../assets/reciept_bg.webp'
+
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: 'white',
+   
+  },
+  table: {
+    display: 'table',
+    width: '100%',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#bfbfbf',
+  },
+  tableRow: {
+    flexDirection: 'row',
+  },
+  tableCell: {
+    flex: 1,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#bfbfbf',
+    padding: 8,
+  },
+  tableHeader: {
+    backgroundColor: '#f0f0f0',
+    fontWeight: 'bold',
+  },
+});
+
+const MyDocument = (props) => (
+  <Document>
+    
+    
+    <Page size="A2"  style={styles.page}>
+      
+      <View>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginLeft: '500px' }}>Ticket </Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Theatre: {props.theatre}</Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Hall: {props.hall}</Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Date: {props.showTime}</Text>
+        <View style={styles.table}>
+          
+          <View style={[styles.tableRow, styles.tableHeader]}>
+            <View style={styles.tableCell}>
+              <Text>Seats</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>Total #seats</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>Amount(Tk.)</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>Status</Text>
+            </View>
+          </View>
+          {/* Table Rows */}
+          <View style={styles.tableRow}>
+            <View style={styles.tableCell}>
+              <Text>A11, B12, D04</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>3</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text>390(per unit 130 tk.)</Text>
+            </View>
+            <View style={styles.tableCell}>
+              <Text style={{color: 'green'}}>Paid</Text>
+            </View>
+          </View>
+         
+        </View>
+      </View>
+    </Page>
+  </Document>
+);
+
+
+function Reciept(props) {
+  return(
+    <PDFViewer PDFViewer style={{ width: '100%', height: '1000px' }}>
+      
+      {console.log("PDFVIEWER")}
+      <MyDocument theatre={props.theatre} hall={props.hall} showTime={props.showTime}/>
+    </PDFViewer>
+
   );
 }
+
+export default Reciept;

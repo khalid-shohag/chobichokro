@@ -16,6 +16,7 @@ import DistributorPage from './components/distributor/DistributorPage';
 import TheatrePage from './components/theatre/TheatrePage';
 import Dashboard from './components/audience/dashboard';
 import MovieDetails from './components/appear/movieDetails';
+import Reciept from './components/appear/receipt';
 function App() {
 
 
@@ -39,6 +40,7 @@ function App() {
         <Route path='/theatre_page' element={<TheatrePage />} />
         <Route path='/audience_dashboard' element={<Dashboard />} />
         <Route path='/movie/:movie_id' element={<MovieDetails />} />
+        <Route path='/movie/reciept' element={<Reciept />} />
       </Routes>
     </BrowserRouter>
   );

@@ -150,7 +150,7 @@ const MovieDetails = (props) => {
                 <h5>Theatre: {<TicketBooking onSelectedOptions = {hanldleTheatre}  name={"Theatre"} val1={"Mothihar"} val2={"Katakhali"} val3={"High-Tech_park"} />}</h5>
                 <h5>Hall: {<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val1={"Hall 1"} val2={"Hall 2"} val3={"Hall 3"} />}</h5>
                 <h5>Show: {<TicketBooking onSelectedOptions = {handleShow} name={"Show"} val1={"12:30 pm"} val2={"3:30 pm"} val3={"6:30 pm"} />}</h5>
-                <SeatBooking />
+                <SeatBooking theatre={theatre} hall={hall} show={show}/>
 
                 {console.log("Theatre: ", theatre)}
                 {console.log("Hall: ", hall)}

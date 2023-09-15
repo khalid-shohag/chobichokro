@@ -2,12 +2,22 @@ import React from 'react'
 import './SeatBooking.css';
 import { Card } from 'react-bootstrap';
 import { CardBody, CardFooter, CardHeader } from 'reactstrap';
+import { useState } from 'react';
+import Reciept from '../appear/receipt';
+import PDFViewer from '@react-pdf/renderer';
+
+
 
 class SeatBooking extends React.Component {
+
+
+
+  
  
     constructor() {
       super();
         this.state = {
+          receipt: false,
         seat: [
           ['A01','A02','A03', 'A04', 'A05', 'A06', 'A07', 'A08', 'A09', 'A10', 'A11','A12','A13', 'A14', 'A15', 'A16', 'A17', 'A18', 'A19', 'A20'],
           ['B01','B02','B03', 'B04', 'B05', 'B06', 'B07', 'B08', 'B09', 'B10', 'B11','B12','B13', 'B14', 'B15', 'B16', 'B17', 'B18', 'B19', 'B20'],
@@ -31,11 +41,18 @@ class SeatBooking extends React.Component {
         reservationCount: 0,
       }
     }
+
+    
     
     handleReservationSubmit = () => {
         // Log the reservationCount value to the console
         console.log(`Total Reservations: ${this.state.reservationCount}`);
-        return <h1>nbxvnkbbksd</h1>
+        this.setState({
+          receipt: true
+        })
+
+        console.log("Reciept: ", this.state.receipt)
+        // return <Reciept />
       };
     
     onClickData(seat) {
@@ -56,6 +73,11 @@ class SeatBooking extends React.Component {
     }
     
     render() {
+      
+      const theatre = this.props.theatre
+      const hall = this.props.hall
+      const showTime = this.props.show
+      
       return (
         <div style={{marginLeft: '120px'}}>
           <Card style={{backgroundColor: 'gray', borderRadius: '5px'}}>
@@ -85,9 +107,16 @@ class SeatBooking extends React.Component {
             <CardFooter>
                 <button style={{marginLeft: '550px', cursor: 'pointer', backgroundColor: 'gold', borderColor: 'gold'}}
                 onClick={this.handleReservationSubmit}>Submit</button>
+                {/* <Reciept /> */}
                 
             </CardFooter>
           </Card>
+          {
+                  this.state.receipt && (
+                  // <div><a href='/movie/reciept'>Open Receipt</a></div>
+                  <Reciept theatre={theatre} hall={hall} showTime={showTime} />
+                  )
+               }
         </div>
       )
     }
