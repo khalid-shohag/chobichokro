@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 });
 
 const MyDocument = (props) => (
+  
   <Document>
     
     
@@ -61,10 +62,10 @@ const MyDocument = (props) => (
           {/* Table Rows */}
           <View style={styles.tableRow}>
             <View style={styles.tableCell}>
-              <Text>A11, B12, D04</Text>
+              <Text>{props.seats}</Text>
             </View>
             <View style={styles.tableCell}>
-              <Text>3</Text>
+              <Text>{props.seatNum}</Text>
             </View>
             <View style={styles.tableCell}>
               <Text>390(per unit 130 tk.)</Text>
@@ -82,11 +83,12 @@ const MyDocument = (props) => (
 
 
 function Reciept(props) {
+  const seats = props.seats.map((seat) => seat).join(', ');
   return(
     <PDFViewer PDFViewer style={{ width: '100%', height: '1000px' }}>
       
       {console.log("PDFVIEWER")}
-      <MyDocument theatre={props.theatre} hall={props.hall} showTime={props.showTime}/>
+      <MyDocument theatre={props.theatre} hall={props.hall} showTime={props.showTime} seats={seats} seatNum={props.seats.length}/>
     </PDFViewer>
 
   );

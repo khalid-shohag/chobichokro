@@ -47,6 +47,7 @@ class SeatBooking extends React.Component {
     handleReservationSubmit = () => {
         // Log the reservationCount value to the console
         console.log(`Total Reservations: ${this.state.reservationCount}`);
+        console.log("Reserved Seats", this.state.seatReserved)
         this.setState({
           receipt: true
         })
@@ -114,7 +115,7 @@ class SeatBooking extends React.Component {
           {
                   this.state.receipt && (
                   // <div><a href='/movie/reciept'>Open Receipt</a></div>
-                  <Reciept theatre={theatre} hall={hall} showTime={showTime} />
+                  <Reciept theatre={theatre} hall={hall} showTime={showTime} seats={this.state.seatReserved} />
                   )
                }
         </div>
