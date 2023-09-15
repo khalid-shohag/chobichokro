@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 });
 
 const MyDocument = (props) => (
+
   
   <Document>
     
@@ -43,6 +44,7 @@ const MyDocument = (props) => (
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Theatre: {props.theatre}</Text>
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Hall: {props.hall}</Text>
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Date: {props.showTime}</Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Price: 130 tk. per unit</Text>
         <View style={styles.table}>
           
           <View style={[styles.tableRow, styles.tableHeader]}>
@@ -68,7 +70,7 @@ const MyDocument = (props) => (
               <Text>{props.seatNum}</Text>
             </View>
             <View style={styles.tableCell}>
-              <Text>390(per unit 130 tk.)</Text>
+              <Text>{props.amount}</Text>
             </View>
             <View style={styles.tableCell}>
               <Text style={{color: 'green'}}>Paid</Text>
@@ -84,11 +86,12 @@ const MyDocument = (props) => (
 
 function Reciept(props) {
   const seats = props.seats.map((seat) => seat).join(', ');
+  const amount = props.seats.length * 130
   return(
     <PDFViewer PDFViewer style={{ width: '100%', height: '1000px' }}>
       
       {console.log("PDFVIEWER")}
-      <MyDocument theatre={props.theatre} hall={props.hall} showTime={props.showTime} seats={seats} seatNum={props.seats.length}/>
+      <MyDocument theatre={props.theatre} hall={props.hall} showTime={props.showTime} seats={seats} seatNum={props.seats.length} amount={amount}/>
     </PDFViewer>
 
   );
