@@ -13,11 +13,25 @@ import IconButton from '@mui/material/IconButton';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Avatar from 'react-avatar-edit'
 
-
-
-
+import { useLocation } from "react-router-dom";
+import AdminLogin from './AdminLogin'
+import profileImg from '../../assets/profile.png'
 
 const SystemAdmin = () => {
+
+    const location = useLocation()
+
+    if (localStorage.getItem('atoken')=='') {
+        console.log("Satisfied")
+          
+        const accessToken = location.state?.token || '';
+        console.log("Token: ", accessToken)
+    
+        localStorage.setItem('atoken', accessToken); 
+      }
+    console.log("Storage", localStorage.getItem('atoken'))
+    console.log("Token: ", location.state?.token)
+    const isAuthenticated = !!localStorage.getItem('atoken');
 
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
@@ -39,8 +53,17 @@ const SystemAdmin = () => {
       var newValue = 10;
       var content = `new ${newValue}`
       console.log(content)
+      console.log("Auth ", isAuthenticated)
 
-      
+    if (!isAuthenticated) {
+        return(
+            <div>
+                <AdminLogin />
+            </div>
+        );
+    }
+    
+    else {
     return(
         // <div>
 
@@ -49,12 +72,14 @@ const SystemAdmin = () => {
         
      <div className={color ? "header header-bg" : "header"}>
         <div>
-            <img className="avatar"
+            <img src={profileImg}
             alt="Profile"
+            style={{height: '65px', width: '70px', borderRadius: '40px'}}
             />
+            
         </div>
-        <div style={{alignContent: 'center'}}>
-            <h4>Name</h4>
+        <div >
+            <h4>ADMIN</h4>
             
         </div>
         <div>
@@ -91,6 +116,7 @@ const SystemAdmin = () => {
         
         
     );
+            }
 }
 
 

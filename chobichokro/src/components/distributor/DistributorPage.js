@@ -10,11 +10,27 @@ import Pagination from "./Pagination";
 import CineVideo from '../../assets/CinemaVideo.mp4'
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import DistributorLogin from './DistributorLogin'
+import Login from "../Login";
 
 function DistributorPage() {
     const location = useLocation();
-    const accessToken = location.state?.token || ''; 
-    const [movies, setMovies] = useState([]);
+    // const accessToken = location.state?.token || ''; 
+    console.log("Pre", localStorage.getItem('dtoken'))
+    if (localStorage.getItem('dtoken')==null) {
+      console.log("Satisfied")
+        
+      const accessToken = location.state?.token || '';
+      console.log("Token: ", accessToken)
+  
+      localStorage.setItem('dtoken', accessToken); 
+    }
+  console.log("Storage", localStorage.getItem('dtoken'))
+  console.log("Token: ", location.state.token)
+  const isAuthenticated = !!localStorage.getItem('dtoken');
+  const [movies, setMovies] = useState([]);
+
+
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -23,6 +39,30 @@ function DistributorPage() {
     const [link, setLink] = useState('');
     const [status, setStatus] = useState('');
     const [date, setDate] = useState('');
+    const [viewDetails, setViewDetails] = useState(false)
+
+    const [running, setRunning] = useState(false);
+    const [announce, setAnnounce] = useState(false);
+    const [release, setRelease] = useState(false);
+    
+    console.log("Auth: ", isAuthenticated)
+    if (isAuthenticated=='') {
+      return(
+        <div>
+          {/* <DistributorLogin /> */}
+          <div>
+            <Navbar />
+          </div>
+          <div style={{marginTop: '60px'}}>
+            <Login value={"distributor"} />
+          </div>
+        </div>
+      )
+    }
+
+  else {
+  
+
 
     const handleMovieDetail = (name, imageSrc, genre, link, status, date, description) => {
       // Do something with the data received from the child
@@ -37,16 +77,16 @@ function DistributorPage() {
     };
   
 
-
+    const token = localStorage.getItem('dtoken')
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:8080', // Replace with your API's base URL
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           
         },
       });
       
-      console.log(accessToken);
+      console.log(token);
 
     const getAllMovies = async () => {
         try {
@@ -63,10 +103,7 @@ function DistributorPage() {
       };
       
 
-    const [viewDetails, setViewDetails] = useState(false)
-
-    const [running, setRunning] = useState(false);
-    const [announce, setAnnounce] = useState(false);
+    
     const handleView = () => {
         setViewDetails(true);
     }
@@ -79,7 +116,7 @@ function DistributorPage() {
         setRunning(false);
     }
 
-    const [release, setRelease] = useState(false);
+    
     const handleRelease = () => {
         setRelease(true);
         setAnnounce(false);
@@ -150,7 +187,7 @@ function DistributorPage() {
         <div className="column-dis first-content-dis" >
             {announce && (
             
-            <MovieReleaseAnnouncement  token={accessToken}/>
+            <MovieReleaseAnnouncement  token={token}/>
             )}
             {release && (
             
@@ -173,6 +210,7 @@ function DistributorPage() {
    
         </div>
     );
+            }
 }
 
 export default DistributorPage;

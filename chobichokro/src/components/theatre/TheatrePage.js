@@ -10,6 +10,7 @@ import ShowList from "./show/ShowList";
 import { RunningShow } from "./show/RunningShow";
 import { useLocation } from "react-router-dom";
 import Login from "../Login";
+import TheatreLogin from './TheatreLogin'
 
 function TheatrePage() {
 
@@ -46,10 +47,11 @@ function TheatrePage() {
     return(
         <div>
             <div>
-            <Navbar />
+            {/* <Navbar />
             </div>
             <div style={{marginTop: '60px'}}>
-            <Login value={'theatre'} />
+            <Login value={'theatre'} /> */}
+            <TheatreLogin />
             </div>
             
         </div>
