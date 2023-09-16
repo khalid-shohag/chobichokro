@@ -21,16 +21,23 @@ function LicenseRegistration() {
   const handleRequest = async (event) => {
     event.preventDefault();
 
+    const formData = new FormData()
+    const id = generateUniqueRandomAlphaNumericString(12);
+    formData.append('id', id)
+    formData.append('username', username)
+    formData.append('phoneNumber', phone)
+    formData.append('email', email)
+    formData.append('transactionNumber', transaction)
+    formData.append('address', address)
+    formData.append('status', 'pending')
+    formData.append('licenseType', selectedOption)
+    formData.append('licenseOwner', 'admin')
+    formData.append('licenseNumber', 'not given')
+    formData.append('verificationCode', 'not given')
+
+
     try {
-      const response = await axios.post('http://localhost:port/api/license_registration', {
-        selectedOption,
-        username,
-        password,
-        email,
-        phone,
-        transaction,
-        address,
-      });
+      const response = await axios.post('http://localhost:8080/api/license/add', formData);
 
       console.log('Server response:', response.data);
     } catch (error) {
@@ -181,3 +188,11 @@ function LicenseRegistration() {
 }
 
 export default LicenseRegistration;
+
+function generateUniqueRandomAlphaNumericString(length) {
+  const timestamp = new Date().getTime().toString(36);
+  const randomPart = Math.random().toString(36).substring(2, 2 + length - timestamp.length);
+
+  return timestamp + randomPart;
+}
+

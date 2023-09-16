@@ -72,11 +72,11 @@ function Home() {
                 return (
                     // <Link to={{ pathname: `/movie/${id}`, state: {he: '1254'} }}  key = {movie.id} movieName={movie.movieName} description={movie.description} trailer={movie.trailerLink}>
                     <Link to={ `/movie/${id}`} state={{id: movie.movieName}}>
-                    // {/* <Button onClick={navigateAndPassData(movie.id, linkMovieDetails)}> */}
+                     {/* <Button onClick={navigateAndPassData(movie.id, linkMovieDetails)}> */}
                     <Wrap>
                         <img src={posterImageUrl} alt={movie.movieName} />
                     </Wrap>
-                    //  {/* </Button> */}
+                      {/* </Button> */}
                       </Link>
                 );
             }})}
