@@ -71,7 +71,7 @@ function Home() {
                 
                 return (
                     // <Link to={{ pathname: `/movie/${id}`, state: {he: '1254'} }}  key = {movie.id} movieName={movie.movieName} description={movie.description} trailer={movie.trailerLink}>
-                    <Link to={ `/movie/${id}`} state={{id: movie.movieName}}>
+                    <Link to={ `/movie/${id}`} state={{id: movie.movieName, category: 'ticket'}}>
                      {/* <Button onClick={navigateAndPassData(movie.id, linkMovieDetails)}> */}
                     <Wrap>
                         <img src={posterImageUrl} alt={movie.movieName} />
@@ -103,7 +103,7 @@ function Home() {
                         }
                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                     return (
-                        <Link to={'/movie/'+movie.id} key={key}>
+                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName, category: 'ticket'}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>
@@ -132,7 +132,7 @@ function Home() {
                         }
                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                     return (
-                        <Link to={'/movie/'+movie.id}>
+                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName, category: 'ticket'}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>

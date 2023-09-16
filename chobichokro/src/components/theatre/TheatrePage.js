@@ -17,7 +17,7 @@ function TheatrePage() {
     const [ticket, setTicket] = useState(false);
     const location = useLocation();
     
-    if (localStorage.getItem('token')=='') {
+    if (localStorage.getItem('token')==null) {
         
         const accessToken = location.state?.token || '';
     
@@ -27,31 +27,42 @@ function TheatrePage() {
 
     const [show, setShow] = useState(false);
     const [runningShow, setRunningShow] = useState(true);
+    const [upcomingShow, setUpcomingShow] = useState(false)
     const handleTicket = () => {
         setTicket(true);
         setShow(false);
         setRunningShow(false)
+        setUpcomingShow(false)
     }
     const handleShow = () => {
         setTicket(false);
         setShow(true);
         setRunningShow(false);
+        setUpcomingShow(false)
     }
     const handleRunningShow = () => {
         setTicket(false);
         setShow(false);
         setRunningShow(true);
+        setUpcomingShow(false)
+    }
+
+    const handleUpcomingShow = () => {
+        setTicket(false);
+        setShow(false);
+        setRunningShow(false);
+        setUpcomingShow(true)
     }
 
   if (!isAuthenticated)
     return(
         <div>
             <div>
-            {/* <Navbar />
+            <Navbar />
             </div>
             <div style={{marginTop: '60px'}}>
-            <Login value={'theatre'} /> */}
-            <TheatreLogin />
+            <Login value={'theatre'} />
+            {/* <TheatreLogin /> */}
             </div>
             
         </div>
@@ -96,7 +107,8 @@ function TheatrePage() {
                     </Button>
                 </div>
                 <div className="column">
-                    <Button className="btn">
+                    <Button className="btn"
+                    onClick={handleUpcomingShow}>
                         <Card>
                             <Card.Body>
                                 Upcoming
@@ -131,7 +143,13 @@ function TheatrePage() {
             {
                 (runningShow &&
                     <div className="row">
-                    <RunningShow />
+                    <RunningShow name={"Running"} status={"Released"} cat={'ticket'}/>
+                </div>)
+            }
+            {
+                (upcomingShow &&
+                    <div className="row">
+                    <RunningShow name={"Upcoming"} status={"upcoming"} cat={'reel'}/>
                 </div>)
             }
             

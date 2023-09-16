@@ -2,82 +2,106 @@ import React from "react";
 import { Card, Button, CardHeader, CardBody } from "reactstrap";
 import { useState } from "react";
 import posterImage from '../../../assets/aqua-film-reel.jpg'
+import styled from "@emotion/styled";
+import { useNavigate, Link } from "react-router-dom"
 
-export function  RunningShow() {
-    const numberOfTimes = 5;
+import axios from "axios";
 
-  const runningList = () => {
-    const movieLists = [];
-    for (let i = 0; i < 4; i++) {
-      let colors = 'aqua';
-     i%2 === 0 ? colors = 'aqua' : colors = 'lime'
-        
-      movieLists.push(<ShowCard key={i} colorValue = 'yellow'/>);
-    }
-    return movieLists;
-  };
+export function  RunningShow(props) {
+  const [movies, setMovies] = useState([]);
+  // const navigate = useNavigate()
 
-    return(
-        <div style={{display: 'flex'}}>
-           
-            {runningList()}
-            {/* <div>
-                
-                <Button onClick={decrementPageNo} style={{marginLeft: '10px'}}>prev</Button>
-                <Button onClick={incrementPageNo} style={{marginLeft: '10px'}}>next</Button>
-            </div> */}
-            
-        </div>
-    );
-}
+  const getAllMovies = async() => {
+      try{
+          const response = await axios.get('http://localhost:8080/api/movies/all')
+          setMovies(response.data)
+      } catch (error) {
+          console.log("Error fetching data", error)
+      }
+      
+  }
 
-export function ShowCard() {
+  // const navigateAndPassData = (id, data) => {
+  //     navigate(`/movie/${id}`, {data})
+  // }
 
-  
+  getAllMovies();
 
+  console.log("Movies", movies);
+
+  // const [bookCategory, setBookCategory] = useState('')
+  // if (props.category=='reel')
+  //   setBookCategory('reel')
+  // else
+  //   setBookCategory('ticket')
+
+ 
   return(
-    <div style={{ position: "relative", marginBottom: "30px", width: "50%", marginLeft: '10px' }}>
-      {/* Image */}
-      <img src={posterImage} alt="Poster" style={{ width: "350px", height: "300px", borderRadius: '10px' }} />
-
-      {/* Overlay content */}
-      <div
-        style={{
-          position: "absolute",
-          top: "0",
-          left: "0",
-          width: "80%",
-          height: "80%",
-          color: "white",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Card style={{ backgroundColor: "transparent", border: "none" }}>
-          <CardHeader>
-            <h3>Name</h3>
-          </CardHeader>
-          <CardBody>
-            <div style={{display: 'flex'}}>
-                <div>
-                    Genre
-                </div>
-                <div style={{marginLeft: '120px'}}>
-                    Rating
-                </div>
-                
-            </div>
-            <div style={{marginTop: '120px'}}>
-                <Button>Get Tickets</Button>
-            </div>
-            
-          </CardBody>
-        </Card>
-      </div>
+    <div>
+      <Card style={{backgroundColor: 'black'}}>
+                <CardBody>
+                <h1>{props.name}</h1>
+                </CardBody>
+            </Card>
+            <Content>
+                {movies.map((movie, key) => {
+                    console.log("Status", movie.status)
+                    if (movie.status.includes(props.status)) {
+                        console.log("Find one")
+                        const posterImageLink = movie.posterImageLink; // Assuming you have a property like this in your movie object
+                        if (posterImageLink) {
+                            let poster = posterImageLink.replace("images//", "")
+                            
+                        console.log("Image Link", "images/\\posterImageLink".replace("images/\\", ""))
+                        if (poster.includes("images/\\")) {
+                            poster = posterImageLink.replace("images/\\", "")
+                            console.log("Poster", poster)
+                        }
+                        const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
+                    return (
+                        <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, category: props.cat}}>
+                            <Wrap>
+                                <img src={posterImageUrl} alt={movie.name} />
+                            </Wrap>
+                        </Link>
+                    );
+                }}})}
+            </Content>
     </div>
-
-    
   );
 }
+
+
+const Container = styled.div`
+    margin-top: 10px;
+    padding: 30px 0px 26px;
+`
+
+const Content = styled.div`
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: repeat(7, minmax(0, 1fr)); 
+`
+
+const Wrap = styled.div`
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    border: 3px solid rgba(249, 249, 249, 0.1);
+    box-shadow: rgba(0 0 0 / 69%) 0px 26px 30px -10px,
+    rgba(0 0 0 / 73%) 0px 16px 10px -10px;
+    transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+
+    img {
+        width: 200px;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: rgba(0 0 0 / 80%) 0px 40px 58px -16px,
+        rgba(0 0 0 / 72%) 0px 30px 22px -10px;
+        border-color: rgba(249, 249, 249, 0.8);
+    }
+`

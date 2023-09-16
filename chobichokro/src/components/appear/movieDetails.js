@@ -18,6 +18,8 @@ import speakerImage from '../../assets/speaker.jpg'
 import { Button } from 'bootstrap';
 import TicketBooking from './TicketBooking';
 import SeatBooking from '../theatre/SeatBooking';
+import reelImg from '../../assets/reel.jpg'
+import { ReelBook } from '../theatre/ReelBook';
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
@@ -40,6 +42,7 @@ const MovieDetails = (props) => {
         getMovie();
     }, [location.state.id]);
 
+    // const category = location.state?.category || 'ticket'
    
     const name = movie?.movieName || ''; 
     const id = movie?.id || '';
@@ -49,6 +52,9 @@ const MovieDetails = (props) => {
     const cast = movie?.cast || []
     const director = movie?.director || ''
     const releaseDate = movie?.releaseDate || ''
+    const category = location.state?.category
+
+    console.log("Category: ", category)
 
     const genreString = genre.map((genreItem) => genreItem).join(' ');
     const allCasts = cast.map((cst) => cst).join(', ');
@@ -59,6 +65,12 @@ const MovieDetails = (props) => {
     const [booking, getBooking] = useState(false);
     const handleBooking = () => {
         getBooking(true);
+    }
+
+    const [reelBooking, setReelBooking] = useState(false)
+    const handleReelBooking = () => {
+        setReelBooking(true);
+        getBooking(false)
     }
 
     const [theatre, setTheatre] = useState('');
@@ -90,9 +102,7 @@ const MovieDetails = (props) => {
                 <h1>
                     {name}
                 </h1>
-                {/* <SubTitle>
-                    {props.movie.lang} • {props.movie.duration}m • Animated
-                </SubTitle> */}
+                
                 <Card>
                     <CardBody style={{color: 'white', fontWeight: 'bold'}}>
                         {genreString}
@@ -108,18 +118,24 @@ const MovieDetails = (props) => {
                 <Description>
                     {description}
                 </Description>
-                {/* <Link to={'/booking/'+id} style={{"text-decoration":"none"}}> */}
-                    {/* <button onClick={handleBooking}>
-                         <div style={{"text-decoration":"none"}}> */}
-                    <BookTicket onClick={handleBooking}>
-                        <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} />
-                        {/* <FaTicketAlt></FaTicketAlt> */}
-                        <span >BOOK TICKETS</span>
-                        
+                
+                {category==='ticket' ? (
+                     <BookTicket onClick={handleBooking}>
+                     <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} />
+                     {/* <FaTicketAlt></FaTicketAlt> */}
+                     <span >BOOK TICKETS</span>
+                     
+                 </BookTicket>
+                ): (
+                    <BookTicket onClick={handleReelBooking}>
+                    <img src={reelImg} alt="ticket" style={{height: '40px', width: '40px'}} />
+                    {/* <FaTicketAlt></FaTicketAlt> */}
+                    <span >BOOK REELS</span>
+                    
                     </BookTicket>
-                    {/* </div>
-                    </button> */}
-                {/* </Link> */}
+                )}
+                    
+                    
                 <BookTicket>
                         {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
                         <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
@@ -156,6 +172,11 @@ const MovieDetails = (props) => {
                 {console.log("Hall: ", hall)}
                 {console.log("Show: ", show)}
 
+            </div>
+        )}
+        { reelBooking && (
+            <div style={{marginTop: '20px', marginLeft: '250px'}}>
+                < ReelBook />
             </div>
         )}
         </div>
