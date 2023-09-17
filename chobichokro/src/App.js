@@ -42,7 +42,7 @@ function App() {
         <Route path='/audience_dashboard' element={<Dashboard />} />
         <Route path='/movie/:movie_id' element={<MovieDetails />} />
         <Route path='/movie/reciept' element={<Reciept />} />
-        <Route path='/movie/review' element={<MovieReview />} />
+        <Route path='/movie/review/:movie_id' element={<MovieReview />} />
       </Routes>
     </BrowserRouter>
   );

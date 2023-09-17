@@ -3,8 +3,16 @@ import { Card, CardBody, CardHeader } from "reactstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {Button} from 'react-bootstrap'
+import {Link, useNavigate} from "react-router-dom";
 
 function Pagination(props) {
+
+  const navigate = useNavigate()
+  const goReview = (id) => {
+    console.log("Review id", id)
+    return navigate('/movie/review/'+id)//<Link to={'/movie/review/'+id} />
+
+  }
   // const [imageSrc, setImageSrc] = useState(null);
 
   // useEffect(() => {
@@ -62,9 +70,13 @@ function Pagination(props) {
     const genreString = genre.map((genreItem) => genreItem).join(' ');
      const castString = cast.map((cast) => cast).join(', ') || ''
     const directorString = director.map((director) => director).join(', ')
+    const handleReviewClick = () => goReview(props.id);
 
     return (
-        <div>
+
+
+
+  <div>
           <Card style={{width: '500px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
             <CardHeader style={{color: 'black', fontWeight: 'bold'}}>{props.name}</CardHeader>
             <CardBody>
@@ -112,7 +124,7 @@ function Pagination(props) {
                   </div>
 
                 </div>
-                <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}>Reviews</Button>
+                <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}} onClick={handleReviewClick}>Reviews</Button>
 
               </div>
 

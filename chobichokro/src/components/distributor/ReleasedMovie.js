@@ -22,6 +22,7 @@ function ReleasedMovie(props) {
             colorValue={i % 2 === 0 ? "aqua" : "lime"}
             handleChange={props.handle}
             sentMoviesData={props.sentMoviesData}
+            id = {movie.id}
             name={movie.movieName}
             genre={movie.genre}
             cast={movie.cast}
