@@ -97,7 +97,7 @@ const MovieDetails = (props) => {
     return (
         <div>
             <Navbar />
-        <Container style={{marginTop: '60px'}}>
+        <Container style={{marginTop: '65px'}}>
             <Details>
                 <h1>
                     {name}

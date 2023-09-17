@@ -5,6 +5,7 @@ import Cast from './cast';
 import Poster from './poster';
 import './DistributorPage.css'
 import axios from 'axios';
+import Director from "./director";
 import { render } from '@testing-library/react';
 
 const MovieReleaseAnnouncement = (props) => {
@@ -28,12 +29,18 @@ const MovieReleaseAnnouncement = (props) => {
   let value = '', onChange = null;
   const [date, setDate] = useState(value || '');
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setDate(value);
-    if (onChange) {
-      onChange(value);
+  const handleDateChange = (event) => {
+    const inputDate = event.target.value;
+    const parsedDate = new Date(inputDate);
+    if (!isNaN(parsedDate.getTime())) {
+      const day = parsedDate.getDate().toString().padStart(2, '0');
+      const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+      const year = parsedDate.getFullYear().toString();
+      const formattedDate = `${day}/${month}/${year}`;
+      setDate(formattedDate);
+      console.log("Date: ", formattedDate);
     }
+
   };
 
   const [movieDetails, setMovieDetails] = useState({
@@ -45,12 +52,22 @@ const MovieReleaseAnnouncement = (props) => {
   const [selectedGenres, setSelectedGenres] = useState([]); // State to hold selected genres
   const [selectedPosters, setSelectedPosters] = useState([]); // State to hold selected posters
   const [selectedCasts, setSelectedCasts] = useState([]);
+  const [director, setDirector] = useState([])
+  const [cost, setCost] = useState(' ')
+
+  const setTheCost = (cost) => {
+    setCost(cost)
+  }
   // ... Other code remains the same
 
   // Callback function to handle selected genres from Genre component
   const handleGenreSelect = (genres) => {
     setSelectedGenres(genres);
   };
+
+  const handleDirectorSelect = (director) => {
+    setDirector(director)
+  }
 
   // Callback function to handle selected posters from Poster component
   const handlePosterSelect = (posters) => {
@@ -68,13 +85,17 @@ const MovieReleaseAnnouncement = (props) => {
     const formData = new FormData();
     formData.append('movieName', movieDetails.movieName);
     formData.append('genre', selectedGenres);
-    formData.append('director', 'ABCD')
-    formData.append('releaseDate', "11/09/2023")
+    formData.append('cast', selectedCasts)
+    formData.append('director', director)
+    formData.append('releaseDate', date)
     formData.append('trailerLink', movieDetails.trailer)
     formData.append('status', 'upcoming')
     formData.append('description', inputValue)
-    formData.append('distributorId', "64f35e979a849b4b2960866d")
+    formData.append('distributorId', "68m35e979a84h9b4b296068d")
     formData.append('image', selectedPosters[0])
+
+    console.log("Date: ", movieDetails.releaseDate)
+
     // formData.append('Authentication', `Bearer ${props.token}`)
 
     console.log('Authentication', `Bearer ${props.token}`)
@@ -201,7 +222,7 @@ const MovieReleaseAnnouncement = (props) => {
             <input
             type="date"
             value={date}
-            onChange={handleChange}
+            onChange={handleDateChange}
             placeholder="Select a date"
             style={{borderRadius: '7px'}}
             />
@@ -221,7 +242,21 @@ const MovieReleaseAnnouncement = (props) => {
             <Cast onCastsSelect={handleCastSelect}/>
         </div>
         <div>
+          <Director onDirectorSelect={handleDirectorSelect} />
+        </div>
+        <div>
             <Poster onPosterSelect={handlePosterSelect}/>
+        </div>
+        <div>
+          <h3>Total Cost.</h3>
+          <input
+              style    = {{width: '180px', borderRadius: '7px'}}
+              type="trailer"
+              placeholder="Taka"
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+
+          />
         </div>
         
         

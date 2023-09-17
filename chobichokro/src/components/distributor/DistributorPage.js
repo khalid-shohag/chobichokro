@@ -120,6 +120,7 @@ function DistributorPage() {
         setViewDetails(false)
         setUpcoming(true)
         setAnnounce(false)
+        setRunning(false)
         getAllMovies()
     }
     
@@ -127,6 +128,7 @@ function DistributorPage() {
         setAnnounce(true);
         setRelease(false);
         setViewDetails(false);
+        setUpcoming(false)
         setRunning(false);
     }
 
@@ -136,6 +138,7 @@ function DistributorPage() {
         setAnnounce(false);
         setRunning(false);
         setViewDetails(false);
+        setUpcoming(false)
         getAllMovies();
     }
 
@@ -145,6 +148,7 @@ function DistributorPage() {
       setAnnounce(false);
       setRunning(true);
       setViewDetails(false);
+      setUpcoming(false)
       getAllMovies();
     }
 

@@ -8,11 +8,13 @@ function MovieList(props) {
   const passMovieDetail = () => {
     props.sentMoviesData(props.id, props.name, props.poster, props.genre, props.cast, props.director, props.trailer, props.status, props.date, props.description)
   }
+
+  const genreString = props.genre.map((genre) => genre).join(', ')
   
 
   return(
     <div>
-      <Button style={{marginBottom: '30px', width: '300px', borderRadius: '10px', cursor: 'pointer', backgroundColor: props.colorValue}}
+      <Button style={{marginBottom: '30px', width: '300px', borderRadius: '10px', cursor: 'pointer', backgroundColor: 'transparent'}}
       onClick={() => {
         props.handleChange();
         passMovieDetail();
@@ -23,7 +25,7 @@ function MovieList(props) {
             <h3>{props.name}</h3>
           </CardHeader>
           <CardBody>
-            {props.genre}
+            {genreString}
           </CardBody>
         </Card>
       </Button>
