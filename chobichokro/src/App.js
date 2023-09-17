@@ -17,6 +17,7 @@ import TheatrePage from './components/theatre/TheatrePage';
 import Dashboard from './components/audience/dashboard';
 import MovieDetails from './components/appear/movieDetails';
 import Reciept from './components/appear/receipt';
+import MovieReview from "./components/appear/MovieReview";
 function App() {
 
 
@@ -41,6 +42,7 @@ function App() {
         <Route path='/audience_dashboard' element={<Dashboard />} />
         <Route path='/movie/:movie_id' element={<MovieDetails />} />
         <Route path='/movie/reciept' element={<Reciept />} />
+        <Route path='/movie/review' element={<MovieReview />} />
       </Routes>
     </BrowserRouter>
   );

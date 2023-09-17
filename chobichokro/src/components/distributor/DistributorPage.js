@@ -26,7 +26,7 @@ function DistributorPage() {
       localStorage.setItem('dtoken', accessToken); 
     }
   console.log("Storage", localStorage.getItem('dtoken'))
-  console.log("Token: ", location.state.token)
+  console.log("Token: ", location.state?.token)
   const isAuthenticated = !!localStorage.getItem('dtoken');
   const [movies, setMovies] = useState([]);
 
@@ -46,6 +46,7 @@ function DistributorPage() {
     const [running, setRunning] = useState(false);
     const [announce, setAnnounce] = useState(false);
     const [release, setRelease] = useState(false);
+    const [upcoming, setUpcoming] = useState(false)
     
     console.log("Auth: ", isAuthenticated)
     if (isAuthenticated=='') {
@@ -112,6 +113,13 @@ function DistributorPage() {
         setViewDetails(true);
     }
 
+    const handleUpcoming = () => {
+        setRelease(false);
+        setViewDetails(false)
+        setUpcoming(true)
+        setAnnounce(false)
+        getAllMovies()
+    }
     
     const hanldeAnnounce = () => {
         setAnnounce(true);
@@ -125,6 +133,7 @@ function DistributorPage() {
         setRelease(true);
         setAnnounce(false);
         setRunning(false);
+        setViewDetails(false);
         getAllMovies();
     }
 
@@ -133,6 +142,7 @@ function DistributorPage() {
       setRelease(false);
       setAnnounce(false);
       setRunning(true);
+      setViewDetails(false);
       getAllMovies();
     }
 
@@ -176,7 +186,7 @@ function DistributorPage() {
                 </Card>
                 <Card className="card-internal1-dis">
                     <Card.Body>
-                        <button className="btn1-dis" style={{backgroundColor: 'blue'}}>Upcoming</button>
+                        <button className="btn1-dis" style={{backgroundColor: 'blue'}} onClick={handleUpcoming}>Upcoming</button>
                     </Card.Body>
                 </Card>
                 <Card className="card-internal2-dis" >
@@ -199,7 +209,11 @@ function DistributorPage() {
             )}
             {running && (
             
-            <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            <ReleasedMovie handle = {handleView} stat={'on theater'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            )}
+            {upcoming && (
+
+                <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
             )}
         </div>     
         <div className="column-dis first-content-dis">
