@@ -24,11 +24,14 @@ function ReleasedMovie(props) {
             sentMoviesData={props.sentMoviesData}
             name={movie.movieName}
             genre={movie.genre}
+            cast={movie.cast}
+            director={movie.director}
             poster={movie.posterImageLink}
             trailer={movie.trailerLink}
             date={movie.releaseDate}
             status={movie.status}
             description={movie.description}
+
           />
         );
 

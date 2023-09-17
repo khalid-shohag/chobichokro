@@ -40,6 +40,8 @@ function DistributorPage() {
     const [status, setStatus] = useState('');
     const [date, setDate] = useState('');
     const [viewDetails, setViewDetails] = useState(false)
+    const [cast, setCast] = useState('')
+    const [director, setDirector] = useState('')
 
     const [running, setRunning] = useState(false);
     const [announce, setAnnounce] = useState(false);
@@ -64,7 +66,7 @@ function DistributorPage() {
   
 
 
-    const handleMovieDetail = (name, imageSrc, genre, link, status, date, description) => {
+    const handleMovieDetail = (name, imageSrc, genre, cast, director, link, status, date, description) => {
       // Do something with the data received from the child
       console.log("Data received from child:");
       setName(name);
@@ -74,6 +76,8 @@ function DistributorPage() {
       setLink(link);
       setStatus(status);
       setDate(date);
+      setCast(cast);
+      setDirector(director);
     };
   
 
@@ -203,7 +207,7 @@ function DistributorPage() {
             {viewDetails && (
               //  console.log('val not getting'),
               //  console.log(name, genre, link, status, date),
-                <Pagination name={name} imageSrc={imageSrc} genre={genre} link={link} status = {status} date={date} description={description} />
+                <Pagination name={name} imageSrc={imageSrc} genre={genre} cast={cast} director={director} link={link} status = {status} date={date} description={description} />
             )}
         </div>
     </div>

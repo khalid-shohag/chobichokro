@@ -6,7 +6,7 @@ import { useState } from "react";
 function MovieList(props) {
 
   const passMovieDetail = () => {
-    props.sentMoviesData(props.name, props.poster, props.genre, props.trailer, props.status, props.date, props.description)
+    props.sentMoviesData(props.name, props.poster, props.genre, props.cast, props.director, props.trailer, props.status, props.date, props.description)
   }
   
 
