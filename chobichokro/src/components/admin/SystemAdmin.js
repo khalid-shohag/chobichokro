@@ -21,7 +21,9 @@ const SystemAdmin = () => {
 
     const location = useLocation()
 
-    if (localStorage.getItem('atoken')=='') {
+    // console.log("A token", location.state?.token)
+
+    if (localStorage.getItem('atoken')==null) {
         console.log("Satisfied")
           
         const accessToken = location.state?.token || '';
@@ -30,7 +32,7 @@ const SystemAdmin = () => {
         localStorage.setItem('atoken', accessToken); 
       }
     console.log("Storage", localStorage.getItem('atoken'))
-    console.log("Token: ", location.state?.token)
+    console.log("A Token: ", location.state?.token)
     const isAuthenticated = !!localStorage.getItem('atoken');
 
     const [click, setClick] = useState(false);

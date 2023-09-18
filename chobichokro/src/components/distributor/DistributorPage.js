@@ -26,7 +26,7 @@ function DistributorPage() {
       localStorage.setItem('dtoken', accessToken); 
     }
   console.log("Storage", localStorage.getItem('dtoken'))
-  console.log("Token: ", location.state.token)
+  console.log("Token: ", location.state?.token)
   const isAuthenticated = !!localStorage.getItem('dtoken');
   const [movies, setMovies] = useState([]);
 
