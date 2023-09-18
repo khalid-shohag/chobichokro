@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 const Cast = ({onCastsSelect}) => {
   const [personName, setPersonName] = useState('');
@@ -13,7 +14,9 @@ const Cast = ({onCastsSelect}) => {
     if (personName.trim() !== '') {
         if (!selectedPersons.includes(personName)) {
             setSelectedPersons([...selectedPersons, personName]);
-            onCastsSelect([...selectedPersons, personName]);
+            // onCastsSelect([...selectedPersons, personName]);
+            // setPersonName('')
+            // console.log('ALL casts: ', selectedPersons)
           }
         
     }
@@ -28,10 +31,20 @@ const Cast = ({onCastsSelect}) => {
   const handleRemovePerson = (nameToRemove) => {
     const updatedPersons = selectedPersons.filter((name) => name !== nameToRemove);
     setSelectedPersons(updatedPersons);
+    // onCastsSelect(updatedPersons)
+    //   console.log('ALL casts: ', selectedPersons)
   };
 
+    useEffect(() => {
+        console.log('ALL casts:', selectedPersons);
+        // You can also call onCastsSelect if needed with the updated selectedPersons
+        onCastsSelect(selectedPersons);
+    }, [selectedPersons]);
 
-  return (
+
+
+
+    return (
     <div>
       <h3>Casts</h3>
       <input
@@ -49,7 +62,7 @@ const Cast = ({onCastsSelect}) => {
             {selectedPersons.map((personName) => (
               <li key={personName}>
                 {personName}
-                <button onClick={() => handleRemovePerson(personName)}>✕</button>
+                <button style={{background: 'transparent', marginLeft: '7px', color: 'white', border: 'none'}} onClick={() => handleRemovePerson(personName)}>✕</button>
               </li>
             ))}
           </ul>

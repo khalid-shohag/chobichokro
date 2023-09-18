@@ -5,6 +5,7 @@ import {FaBars, FaTimes} from 'react-icons/fa'
 import { useState } from "react"
 import { Link } from 'react-router-dom'
 import './SystemAdmin.css'
+import DropdownMenu from "../SelectedLoginUser";
 
 import Badge from '@mui/material/Badge';
 import EmailIcon from '@mui/icons-material/Email';
@@ -16,12 +17,15 @@ import Avatar from 'react-avatar-edit'
 import { useLocation } from "react-router-dom";
 import AdminLogin from './AdminLogin'
 import profileImg from '../../assets/profile.png'
+import LicensePending from "./LicensePending";
 
 const SystemAdmin = () => {
 
     const location = useLocation()
 
-    // console.log("A token", location.state?.token)
+
+    // console.log("token", location.state?.token)
+
 
     if (localStorage.getItem('atoken')==null) {
         console.log("Satisfied")
@@ -32,11 +36,25 @@ const SystemAdmin = () => {
         localStorage.setItem('atoken', accessToken); 
       }
     console.log("Storage", localStorage.getItem('atoken'))
-    console.log("A Token: ", location.state?.token)
+    console.log("Token: ", location.state?.token)
     const isAuthenticated = !!localStorage.getItem('atoken');
 
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
+
+    const [pendingResult, setPendingResult] = useState(false)
+    const [activeResult, setActiveResult] = useState(false)
+
+    const handlePendingClick = () => {
+        setPendingResult(true)
+        setActiveResult(false)
+    }
+
+    const handleActiveClick = () => {
+        setPendingResult(false)
+        setActiveResult(true)
+    }
+
 
     const [color, setColor] = useState(false);
     const changeColor = () => {
@@ -66,13 +84,22 @@ const SystemAdmin = () => {
     }
     
     else {
+
     return(
         // <div>
 
 
+    <div>
+
 
         
      <div className={color ? "header header-bg" : "header"}>
+         <div>
+             <Link to='/'>
+
+                 <h1>ছবিচক্র</h1>
+             </Link>
+         </div>
         <div>
             <img src={profileImg}
             alt="Profile"
@@ -89,9 +116,7 @@ const SystemAdmin = () => {
         <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li>
                 <Button style={{marginLeft: '300px', marginRight: '120px', height: '60px', background: 'magenta',
-                borderColor:'rgba(0,0,0,0.2)', borderRadius:100,}}  onClick={() => {
-                alert('clicked')
-                }}>
+                borderColor:'rgba(0,0,0,0.2)', borderRadius:100,}}  onClick={handlePendingClick}>
                     Pending Requests
                     <Badge badgeContent={`${newValue>9 ? "9+": String(newValue)}`} color="primary" style={{ fontSize: '0.5rem', padding: '0.25rem 0.5rem' }}>
                     <EmailIcon />
@@ -100,9 +125,7 @@ const SystemAdmin = () => {
             </li>
             <li>
                 <Button style={{marginLeft: '200px', height: '60px', background: 'gray',
-                borderColor:'rgba(0,0,0,0.2)', borderRadius:100,}} onClick={() => {
-                alert('clicked')
-                }}>
+                borderColor:'rgba(0,0,0,0.2)', borderRadius:100,}} onClick={handleActiveClick}>
                     New Requests
                     <IconButton aria-label="notifications">
                 <Badge badgeContent={`${newValue>9 ? "9+": String(newValue)}`} color="error">
@@ -114,8 +137,20 @@ const SystemAdmin = () => {
         </ul>
            </div>
 
+         <DropdownMenu />
+     </div>
+        {console.log("Pending", pendingResult)}
+        <div>
+            {pendingResult && (
+                <div>
+                    <LicensePending />
+                </div>
+            )}
         </div>
-        
+
+        </div>
+
+
         
     );
             }

@@ -25,7 +25,9 @@ const Genre = ({ onGenreSelect }) => {
       <select style={{borderRadius: '7px'}} value={selectedOption} onChange={handleSelectChange}>
         <option value="">Select an option...</option>
         <option value="Crime">Crime</option>
+        <option value="Thriller">Thriller</option>
         <option value="Historical">Historical</option>
+        <option value="Biography">Biography</option>
         <option value="Fantasy">Fantasy</option>
         <option value="Romance">Romance</option>
         <option value="Science fiction">Science fiction</option>

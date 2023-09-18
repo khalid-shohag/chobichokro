@@ -40,10 +40,14 @@ function DistributorPage() {
     const [status, setStatus] = useState('');
     const [date, setDate] = useState('');
     const [viewDetails, setViewDetails] = useState(false)
+    const [cast, setCast] = useState('')
+    const [director, setDirector] = useState('')
+    const [id, setId] = useState('')
 
     const [running, setRunning] = useState(false);
     const [announce, setAnnounce] = useState(false);
     const [release, setRelease] = useState(false);
+    const [upcoming, setUpcoming] = useState(false)
     
     console.log("Auth: ", isAuthenticated)
     if (isAuthenticated=='') {
@@ -64,9 +68,10 @@ function DistributorPage() {
   
 
 
-    const handleMovieDetail = (name, imageSrc, genre, link, status, date, description) => {
+    const handleMovieDetail = (id, name, imageSrc, genre, cast, director, link, status, date, description) => {
       // Do something with the data received from the child
       console.log("Data received from child:");
+      setId(id);
       setName(name);
       setGenre(genre);
       setImageSrc(imageSrc);
@@ -74,6 +79,8 @@ function DistributorPage() {
       setLink(link);
       setStatus(status);
       setDate(date);
+      setCast(cast);
+      setDirector(director);
     };
   
 
@@ -108,11 +115,20 @@ function DistributorPage() {
         setViewDetails(true);
     }
 
+    const handleUpcoming = () => {
+        setRelease(false);
+        setViewDetails(false)
+        setUpcoming(true)
+        setAnnounce(false)
+        setRunning(false)
+        getAllMovies()
+    }
     
     const hanldeAnnounce = () => {
         setAnnounce(true);
         setRelease(false);
         setViewDetails(false);
+        setUpcoming(false)
         setRunning(false);
     }
 
@@ -121,6 +137,8 @@ function DistributorPage() {
         setRelease(true);
         setAnnounce(false);
         setRunning(false);
+        setViewDetails(false);
+        setUpcoming(false)
         getAllMovies();
     }
 
@@ -129,6 +147,8 @@ function DistributorPage() {
       setRelease(false);
       setAnnounce(false);
       setRunning(true);
+      setViewDetails(false);
+      setUpcoming(false)
       getAllMovies();
     }
 
@@ -172,7 +192,7 @@ function DistributorPage() {
                 </Card>
                 <Card className="card-internal1-dis">
                     <Card.Body>
-                        <button className="btn1-dis" style={{backgroundColor: 'blue'}}>Upcoming</button>
+                        <button className="btn1-dis" style={{backgroundColor: 'blue'}} onClick={handleUpcoming}>Upcoming</button>
                     </Card.Body>
                 </Card>
                 <Card className="card-internal2-dis" >
@@ -195,7 +215,11 @@ function DistributorPage() {
             )}
             {running && (
             
-            <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            <ReleasedMovie handle = {handleView} stat={'on theater'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            )}
+            {upcoming && (
+
+                <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
             )}
         </div>     
         <div className="column-dis first-content-dis">
@@ -203,7 +227,7 @@ function DistributorPage() {
             {viewDetails && (
               //  console.log('val not getting'),
               //  console.log(name, genre, link, status, date),
-                <Pagination name={name} imageSrc={imageSrc} genre={genre} link={link} status = {status} date={date} description={description} />
+                <Pagination id={id} name={name} imageSrc={imageSrc} genre={genre} cast={cast} director={director} link={link} status = {status} date={date} description={description} />
             )}
         </div>
     </div>
