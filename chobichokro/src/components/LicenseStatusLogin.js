@@ -17,16 +17,18 @@ function Login() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // const formData = new FormData()
+    // formData.append('number',number)
     
     try {
-      const response = await axios.post('http://localhost:port/api/login', {
-        number
-      });
+      const response = await axios.get(`http://localhost:8080/api/license/get/${number}`);
+      console.log('Phone/Email found', response.data)
 
 
 
       const token = response.data.token; 
-      navigate('/licese_status');
+      navigate('/license_status', {state: {data: response.data}});
 
     } catch (error) {
       console.error('Error occured', error);

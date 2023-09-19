@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {Card, CardBody, Button} from 'reactstrap'
-import {FaMailBulk, FaPhone} from "react-icons/fa";
+import {FaMailBulk, FaPhone, Fa} from "react-icons/fa";
 
-function LicensePending() {
+function LicensePending(props) {
 
     const [pendingReq, setPendingReq] = useState([])
+    const [s, gs] = useState(false)
     const getAllPendingReq = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/license/get/pending')
@@ -22,16 +23,21 @@ function LicensePending() {
         formData.append('licenseId', id)
         formData.append('status', 'activated')
         try {
-            const response = await axios.put('http://localhost:8080/api/license/update_status', formData)
-            getAllPendingReq()
-            console.log("Update status: ", id)
+            const response = await axios.put('http://localhost:8080/api/license/update_status', formData, {
+                headers: {
+                    Authorization: `Bearer ${props.token}`
+                }
+            })
+            // getAllPendingReq()
+            gs(false)
+            console.log("Update status: ", response.data)
         }
         catch (e) {
             console.log("Error updating status", e)
         }
     }
 
-    const [s, gs] = useState(false)
+    
     if (s===false) {
         getAllPendingReq()
         gs(true)

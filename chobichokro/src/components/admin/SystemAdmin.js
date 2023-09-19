@@ -143,7 +143,7 @@ const SystemAdmin = () => {
         <div>
             {pendingResult && (
                 <div>
-                    <LicensePending />
+                    <LicensePending token={localStorage.getItem('atoken')}/>
                 </div>
             )}
         </div>
