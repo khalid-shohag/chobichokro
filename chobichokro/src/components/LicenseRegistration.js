@@ -22,7 +22,9 @@ function LicenseRegistration() {
     event.preventDefault();
 
     const formData = new FormData()
-    const id = generateUniqueRandomAlphaNumericString(12);
+    const licenseNumber = generateUniqueRandomAlphaNumericString(5);
+    const code = generateUniqueRandomAlphaNumericString(4);
+    const id = generateID(20)
     formData.append('id', id)
     formData.append('username', username)
     formData.append('phoneNumber', phone)
@@ -32,8 +34,8 @@ function LicenseRegistration() {
     formData.append('status', 'pending')
     formData.append('licenseType', selectedOption)
     formData.append('licenseOwner', 'admin')
-    formData.append('licenseNumber', 'not given')
-    formData.append('verificationCode', 'not given')
+    formData.append('licenseNumber', licenseNumber)
+    formData.append('verificationCode', code)
 
 
     try {
@@ -130,7 +132,7 @@ function LicenseRegistration() {
               id="email"
               name="email"
               style={{ width: '100%', height: "50px", borderRadius: '15px' }}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div style={{ marginTop: '10px', marginBottom: '10px' }}>
@@ -190,9 +192,25 @@ function LicenseRegistration() {
 export default LicenseRegistration;
 
 function generateUniqueRandomAlphaNumericString(length) {
-  const timestamp = new Date().getTime().toString(36);
-  const randomPart = Math.random().toString(36).substring(2, 2 + length - timestamp.length);
+  let result = '';
+  const characters = '0123456789';
 
-  return timestamp + randomPart;
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
 }
 
+function generateID(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
+}
