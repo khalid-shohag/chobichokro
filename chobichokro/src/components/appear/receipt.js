@@ -42,9 +42,10 @@ const MyDocument = (props) => (
       <View>
         <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, marginLeft: '500px' }}>Ticket </Text>
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Theatre: {props.theatre}</Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Movie: {props.movie}</Text>
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Hall: {props.hall}</Text>
-        <Text style={{ fontSize: 16, marginBottom: 10 }}>Date: {props.showTime}</Text>
-        <Text style={{ fontSize: 16, marginBottom: 10 }}>Price: 130 tk. per unit</Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Date: {props.date}, {props.showTime}</Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Price: 100 tk. per unit</Text>
         <View style={styles.table}>
           
           <View style={[styles.tableRow, styles.tableHeader]}>
@@ -86,12 +87,12 @@ const MyDocument = (props) => (
 
 function Reciept(props) {
   const seats = props.seats.map((seat) => seat).join(', ');
-  const amount = props.seats.length * 130
+  const amount = props.seats.length * 100
   return(
     <PDFViewer PDFViewer style={{ width: '100%', height: '1000px' }}>
       
       {console.log("PDFVIEWER")}
-      <MyDocument theatre={props.theatre} hall={props.hall} showTime={props.showTime} seats={seats} seatNum={props.seats.length} amount={amount}/>
+      <MyDocument theatre={props.theatre} movie={props.movie} date={props.date} hall={props.hall} showTime={props.showTime} seats={seats} seatNum={props.seats.length} amount={amount}/>
     </PDFViewer>
 
   );

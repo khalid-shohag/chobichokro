@@ -46,9 +46,9 @@
   }
   
   .available {
-    color: lightcoral;
+    color: white;
     display: inline-block;
-    background-color: aqua;
+    background-color: yellowgreen;
   }
   
   li {

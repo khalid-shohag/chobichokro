@@ -38,7 +38,7 @@ export function  RunningShow(props) {
  
   return(
     <div>
-      <Card style={{backgroundColor: 'black'}}>
+      <Card style={{background: 'transparent'}}>
                 <CardBody>
                 <h1>{props.name}</h1>
                 </CardBody>

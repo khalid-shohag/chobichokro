@@ -78,13 +78,15 @@ class SeatBooking extends React.Component {
       const theatre = this.props.theatre
       const hall = this.props.hall
       const showTime = this.props.show
+      const movieName = this.props.movie
+      const date = this.props.date
       
       return (
         <div style={{marginLeft: '120px'}}>
-          <Card style={{backgroundColor: 'gray', borderRadius: '5px'}}>
-            <CardHeader>
-                <label>
-                    <input type='radio' style={{backgroundColor: 'aqua'}}>
+          <Card style={{backgroundColor: 'transparent', borderRadius: '5px'}}>
+            <CardHeader style={{color: 'white'}}>
+                <label >
+                    <input type='radio' style={{backgroundColor: 'yellowgreen'}}>
                     </input>
                     Available
                 </label>
@@ -93,7 +95,12 @@ class SeatBooking extends React.Component {
                     </input>
                     Booked
                 </label>
-                <h4 style={{color: 'black'}}>Total selected Seats: {this.state.reservationCount}</h4>
+                <label style={{marginLeft: '20px'}}>
+                    <input type='radio' style={{backgroundColor: 'green'}}>
+                    </input>
+                    Selected
+                </label>
+                <h4 style={{color: 'gray'}}>Total selected Seats: {this.state.reservationCount}</h4>
                 
             </CardHeader>
             <CardBody>
@@ -115,7 +122,7 @@ class SeatBooking extends React.Component {
           {
                   this.state.receipt && (
                   // <div><a href='/movie/reciept'>Open Receipt</a></div>
-                  <Reciept theatre={theatre} hall={hall} showTime={showTime} seats={this.state.seatReserved} />
+                  <Reciept movie={movieName} date={date}  theatre={theatre} hall={hall} showTime={showTime} seats={this.state.seatReserved} />
                   )
                }
         </div>

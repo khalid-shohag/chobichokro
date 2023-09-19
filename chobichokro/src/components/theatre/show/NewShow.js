@@ -261,7 +261,14 @@ const NewShow = () => {
           marginLeft: '450px',
           borderRadius: '10px',
           width: '500px',
-          height: 'auto'
+          height: 'auto',
+          marginTop: '50px',
+          background: 'transparent',
+          border: '15px solid yellowgreen',
+          borderWidth: '15px', 
+          borderStyle: 'solid',
+          // backgroundColor: 'yellow',
+          color: 'yellowgreen'
         }}>
           <CardHeader>
             <h2>Add new Show</h2>
@@ -281,7 +288,7 @@ const NewShow = () => {
                 <Hall />
               </div>
 
-              <div>
+              {/* <div>
                 <form>
                   <div>
                     <h3>name</h3>
@@ -314,7 +321,7 @@ const NewShow = () => {
                     />
                   </div>
                 </form>
-              </div>
+              </div> */}
 
               <button type="submit" style={{
                 borderRadius: '3px',
