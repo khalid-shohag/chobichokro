@@ -20,8 +20,9 @@ function TheatrePage() {
 
     const [ticket, setTicket] = useState(false);
     const location = useLocation();
+    const token = location.state?.token || ''
     
-    if (localStorage.getItem('token')==null) {
+    if (localStorage.getItem('token')=='') {
         
         const accessToken = location.state?.token || '';
     
@@ -110,8 +111,7 @@ function TheatrePage() {
             <div className="container">
                 
             <div className="row">
-                {/* <div className="column">Row 1 - Column 1</div> */}
-                {/* <div className="column">Row 1 - Column 2</div> */}
+                
                 <Navbar />
                 <img src={theatreImg}  style={{ position: 'absolute', // Position the video absolutely within the div
           top: 0,
@@ -203,7 +203,7 @@ function TheatrePage() {
             {
                 (show &&
                     <div className="row">
-                    <NewShow token={localStorage.getItem('token')}/>
+                    <NewShow token={token}/>
                 </div>)
             }
             {

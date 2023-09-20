@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 import { CardBody, CardHeader } from 'reactstrap';
 import ShowList from './ShowList';
@@ -14,6 +14,25 @@ const NewShow = (props) => {
   const [date, setDate] = useState('');
   const [showTime, setShowTime] = useState([]);
   const [movieName, setMovieName] = useState('');
+
+  const [idTheatre, setIdTheatre] = useState('');
+
+  const getTheatreId = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/theater/my_theater", {
+          headers: {
+            Authorization: `Bearer ${props.token}`
+          } 
+        });
+        setIdTheatre(response.data.id);
+    } catch (error) {
+        console.log("Error fetching data", error);
+    }
+  };
+
+    useEffect(() => {
+        getTheatreId();
+    }, []);
 
   const onSelectShowTime = (time) => {
     setShowTime(time);
@@ -71,7 +90,10 @@ const NewShow = (props) => {
   const sendData = async () => {
     console.log("Details");
     console.log(name, time, hall);
-    makeSchedule(startDate, endDate, showTime, movieName, hall, props.token)
+    console.log("theatre: ", idTheatre);
+
+
+    makeSchedule(startDate, endDate, showTime, movieName, hall, idTheatre, props.token)
 
     // const formData = new FormData();
     // formData.append('movieName', name);
@@ -199,7 +221,7 @@ function generateRandomString(length) {
 }
 
 
-async function makeSchedule(sDate, eDate, time, movieName, hall, token) {
+async function makeSchedule(sDate, eDate, time, movieName, hall, theaterId, token) {
   console.log("Making Schedule");
   const startDate = parseDate(sDate);
   const endDate = parseDate(eDate);
@@ -224,9 +246,9 @@ async function makeSchedule(sDate, eDate, time, movieName, hall, token) {
       const formData = new FormData();
       formData.append('scheduleId', generateRandomString(23));
       formData.append('movieName', movieName);
-      formData.append('theaterId', '65007a030a509473697fcd5a')
+      formData.append('theaterId', theaterId)
       formData.append('scheduleDate', usableDate(currentDate) + " " + time[i])
-      formData.append('hallNumber', hall);
+      formData.append('hallNumber', parseInt(hall));
 
       try {
         const response = await axios.post('http://localhost:8080/api/schedule/add', formData, {
@@ -237,7 +259,7 @@ async function makeSchedule(sDate, eDate, time, movieName, hall, token) {
         })
         console.log("Successful", response.data)
         console.log("ALl date: ", usableDate(currentDate) + " " + time[i])
-        currentDate.setDate(currentDate.getDate() + 1);
+        // currentDate.setDate(currentDate.getDate() + 1);
       } catch (error) {
         console.log("Error: ", error)
       }

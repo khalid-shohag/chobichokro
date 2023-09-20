@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Button, CardHeader, CardBody } from "reactstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import posterImage from '../../../assets/aqua-film-reel.jpg'
 import styled from "@emotion/styled";
 import { useNavigate, Link } from "react-router-dom"
@@ -11,21 +11,24 @@ export function  RunningShow(props) {
   const [movies, setMovies] = useState([]);
   // const navigate = useNavigate()
 
-  const getAllMovies = async() => {
-      try{
-          const response = await axios.get('http://localhost:8080/api/movies/all')
-          setMovies(response.data)
-      } catch (error) {
-          console.log("Error fetching data", error)
-      }
-      
-  }
+    const getAllMovies = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/api/movies/all");
+            setMovies(response.data);
+        } catch (error) {
+            console.log("Error fetching data", error);
+        }
+    };
+
+    useEffect(() => {
+        getAllMovies();
+    }, []);
 
   // const navigateAndPassData = (id, data) => {
   //     navigate(`/movie/${id}`, {data})
   // }
 
-  getAllMovies();
+//   getAllMovies();
 
   console.log("Movies", movies);
 

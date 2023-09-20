@@ -17,9 +17,9 @@ const Hall = ({onHall}) => {
       
       <select style={{borderRadius: '7px', height: '40px', width: '200px'}} value={selectedOption} onChange={handleSelectChange}>
         <option value="">Screen...</option>
-        <option value="Hall 1">Hall 1</option>
-        <option value="Hall 2">Hall 2</option>
-        <option value="Hall 3">Hall 3</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3"> 3</option>
        
         
         {/* Add more options as needed */}

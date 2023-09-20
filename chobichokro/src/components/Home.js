@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./navbar";
 import './Home.css'
 import RunningMovies from "./appear/RunningMovie";
@@ -16,21 +16,24 @@ function Home() {
     const [movies, setMovies] = useState([]);
     const navigate = useNavigate()
 
-    const getAllMovies = async() => {
-        try{
-            const response = await axios.get('http://localhost:8080/api/movies/all')
-            setMovies(response.data)
+    const getAllMovies = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/api/movies/all");
+            setMovies(response.data);
         } catch (error) {
-            console.log("Error fetching data", error)
+            console.log("Error fetching data", error);
         }
-        
-    }
+    };
+
+    useEffect(() => {
+        getAllMovies();
+    }, []);
 
     // const navigateAndPassData = (id, data) => {
     //     navigate(`/movie/${id}`, {data})
     // }
 
-    getAllMovies();
+    // getAllMovies();
 
     console.log("Movies", movies);
 
