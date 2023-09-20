@@ -21,7 +21,7 @@ function LicensePending(props) {
     const updateStatus = async(id) => {
         const formData = new FormData()
         formData.append('licenseId', id)
-        formData.append('status', 'activated')
+        formData.append('status', 'approved')
         try {
             const response = await axios.put('http://localhost:8080/api/license/update_status', formData, {
                 headers: {

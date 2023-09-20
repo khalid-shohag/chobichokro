@@ -110,7 +110,7 @@ function LicenseStatus() {
                 </Card>
                 <Card style={{backgroundColor: 'lightBlue', borderRadius: '6px', width: '300px', marginTop: '20px'}}>
                     <Card.Header><h6>Registration</h6></Card.Header>
-                    {(status === 'activated') ? (
+                    {(status === 'approved') ? (
                     <Card.Body style={{marginLeft: '90px'}}>
                         <Button style={{cursor: 'pointer', backgroundColor: 'red', borderRadius: '3px', height: '30px', width: 'auto'}}
                         onClick={handleCodeRequest}>
