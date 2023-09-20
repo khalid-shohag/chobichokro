@@ -98,7 +98,7 @@ function TheatrePage() {
             <Navbar />
             </div>
             <div style={{marginTop: '60px'}}>
-            <Login value={'theatre'} />
+            <Login value={'Theatre Login'} />
             {/* <TheatreLogin /> */}
             </div>
             

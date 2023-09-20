@@ -18,16 +18,16 @@ const DropdownMenu = () => {
     // Navigate to corresponding routes
     switch (item) {
       case 'Admin':
-        navigate('/admin_login');
+        navigate('/admin');
         break;
       case 'Theatre':
-        navigate('/theatre_login');
+        navigate('/theatre_page');
         break;
       case 'Audience':
-        navigate('/audience_login');
+        navigate('/audience_page');
         break;
       case 'Distributor':
-        navigate('/distributor_login');
+        navigate('/distributor_page');
         break;
         case 'Get License':
           navigate('/license_registration');

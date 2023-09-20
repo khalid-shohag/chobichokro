@@ -6,7 +6,7 @@ const TheatreLogin = () => {
     return(
         <div>
             <Navbar />
-            <Login value={'theatre'}/>
+            <Login value={'Theatre Login'}/>
         </div>
     );
 }

@@ -58,7 +58,7 @@ function DistributorPage() {
             <Navbar />
           </div>
           <div style={{marginTop: '60px'}}>
-            <Login value={"distributor"} />
+            <Login value={"Distributor Login"} />
           </div>
         </div>
       )

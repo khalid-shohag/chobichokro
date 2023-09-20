@@ -4,6 +4,7 @@ import axios from "axios";
 import './Login.css'
 import ImageAdmin from '../assets/camera-219958_1280.jpg'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+const bgLogin = require('../assets/login_page_bg.jpg')
 
 
 function Login(props) {
@@ -52,8 +53,15 @@ function Login(props) {
 
     return(
       <div className="container-v" >
+          <img src={bgLogin} style={{ position: 'absolute', // Position the video absolutely within the div
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover', // Maintain aspect ratio and cover entire div
+              zIndex: -1,}}/>
         <div className="column-v first-content-v">
-          <h1 className="animation-container animated-text" style={{color: 'black'}}>{props.value}</h1>
+          <h1 className="animation-container animated-text" style={{color: 'white', background: 'transparent'}}>{props.value}</h1>
         </div>
       
         <div className="column-v first-content-v"
@@ -62,16 +70,7 @@ function Login(props) {
     >
         
       <div
-        style={{
-          // backgroundImage: `url(${ImageAdmin})`,
-          backgroundColor: '#B2C3D2',
-          background: 'rgba(255, 255, 255, 0.8)',
-          padding: '20px',
-          borderRadius: '10px',
-          boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
-          width: '400px',
-          height: '430px'
-        }}
+
       >
         <h2 style={{color: '#2A925E'}}>Login</h2>
         <form >

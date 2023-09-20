@@ -6,7 +6,7 @@ const DistributorLogin = () => {
     return(
         <div>
             <div><Navbar /></div>
-            <Login value={'distributor'} /> 
+            <Login value={'Distributor Login'} />
         </div>
     );
 }
