@@ -113,7 +113,7 @@ function TheatrePage() {
                 {/* <div className="column">Row 1 - Column 1</div> */}
                 {/* <div className="column">Row 1 - Column 2</div> */}
                 <Navbar />
-                <img src={theatreImg}  style={{height: '250px', width: '100%', position: 'absolute', // Position the video absolutely within the div
+                <img src={theatreImg}  style={{ position: 'absolute', // Position the video absolutely within the div
           top: 0,
           left: 0,
           width: '100%',

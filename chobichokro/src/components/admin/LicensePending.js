@@ -2,11 +2,16 @@ import React, {useState} from "react";
 import axios from "axios";
 import {Card, CardBody, Button} from 'reactstrap'
 import {FaMailBulk, FaPhone, Fa} from "react-icons/fa";
-
+import { ToastContainer, toast } from 'react-custom-alert';
 function LicensePending(props) {
 
     const [pendingReq, setPendingReq] = useState([])
     const [s, gs] = useState(false)
+    const [findPending, setFindPending] = useState(false)
+
+    const handleFindPending = () => {
+        setFindPending(true)
+    }
     const getAllPendingReq = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/license/get/pending')
@@ -48,11 +53,19 @@ function LicensePending(props) {
 
 
         <div>
-
+            <ToastContainer />
             <h1>Pending Requests</h1>
             {console.log("GET")}
-            {pendingReq.map((license) => {
+            {(pendingReq.length > 0) ? (
+
+                    <div></div>
+
+            ) : (
+                <div></div>
+                )}
+            { pendingReq.map((license) => {
                 if (license.status === 'pending') {
+                    {handleFindPending()}
                     return(
                         <Card key={license.id} style={{backgroundColor: 'pink', height: 'auto', width: '100%', marginTop: '60px'}}>
                             <CardBody>
@@ -82,6 +95,14 @@ function LicensePending(props) {
                         </Card>
                         )
 
+                }
+                {console.log('Find Pending', findPending)}
+                if (!findPending) {
+
+                    return(
+
+                        toast.info('No PENDING Request')
+                    )
                 }
             })}
         </div>
