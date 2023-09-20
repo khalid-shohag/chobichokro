@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ShowTime = () => {
+const ShowTime = ({onShowTime}) => {
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedOptionsList, setSelectedOptionsList] = useState([]);
 
@@ -8,6 +8,7 @@ const ShowTime = () => {
     setSelectedOption(event.target.value);
     if (event.target.value && !selectedOptionsList.includes(event.target.value)) {
       setSelectedOptionsList([...selectedOptionsList, event.target.value]);
+      onShowTime([...selectedOptionsList, event.target.value])
     }
   };
 

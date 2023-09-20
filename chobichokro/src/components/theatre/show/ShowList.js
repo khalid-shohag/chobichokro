@@ -1,24 +1,49 @@
 import React, { useState } from 'react';
+import axios from "axios";
 
-const ShowList = () => {
+const ShowList = ({token, onMovieName}) => {
   const [selectedOption, setSelectedOption] = useState('');
-
+  // const token = props.token
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
+    onMovieName(event.target.value)
   };
 
   const handleRemoveOption = () => {
     setSelectedOption('');
   };
 
+  const [movies, setMovies] = useState([])
+
+  const getAllTheatreMovies = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/theater/all_my_movie', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      setMovies(response.data)
+    } catch (error) {
+      console.log("Not getting Movies: ", error)
+    }
+
+  }
+
+  getAllTheatreMovies()
+
   return (
     <div>
       
       <select style={{ borderRadius: '7px' }} value={selectedOption} onChange={handleSelectChange}>
-        <option value="">Select an option...</option>
-        <option value="Jawaan">Jawaan</option>
-        <option value="Sujon Majhi">Sujon Majhi</option>
-        <option value="Prohelika">Prohelika</option>
+        <option value="">Select a movie...</option>
+        {movies.map((movie) => {
+          return(
+              <option key={movie.id} value={movie.movieName}>{movie.movieName}</option>
+          )
+        })}
+        {/*<option value="Jawaan">Jawaan</option>*/}
+        {/*<option value="Sujon Majhi">Sujon Majhi</option>*/}
+        {/*<option value="Prohelika">Prohelika</option>*/}
         {/* Add more options as needed */}
       </select>
 

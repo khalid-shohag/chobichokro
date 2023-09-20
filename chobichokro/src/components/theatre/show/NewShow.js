@@ -1,192 +1,3 @@
-// import React, { useState } from 'react';
-// // import './genre'
-// // import Genre from './genre';
-// // import Cast from './cast';
-// // import Poster from './poster';
-// // import './DistributorPage.css'
-// import { Card } from 'react-bootstrap';
-// import { CardBody, CardHeader } from 'reactstrap';
-// import ShowList from './ShowList';
-// import ShowTime from './ShowTime';
-// import Hall from './Hall';
-// import axios from 'axios';
-
-// const NewShow = () => {
-//   const [name, setName] = useState('');
-//   const [time, setTime] = useState('');
-//   const [hall, setHall] = useState(0);
-//   const [movieDetails, setMovieDetails] = useState({
-//     movieName: '',
-//     releaseDate: '',
-//     genre: '',
-//     trailer: ''
-//   });
-
-//   let value = '', onChange = null;
-//   const [date, setDate] = useState(value || '');
-
-//   const handleChange = (event) => {
-//     const { value } = event.target;
-//     setDate(value);
-//     if (onChange) {
-//       onChange(value);
-//     }
-//   };
-
-//   const handleTime = (event) => {
-//     const { value } = event.target.value;
-//     setTime(value);
-//     if (onChange) {
-//       onChange(value);
-//     }
-//   };
-
-//   const handleName = (event) => {
-//     const { value } = event.target.value;
-//     setName(value);
-//     if (onChange) {
-//       onChange(value);
-//     }
-//   };
-
-//   const handleHall = (event) => {
-//     const { value } = event.target.value;
-//     setHall(value);
-//     if (onChange) {
-//       onChange(value);
-//     }
-//   };
-
-  
-
-
-//   const sendData =  () => {
-//     console.log("DEtails");
-//     console.log(name, time, hall);    
-
-//     const formData = new FormData()
-//     formData.append('movieName', name)
-//     formData.append('scheduleDate', time)
-//     formData.append('hallNumber', hall)
-
-// //     try {
-// //       const response = await axios.post('http://localhost:8080/api/schedule/add', 
-// //       //   distributorId: "64f35e979a849b4b2960866d",
-// //       //   movieName: movieDetails.movieName,
-// //       //   releaseDate: "11/09/2023",
-// //       //   trailer: movieDetails.trailer,
-// //       //   genre: selectedGenres, // Pass the selected genres
-// //       //   // image: selectedPosters,
-// //       //   status: "upcoming",
-// //       //   description: inputValue, // Pass the selected posters
-// //       //   // ... Other data fields
-// //       // }
-// //       formData,
-// //        {
-// //         headers: {
-// //           'Content-Type': 'multipart/form-data',
-// //         }
-// //       }
-// // );
-
-// //     console.log("Successful", response.data)
-// //     console.log(name, time, hall);  // Handle success and reset the form as needed
-      
-// //     } catch (error) {
-// //       // Handle error
-// //       console.log(name, time, hall);
-// //       console.error('Error sending data:', error);
-// //     }
-// };
-
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // Handle form submission and announce movie release.
-//     // You can use Axios or fetch to send the data to the backend.
-//   };
-
-//   return (
-    
-//     <div >
-        
-      
-//       <div >
-//         <Card style={{backgroundColor: 'gray', marginLeft: '450px', borderRadius: '10px',
-//         width: '500px', height: 'auto'}}>
-//             <CardHeader>
-//                 <h2>Add new Show</h2>
-//             </CardHeader>
-//             <CardBody style={{marginLeft: '150px'}}>
-//         <form onSubmit={handleSubmit}>
-//         <h3>Movie Name </h3>
-//             <div>
-//                 <ShowList />
-//             </div>
-//             {/* <div>
-//                 <Genre />
-//             </div> */}
-//             <h3>Show Time</h3>
-//             <div>
-//                 < ShowTime />
-//             </div>
-//             <h3>Hall</h3>
-           
-//             <div>
-//                 <Hall />
-//             </div>
-
-//             <div>
-//               <form>
-//                 <div>
-//                   <h3>name</h3>
-//               <input
-//                 type="text"
-//                 placeholder="Movie Name"
-//                 value={name}
-//                 onChange={handleName}
-//                 style={{borderRadius: '7px', width: '300px'}}
-//               />
-//               </div>
-//               <div>
-//                   <h3>Time</h3>
-//               <input
-//                 type="datetime-local"
-//                 value={time}
-//                 onChange={handleTime}
-//                 placeholder="Select a date"
-//                 style={{borderRadius: '7px'}}
-//               />
-//               </div>
-//               <div>
-//                   <h3>Hall</h3>
-//               <input
-//                 type="number"
-//                 placeholder="Hall no."
-//                 value={hall}
-//                 onChange={handleHall}
-//                 style={{borderRadius: '7px', width: '300px'}}
-//               />
-//               </div>
-//               </form>
-//             </div>
-            
-            
-            
-//             {/* Other form fields for release date and genre */}
-//             <button type="submit" style={{borderRadius: '3px', marginTop: '10px', backgroundColor: 'yellow'}} onClick={sendData}>Add Show</button>
-//         </form>
-//         </CardBody>
-//       </Card>
-//       </div>
-      
-//     </div>
-//   );
-// };
-
-// export default NewShow;
-
-
 import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { CardBody, CardHeader } from 'reactstrap';
@@ -194,12 +5,25 @@ import ShowList from './ShowList';
 import ShowTime from './ShowTime';
 import Hall from './Hall';
 import axios from 'axios';
+import {configureStore} from "@reduxjs/toolkit";
 
-const NewShow = () => {
+const NewShow = (props) => {
   const [name, setName] = useState('');
   const [time, setTime] = useState(new Date());
-  const [hall, setHall] = useState(0);
+  const [hall, setHall] = useState('');
   const [date, setDate] = useState('');
+  const [showTime, setShowTime] = useState([]);
+  const [movieName, setMovieName] = useState('');
+
+  const onSelectShowTime = (time) => {
+    setShowTime(time);
+  }
+  const onSelectMovieName = (name) => {
+    setMovieName(name);
+  }
+  const onSelectHall = (hall) => {
+    setHall(hall);
+  }
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -223,28 +47,50 @@ const NewShow = () => {
     setHall(value);
   };
 
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  const handleStartDateChange = (event) => {
+      const inputDate = event.target.value;
+      setStartDate(inputDate)
+      // setStartDate(usableDate(inputDate));
+      console.log("Date: ", startDate);
+
+
+  };
+
+  const handleEndDateChange = (event) => {
+    const inputDate = event.target.value;
+
+    setEndDate(inputDate)
+    // setEndDate(usableDate(inputDate));
+    console.log("Date: ", endDate);
+
+  }
+
   const sendData = async () => {
     console.log("Details");
     console.log(name, time, hall);
+    makeSchedule(startDate, endDate, showTime, movieName, hall, props.token)
 
-    const formData = new FormData();
-    formData.append('movieName', name);
-    formData.append('scheduleDate', time);
-    formData.append('hallNumber', hall);
-
-    try {
-      const response = await axios.post('http://localhost:8080/api/schedule/add', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      console.log("Successful", response.data);
-      console.log(name, time, hall);
-
-    } catch (error) {
-      console.error('Error sending data:', error);
-    }
+    // const formData = new FormData();
+    // formData.append('movieName', name);
+    // formData.append('scheduleDate', time);
+    // formData.append('hallNumber', hall);
+    //
+    // try {
+    //   const response = await axios.post('http://localhost:8080/api/schedule/add', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   });
+    //
+    //   console.log("Successful", response.data);
+    //   console.log(name, time, hall);
+    //
+    // } catch (error) {
+    //   console.error('Error sending data:', error);
+    // }
   };
 
   const handleSubmit = (e) => {
@@ -277,51 +123,38 @@ const NewShow = () => {
             <form onSubmit={handleSubmit}>
               <h3>Movie Name </h3>
               <div>
-                <ShowList />
+                <ShowList onMovieName = {onSelectMovieName} token={props.token}/>
+              </div>
+              <h3>Start Date </h3>
+              <div>
+                <input
+                    type="date"
+                    value={startDate}
+                    onChange={handleStartDateChange}
+                    placeholder="Select a date"
+                    style={{borderRadius: '7px'}}
+                />
+                <p style={{color: 'white'}}>Start Date: {startDate}</p>
+              </div>
+              <h3>End Date </h3>
+              <div>
+                <input
+                    type="date"
+                    value={endDate}
+                    onChange={handleEndDateChange}
+                    placeholder="Select a date"
+                    style={{borderRadius: '7px'}}
+                />
+                <p style={{color: 'white'}}>End Date: {endDate}</p>
               </div>
               <h3>Show Time</h3>
               <div>
-                < ShowTime />
+                < ShowTime onShowTime = {onSelectShowTime}/>
               </div>
               <h3>Hall</h3>
               <div>
-                <Hall />
+                <Hall onHall={onSelectHall}/>
               </div>
-
-              {/* <div>
-                <form>
-                  <div>
-                    <h3>name</h3>
-                    <input
-                      type="text"
-                      placeholder="Movie Name"
-                      value={name}
-                      onChange={handleName}
-                      style={{ borderRadius: '7px', width: '300px' }}
-                    />
-                  </div>
-                  <div>
-                    <h3>Time</h3>
-                    <input
-                      type="datetime-local"
-                      value={time}
-                      onChange={handleTime}
-                      placeholder="Select a date"
-                      style={{ borderRadius: '7px' }}
-                    />
-                  </div>
-                  <div>
-                    <h3>Hall</h3>
-                    <input
-                      type="number"
-                      placeholder="Hall no."
-                      value={hall}
-                      onChange={handleHall}
-                      style={{ borderRadius: '7px', width: '300px' }}
-                    />
-                  </div>
-                </form>
-              </div> */}
 
               <button type="submit" style={{
                 borderRadius: '3px',
@@ -337,3 +170,83 @@ const NewShow = () => {
 };
 
 export default NewShow;
+
+function usableDate(inputDate){
+  const parsedDate = new Date(inputDate);
+  if (!isNaN(parsedDate.getTime())) {
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = parsedDate.getFullYear().toString();
+    return `${day}/${month}/${year}`;
+  }
+}
+
+function parseDate(dateString) {
+  const [year, month, day] = dateString.split('-').map(Number);
+  return new Date(year, month - 1, day); // Month is 0-based
+}
+
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
+}
+
+
+async function makeSchedule(sDate, eDate, time, movieName, hall, token) {
+  console.log("Making Schedule");
+  const startDate = parseDate(sDate);
+  const endDate = parseDate(eDate);
+  console.log("Start Date: ", startDate);
+  console.log("End Date: ", endDate);
+
+  // const dates = [];
+
+  // console.log("Current Date: ", currentDate)
+  console.log("Condition: ", startDate <= endDate)
+  console.log("Time: ", time)
+  console.log("Time Length: ", time.length)
+  console.log("Movie Name: ", movieName)
+  console.log("Hall: ", hall)
+
+  for (let i = 0; i < time.length; i++) {
+    console.log("Time: ", time[i])
+
+    let currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+      console.log("ALl date: ", usableDate(currentDate) + " " + time[i])
+      const formData = new FormData();
+      formData.append('scheduleId', generateRandomString(23));
+      formData.append('movieName', movieName);
+      formData.append('theaterId', '65007a030a509473697fcd5a')
+      formData.append('scheduleDate', usableDate(currentDate) + " " + time[i])
+      formData.append('hallNumber', hall);
+
+      try {
+        const response = await axios.post('http://localhost:8080/api/schedule/add', formData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+
+        })
+        console.log("Successful", response.data)
+        console.log("ALl date: ", usableDate(currentDate) + " " + time[i])
+        currentDate.setDate(currentDate.getDate() + 1);
+      } catch (error) {
+        console.log("Error: ", error)
+      }
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    // dates.push(formatDate(currentDate));
+    // console.log("1")
+
+
+
+  }
+}

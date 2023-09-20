@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-const Hall = () => {
+const Hall = ({onHall}) => {
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
+    onHall(event.target.value)
   };
 
   const handleRemoveOption = () => {

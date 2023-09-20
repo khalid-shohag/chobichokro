@@ -38,11 +38,11 @@ function Login(props) {
       setToken(token);
       console.log(token)
       console.log(response.status)
-      if (props.value==='admin')
+      if (props.value==='Admin Login')
         navigate('/admin', {state: {token}});
-      else if (props.value==='distributor')
+      else if (props.value==='Distributor Login')
         navigate('/distributor_page', {state: {token}});
-      else if (props.value==='theatre')
+      else if (props.value==='Theatre Login')
         navigate('/theatre_page', {state: {token}});
 
     } catch (error) {

@@ -203,7 +203,7 @@ function TheatrePage() {
             {
                 (show &&
                     <div className="row">
-                    <NewShow />
+                    <NewShow token={localStorage.getItem('token')}/>
                 </div>)
             }
             {
