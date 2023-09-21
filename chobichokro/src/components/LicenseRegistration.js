@@ -90,7 +90,7 @@ function LicenseRegistration() {
         style={{
           // backgroundImage: `url(${ImageAdmin})`,
           backgroundColor: 'lightblue',
-          background: 'rgba(255, 255, 255, 0.8)',
+          background: 'transparent',
           padding: '20px',
           borderRadius: '10px',
           boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',

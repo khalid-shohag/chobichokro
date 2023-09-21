@@ -18,6 +18,7 @@ import { useLocation } from "react-router-dom";
 import AdminLogin from './AdminLogin'
 import profileImg from '../../assets/profile.png'
 import LicensePending from "./LicensePending";
+import LicenseApproved from "./LicenseApproved";
 
 const SystemAdmin = () => {
 
@@ -144,6 +145,13 @@ const SystemAdmin = () => {
             {pendingResult && (
                 <div>
                     <LicensePending token={localStorage.getItem('atoken')}/>
+                </div>
+            )}
+        </div>
+        <div>
+            {activeResult && (
+                <div>
+                    <LicenseApproved token={localStorage.getItem('atoken')}/>
                 </div>
             )}
         </div>
