@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Card, CardBody, Button} from 'reactstrap'
-import {FaMailBulk, FaPhone, Fa} from "react-icons/fa";
+import {FaEnvelope, FaPhone, Fa} from "react-icons/fa";
 import { ToastContainer, toast } from 'react-custom-alert';
 function LicensePending(props) {
 
@@ -62,11 +62,7 @@ function LicensePending(props) {
             <h1>Pending Requests</h1>
             {console.log("GET")}
            
-            { pendingReq.map((license) => {
-                if (license.status === 'pending') {
-                    {if (!findPending)  {
-                        handleFindPending()
-                    }}
+            { (pendingReq.length> 0) ? pendingReq.map((license) => {
                     return(
                         <Card key={license.id} style={{backgroundColor: 'pink', height: 'auto', width: '100%', marginTop: '60px'}}>
                             <CardBody>
@@ -75,7 +71,7 @@ function LicensePending(props) {
                                         <h2>License Type: {license.licenseType}</h2>
                                         <h3>{license.username}</h3>
                                         <FaPhone></FaPhone> {license.phoneNumber}
-                                        <FaMailBulk></FaMailBulk> {license.email}
+                                        <FaEnvelope style={{marginLeft :'10px'}}></FaEnvelope> {license.email}
                                         <h4>Transaction No. {license.transactionNumber}</h4>
                                     </div>
                                     <div style={{flex: 1}}>
@@ -96,18 +92,20 @@ function LicensePending(props) {
                         </Card>
                         )
 
-                }
                 
-            })
+                
+            }) : (
+                (
+                  
+                   <Card style={{marginTop: '150px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', width: '300px', height: '60px', borderRadius: '7px', marginLeft: '400px'}}>
+                        <CardBody>No Pending Request</CardBody>
+                   </Card>
+                    
+                )
+            )
             
             }
-            {!findPending ? (
-               <Card style={{marginTop: '150px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', width: '300px', height: '60px', borderRadius: '7px', marginLeft: '400px'}}>
-                    <CardBody>No Pending Request</CardBody>
-               </Card>
-            ): (<div></div>)}
             
-           
             
         </div>
     );

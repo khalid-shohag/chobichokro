@@ -37,13 +37,18 @@ function Login(props) {
       const type = response.data.tokenType;
       setToken(token);
       console.log(token)
-      console.log(response.status)
-      if (props.value==='Admin Login')
+      console.log(response.data)
+      
+      if (props.value==='Distributor Login' && response.data.roles[0]==='ROLE_DISTRIBUTOR')
+        navigate('/distributor_page/'+response.data.id, {state: {token}});
+      else if (props.value==='Theatre Login'  && response.data.roles[0]==='ROLE_USER')
+        navigate('/theatre_page/'+response.data.id, {state: {token}});
+      else if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER')
+        navigate('/audience_dashboard/'+response.data.id, {state: {token}});
+      else if (props.value==='Admin Login'  && response.data.roles[0]==='ROLE_ADMIN')
         navigate('/admin', {state: {token}});
-      else if (props.value==='Distributor Login')
-        navigate('/distributor_page', {state: {token}});
-      else if (props.value==='Theatre Login')
-        navigate('/theatre_page', {state: {token}});
+      else
+        alert('Invalid')
 
     } catch (error) {
       console.error('Error occured', error);

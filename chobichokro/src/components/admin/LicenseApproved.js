@@ -15,7 +15,7 @@ function LicenseApproved(props) {
 
     const getAllPendingReq = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/license/get/pending')
+            const response = await axios.get('http://localhost:8080/api/license/get/approved')
             setPendingReq(response.data)
             console.log("Data: ", response.data)
         } catch (e) {
@@ -44,8 +44,8 @@ function LicenseApproved(props) {
             <h1>Approved License</h1>
             {console.log("GET")}
            
-            { pendingReq.map((license) => {
-                if (license.status === 'activated') {
+            { (pendingReq.length>0) ? (pendingReq.map((license) => {
+                if (license.status === 'approved') {
                     {if (!findPending)  {
                         handleFindPending()
                     }}
@@ -73,14 +73,14 @@ function LicenseApproved(props) {
 
                 }
                 
-            })
+            })) : (
+                <Card style={{marginTop: '150px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', width: '300px', height: '60px', borderRadius: '7px', marginLeft: '400px'}}>
+                    <CardBody>No Approved Request</CardBody>
+                </Card>
+            )
             
             }
-            {!findPending ? (
-               <Card style={{marginTop: '150px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', width: '300px', height: '60px', borderRadius: '7px', marginLeft: '400px'}}>
-                    <CardBody>No Approved Request</CardBody>
-               </Card>
-            ): (<div></div>)}
+           
             
            
             

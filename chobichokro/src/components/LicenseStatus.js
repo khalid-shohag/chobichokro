@@ -37,16 +37,20 @@ function LicenseStatus() {
         const formData = new FormData()
         formData.append('username', name)
         formData.append('password', password)   
-        formData.append('licenseNumber', licenseNumber)
-        formData.append('licenseType', licenseType) 
-        formData.append('address', address)
+        formData.append('licenseId', licenseNumber)
+        // formData.append('licenseType', licenseType) 
+        // formData.append('address', address)
         formData.append('email', email)
-        formData.append('id', identificationNumber)
-        let api = 'http://localhost:8080/api/distributor/add/new_distributor'
-        if (licenseType === 'theatre') {
+        let roles = 'ROLE_DISTRIBUTOR'
+        
+        // formData.append('id', identificationNumber)
+        let api = 'http://localhost:8080/api/auth/signup'
+        if (licenseType === 'theatre_owner') {
+          roles = 'ROLE_THEATRE'
           formData.append('numberOfScreens', screen) 
-          api = 'http://localhost:8080/api/theater/add/new_theater'
+          // api = 'http://localhost:8080/api/theater/add/new_theater'
         }
+        formData.append('roles', roles)
 
         try {
           const response = await axios.post(api, formData);
@@ -54,7 +58,11 @@ function LicenseStatus() {
 
           const token = response.data.token; 
           console.log('Server response:', response.data)
-          licenseType === 'theater' ? navigate('/theatre_login') : navigate('/distributor_login')
+          if (response.data.message === 'Error: Username is already taken!') {
+            alert('Username is already taken!')
+          }
+          else
+            licenseType === 'theatre_owner' ? navigate('/theatre_login') : navigate('/distributor_login')
           
 
         } catch (error) {
@@ -185,8 +193,9 @@ function LicenseStatus() {
             <h5>ID: {identificationNumber}</h5>
             <h5>Email: {email}</h5>
           </div>
-
-          {(licenseType === 'theatre') ? (
+          
+          {console.log(licenseType)}
+          {(licenseType === 'theatre_owner') ? (
             <div >
             <label htmlFor="screen" style={{color: '#2A925E'}}>No. of Screens:</label>
             <input

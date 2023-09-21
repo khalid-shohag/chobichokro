@@ -127,7 +127,7 @@ const SystemAdmin = () => {
             <li>
                 <Button style={{marginLeft: '200px', height: '60px', background: 'gray',
                 borderColor:'rgba(0,0,0,0.2)', borderRadius:100,}} onClick={handleActiveClick}>
-                    New Requests
+                    Approved Requests
                     <IconButton aria-label="notifications">
                 <Badge badgeContent={`${newValue>9 ? "9+": String(newValue)}`} color="error">
                     <NotificationsIcon />

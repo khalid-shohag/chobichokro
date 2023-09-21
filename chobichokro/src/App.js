@@ -39,9 +39,9 @@ function App() {
         <Route path='/license_status_check' element={<LicenseStatusLogin />}/>
 
         {/*Route for pages*/}
-        <Route path='/distributor_page' element={<DistributorPage />} />
-        <Route path='/theatre_page' element={<TheatrePage />} />
-        <Route path='/audience_dashboard' element={<Dashboard />} />
+        <Route path='/distributor_page/:id' element={<DistributorPage />} />
+        <Route path='/theatre_page/:id' element={<TheatrePage />} />
+        <Route path='/audience_dashboard/:id' element={<Dashboard />} />
         <Route path='/movie/:movie_id' element={<MovieDetails />} />
         <Route path='/movie/reciept' element={<Reciept />} />
         <Route path='/movie/review/:movie_id' element={<MovieReview />} />
