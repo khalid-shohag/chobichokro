@@ -5,6 +5,7 @@ import axios from "axios";
 import './Login.css'
 import LicenseStatus from "./LicenseStatus";
 import { useNavigate } from "react-router-dom";
+const bgImg = require('../assets/banner.jpg')
 
 
 function Login() {
@@ -40,6 +41,13 @@ function Login() {
         <div>
             <Navbar />
       <div className="container-license">
+      <img src={bgImg} style={{ position: 'absolute', // Position the video absolutely within the div
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover', // Maintain aspect ratio and cover entire div
+              zIndex: -1,}}/>
         <div className="column" style={{
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -49,7 +57,7 @@ function Login() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          <h1 className="animation-container animated-text" style={{color: 'black'}}>License Status Check</h1>
+          <h1 className="animation-container animated-text" style={{color: 'black', background: 'transparent'}}>License Status Check</h1>
         </div>
       
         <div className="column-license"

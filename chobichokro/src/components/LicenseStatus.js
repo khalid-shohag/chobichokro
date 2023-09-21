@@ -4,6 +4,7 @@ import { Button, Card } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import {useLocation, useNavigate} from 'react-router-dom'
+const bgImg = require('../assets/lic_reg_bg.jpg')
 
 function LicenseStatus() {
 
@@ -16,6 +17,10 @@ function LicenseStatus() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [screen, setScreen] = useState('');
+    const [post, setPost] = useState('')
+    const [licNum, setLicNum] = useState('')
+
+    const identificationNumber = generateRandomString(18)
 
     const data = location.state?.data || ''
     const name = data.username
@@ -24,6 +29,7 @@ function LicenseStatus() {
     const licenseType = data.licenseType
     const verification = data.verificationCode
     const address = data.address
+    const email = data.email
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,18 +37,25 @@ function LicenseStatus() {
         const formData = new FormData()
         formData.append('username', name)
         formData.append('password', password)   
-        formData.append('numberOfScreens', screen) 
         formData.append('licenseNumber', licenseNumber)
         formData.append('licenseType', licenseType) 
         formData.append('address', address)
+        formData.append('email', email)
+        formData.append('id', identificationNumber)
+        let api = 'http://localhost:8080/api/distributor/add/new_distributor'
+        if (licenseType === 'theatre') {
+          formData.append('numberOfScreens', screen) 
+          api = 'http://localhost:8080/api/theater/add/new_theater'
+        }
 
         try {
-          const response = await axios.post('http://localhost:8080/api/thater/add', formData);
+          const response = await axios.post(api, formData);
 
 
           const token = response.data.token; 
           console.log('Server response:', response.data)
-          navigate('/theatre_login')
+          licenseType === 'theater' ? navigate('/theatre_login') : navigate('/distributor_login')
+          
 
         } catch (error) {
           console.error('Error occured', error);
@@ -74,6 +87,13 @@ function LicenseStatus() {
 
             }}
             >
+               <img src={bgImg} style={{ position: 'absolute', // Position the video absolutely within the div
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover', // Maintain aspect ratio and cover entire div
+              zIndex: -1,}}/>
                 <div
 
                style={{
@@ -144,7 +164,7 @@ function LicenseStatus() {
          <div style={{flex: 1}}>
             {isVerified && (
                 <div style={{flex: 1}}>
-                    <Card style={{backgroundColor: 'gold', borderRadius: '6px', width: '300px', height:'200px', marginTop: '20px', marginLeft: '20px'}}>
+                    <Card style={{backgroundColor: 'gold', borderRadius: '6px', width: '300px', height:'230px', marginTop: '20px', marginLeft: '20px'}}>
                         <Card.Header>
                             <h6>Registration</h6>
                         </Card.Header>
@@ -160,8 +180,14 @@ function LicenseStatus() {
               onChange={(e) => setUsername(e.target.value)}
             /> */}
             <h5>User Name: {name}</h5>
+            <h5>Address: {address}</h5>
+            <h5>License No: {licenseNumber}</h5>
+            <h5>ID: {identificationNumber}</h5>
+            <h5>Email: {email}</h5>
           </div>
-          <div >
+
+          {(licenseType === 'theatre') ? (
+            <div >
             <label htmlFor="screen" style={{color: '#2A925E'}}>No. of Screens:</label>
             <input
               type="screen"
@@ -171,6 +197,9 @@ function LicenseStatus() {
               onChange={(e) => setScreen(e.target.value)}
             />
           </div>
+          ): (<div></div>)}
+          
+      
           <div >
             <label htmlFor="password" style={{color: '#2A925E'}}>Password:</label>
             <input
@@ -213,3 +242,15 @@ function LicenseStatus() {
 }
 
 export default LicenseStatus;
+
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters.charAt(randomIndex);
+  }
+
+  return result;
+}

@@ -94,25 +94,6 @@ const NewShow = (props) => {
 
 
     makeSchedule(startDate, endDate, showTime, movieName, hall, idTheatre, props.token)
-
-    // const formData = new FormData();
-    // formData.append('movieName', name);
-    // formData.append('scheduleDate', time);
-    // formData.append('hallNumber', hall);
-    //
-    // try {
-    //   const response = await axios.post('http://localhost:8080/api/schedule/add', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   });
-    //
-    //   console.log("Successful", response.data);
-    //   console.log(name, time, hall);
-    //
-    // } catch (error) {
-    //   console.error('Error sending data:', error);
-    // }
   };
 
   const handleSubmit = (e) => {

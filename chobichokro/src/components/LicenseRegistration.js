@@ -3,7 +3,7 @@ import Navbar from "./navbar";
 import { useState } from "react";
 import '../components/design_file/LicenseRegistration.css'
 import axios from 'axios'
-
+const bgImg = require('../assets/banner.jpg')
 function LicenseRegistration() {
 
     const [username, setUsername] = useState('');
@@ -52,6 +52,13 @@ function LicenseRegistration() {
         <div>
             <Navbar />
             <div className="container-license">
+            <img src={bgImg} style={{ position: 'absolute', // Position the video absolutely within the div
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: 'auto',
+              objectFit: 'cover', // Maintain aspect ratio and cover entire div
+              zIndex: -1,}}/>
         <div className="column-license" style={{
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -61,7 +68,7 @@ function LicenseRegistration() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          <h1 className="animation-container animated-text" style={{color: 'black'}}>License Registration &#x1F92D;</h1>
+          <h1 className="animation-container animated-text" style={{color: 'black', background: 'transparent'}}>License Registration &#x1F92D;</h1>
         </div>
       
         <div className="column-liccense"
@@ -82,7 +89,7 @@ function LicenseRegistration() {
                
         style={{
           // backgroundImage: `url(${ImageAdmin})`,
-          backgroundColor: 'aqua',
+          backgroundColor: 'lightblue',
           background: 'rgba(255, 255, 255, 0.8)',
           padding: '20px',
           borderRadius: '10px',
