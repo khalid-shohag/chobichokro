@@ -91,47 +91,32 @@ const MovieReleaseAnnouncement = (props) => {
     formData.append('trailerLink', movieDetails.trailer)
     formData.append('status', 'upcoming')
     formData.append('description', inputValue)
-    formData.append('distributorId', "68m35e979a84h9b4b296068d")
+    // formData.append('distributorId', "68m35e979a84h9b4b296068d")
     formData.append('image', selectedPosters[0])
 
     console.log("Date: ", movieDetails.releaseDate)
+    console.log("Details", formData.get('movieName'))
+    console.log("Date: ", date)
+    console.log(movieDetails.movieName, selectedGenres, selectedCasts, director, date, movieDetails.trailer, selectedPosters, inputValue)
 
     // formData.append('Authentication', `Bearer ${props.token}`)
 
     console.log('Authentication', `Bearer ${props.token}`)
 
-    const axiosInstance = axios.create({
-      baseURL: 'http://localhost:8080', // Replace with your API's base URL
-      headers: {
-        Authorization: `Bearer ${props.token}`,
+    // const axiosInstance = axios.create({
+    //   baseURL: 'http://localhost:8080', // Replace with your API's base URL
+    //   headers: {
+    //     Authorization: `Bearer ${props.token}`,
         
-      },
-    });
-
-    const movieData = {
-      
-      movieName: movieDetails.movieName,
-      genre: selectedGenres,
-      cast: selectedCasts,
-      director: 'ABCD',
-      releaseDate: "11/09/2023",
-      trailerLink: movieDetails.trailer,
-       // Pass the selected genres
-      
-      status: "upcoming",
-      description: inputValue,
-      distributorId: "64f35e979a849b4b2960866d",
-      image: selectedPosters[0],
-      
-    }
-
-    const sendMovieDataasJson = JSON.stringify(movieData);
-
-    console.log("Movie JSON",sendMovieDataasJson);
+    //   },
+    // });
 
 
-    console.log('Post Values')
-    console.log(movieDetails.movieName, movieDetails.trailer, date, selectedGenres, selectedPosters);
+    
+
+
+    // console.log('Post Values')
+    // console.log(movieDetails.movieName, movieDetails.trailer, date, selectedGenres, selectedPosters);
     
     console.log("Posters", selectedPosters);
     const reader = new FileReader();
@@ -141,27 +126,23 @@ const MovieReleaseAnnouncement = (props) => {
     console.log("Form Data: ", formData.get('image'));
     console.log("Token: ", props.token)
     try {
-      const response = await axiosInstance.post('/api/distributor/addMovie', 
+      const response = await axios.post('http://localhost:8080/api/distributor/addMovie', 
       formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          
+          Authorization: `Bearer ${props.token}`,
         }
       }
 );
 
       // Handle success and reset the form as needed
       console.log('Data sent successfully:', response.data);
-      setMovieDetails({
-        movieName: '',
-        releaseDate: '',
-        trailer: '',
-      });
-      setSelectedGenres([]);
-      setSelectedPosters([]);
-      // ... Reset other form fields as needed
+      
+  
 
     } catch (error) {
+
+      console.log("Check CMD")
       // Handle error
       console.error('Error sending data:', error);
     }
@@ -212,7 +193,7 @@ const MovieReleaseAnnouncement = (props) => {
             <input
             type="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={handleDateChange}
             placeholder="Select a date"
             style={{borderRadius: '7px'}}
             />

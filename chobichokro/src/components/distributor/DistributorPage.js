@@ -15,20 +15,20 @@ import Login from "../Login";
 
 function DistributorPage() {
     const location = useLocation();
-    // const accessToken = location.state?.token || ''; 
+    const accessToken = location.state?.token || ''; 
     const username = location.state?.name || '';
-    console.log("Pre", localStorage.getItem('dtoken'))
-    if (localStorage.getItem('dtoken')==null) {
-      console.log("Satisfied")
+    console.log("Pre", accessToken)
+    // if (localStorage.getItem('dtoken')==null) {
+    //   console.log("Satisfied")
         
-      const accessToken = location.state?.token || '';
-      console.log("Token: ", accessToken)
+    //   const accessToken = location.state?.token || '';
+    //   console.log("Token: ", accessToken)
   
-      localStorage.setItem('dtoken', accessToken); 
-    }
-  console.log("Storage", localStorage.getItem('dtoken'))
-  console.log("Token: ", location.state?.token)
-  const isAuthenticated = !!localStorage.getItem('dtoken');
+    //   localStorage.setItem('dtoken', accessToken); 
+    // }
+  // console.log("Storage", localStorage.getItem('dtoken'))
+  // console.log("Token: ", location.state?.token)
+  // const isAuthenticated = !!localStorage.getItem('dtoken');
   const [movies, setMovies] = useState([]);
   const [runningMovie, setRunningMovie] = useState([]);
   const [upcomingMovie, setUpcomingMovie] = useState([]);
@@ -53,22 +53,22 @@ function DistributorPage() {
     const [release, setRelease] = useState(false);
     const [upcoming, setUpcoming] = useState(false)
     
-    console.log("Auth: ", isAuthenticated)
-    if (isAuthenticated=='') {
-      return(
-        <div>
-          {/* <DistributorLogin /> */}
-          <div>
-            <Navbar />
-          </div>
-          <div style={{marginTop: '60px'}}>
-            <Login value={"Distributor Login"} />
-          </div>
-        </div>
-      )
-    }
+    // console.log("Auth: ", isAuthenticated)
+    // if (isAuthenticated=='') {
+    //   return(
+    //     <div>
+    //       {/* <DistributorLogin /> */}
+    //       <div>
+    //         <Navbar />
+    //       </div>
+    //       <div style={{marginTop: '60px'}}>
+    //         <Login value={"Distributor Login"} />
+    //       </div>
+    //     </div>
+    //   )
+    // }
 
-  else {
+  // else {
   
 
 
@@ -88,11 +88,11 @@ function DistributorPage() {
     };
   
 
-    const token = localStorage.getItem('dtoken')
+    const token = location.state?.token || ''
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:8080', // Replace with your API's base URL
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
           
         },
       });
@@ -101,10 +101,7 @@ function DistributorPage() {
 
     const getRunningMovies = async () => {
         try {
-          const response = await axiosInstance.get('/api/distributor/get/running_movie', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-          }});
+          const response = await axiosInstance.get('/api/distributor/get/running_movie');
           
           // Handle the response data here, e.g., set it in your component state.
           setRunningMovie(response.data);
@@ -118,10 +115,7 @@ function DistributorPage() {
 
       const getUpcomingMovies = async () => {
         try {
-          const response = await axiosInstance.get('/api/distributor/get/upcoming_movie', {
-            headers: {  
-              Authorization: `Bearer ${token}`,
-          }});
+          const response = await axiosInstance.get('/api/distributor/get/upcoming_movie');
           
           // Handle the response data here, e.g., set it in your component state.
           setUpcomingMovie(response.data);
@@ -173,6 +167,7 @@ function DistributorPage() {
       setRunning(true);
       setViewDetails(false);
       setUpcoming(false)
+      console.log("Running")
       getRunningMovies();
     }
 
@@ -233,7 +228,7 @@ function DistributorPage() {
         <div className="column-dis" >
             {announce && (
             
-            <MovieReleaseAnnouncement  token={token}/>
+            <MovieReleaseAnnouncement  token={accessToken}/>
             )}
             {release && (
             
@@ -260,7 +255,7 @@ function DistributorPage() {
    
         </div>
     );
-            }
+            // }
 }
 
 export default DistributorPage;

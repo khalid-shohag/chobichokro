@@ -14,7 +14,7 @@ function Login(props) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -33,12 +33,12 @@ function Login(props) {
       );
 
 
-      const token = response.data.accessToken; 
+      const token = response.data.token; 
       const type = response.data.tokenType;
       const name = response.data.username;
       
-      setToken(token);
-      console.log(token)
+      // setToken(token);
+      console.log("Token Login- ",token)
       console.log(response.data)
       
       if (props.value==='Distributor Login' && response.data.roles[0]==='ROLE_DISTRIBUTOR')
