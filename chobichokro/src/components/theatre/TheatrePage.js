@@ -25,7 +25,10 @@ function TheatrePage() {
     const address = location.state?.address || ''
     const id = location.state?.id || ''
 
+    console.log("Kothay token")
     console.log("Theatre DEtails: ", name, address, id)
+    console.log("Token TTT: ", token)
+    console.log('njfdjkn')
     
     
     const [show, setShow] = useState(false);

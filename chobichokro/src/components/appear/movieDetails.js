@@ -25,9 +25,10 @@ const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
     const location = useLocation()
     const {value} = useParams()
-    const token = props.token
+    const token = location.state?.token || ''
 
     console.log("TOken Theatre", token)
+    console.log('Ayuujnxfdn', `Bearer ${token}`)
 
     console.log("Values: ",location.state.id)
 
@@ -59,6 +60,8 @@ const MovieDetails = (props) => {
     const theatreId = location.state?.theatreId || ''
     const theatreName = location.state?.theatreName || ''
 
+    console.log("MOVie NAme", name)
+
     console.log("Category: ", category)
 
     const genreString = genre.map((genreItem) => genreItem).join(' ');
@@ -73,15 +76,22 @@ const MovieDetails = (props) => {
     }
 
     const [reelBooking, setReelBooking] = useState(false)
-    const handleReelBooking = () => {
-        setReelBooking(false);
+    const handleReelBooking = async () => {
+        console.log('Clicked')
+        setReelBooking(true);
         getBooking(false)
 
+        console.log('Ayuujnxfdn', `Bearer ${token}`)
+
+        
+        
         try{
-            const response = axios.post(`http://localhost:8080/api/theater/want_to_buy/${name}`, {
+            const response = await axios.post(`http://localhost:8080/api/theater/want_to_buy/${name}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    
                 }
+                
             })
             console.log('Successfull ', response.data)
         } catch(e) {
