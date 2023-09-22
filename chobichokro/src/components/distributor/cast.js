@@ -46,7 +46,7 @@ const Cast = ({onCastsSelect}) => {
 
     return (
     <div>
-      <h3>Casts</h3>
+      <h3 style={{color: 'gray', marginTop: '5px'}}>Casts</h3>
       <input
         type="text"
         value={personName}

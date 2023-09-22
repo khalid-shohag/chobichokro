@@ -21,7 +21,7 @@ const Genre = ({ onGenreSelect }) => {
 
   return (
     <div>
-      <h3>Select Genre</h3>
+      <h3 style={{color: 'gray', marginTop: '5px'}}>Select Genre</h3>
       <select style={{borderRadius: '7px'}} value={selectedOption} onChange={handleSelectChange}>
         <option value="">Select an option...</option>
         <option value="Crime">Crime</option>

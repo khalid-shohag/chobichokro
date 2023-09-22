@@ -230,6 +230,8 @@ function DistributorPage() {
             
             <MovieReleaseAnnouncement  token={accessToken}/>
             )}
+         </div >
+         <div className="column-dis first-content-dis">
             {release && (
             
             <ReleasedMovie handle = {handleView} stat={'marketout'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>

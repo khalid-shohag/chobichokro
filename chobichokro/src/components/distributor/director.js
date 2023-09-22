@@ -39,7 +39,7 @@ const Director = ({onDirectorSelect}) => {
 
     return (
         <div>
-            <h3>Directors</h3>
+            <h3 style={{color: 'gray', marginTop: '5px'}}>Directors</h3>
             <input
                 type="text"
                 value={personName}

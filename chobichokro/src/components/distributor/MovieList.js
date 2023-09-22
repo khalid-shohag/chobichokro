@@ -13,7 +13,7 @@ function MovieList(props) {
   
 
   return(
-    <div style={{marginTop: '100px'}}>
+    <div >
       <Button style={{marginBottom: '30px', width: '300px', borderRadius: '10px', cursor: 'pointer', backgroundColor: 'transparent'}}
       onClick={() => {
         props.handleChange();

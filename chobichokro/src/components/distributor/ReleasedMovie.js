@@ -183,7 +183,7 @@ function ReleasedMovie(props) {
       <div>
         {renderMovieLists()}
         
-        <div style={{marginTop: '300px', marginLeft: '100px', color: 'white'}}>
+        <div style={{ marginLeft: '100px', color: 'white'}}>
           Page {pageNo}
           <Button onClick={decrementPageNo} style={{ marginLeft: '10px', height: '40px', width: '45px', backgroundColor: 'lavender' }}>prev</Button>
           <Button onClick={incrementPageNo} style={{ marginLeft: '10px', height: '40px', width: '45px', backgroundColor: 'lavender' }}>next</Button>

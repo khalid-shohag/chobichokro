@@ -159,15 +159,16 @@ const MovieReleaseAnnouncement = (props) => {
     
     <div style={{position: 'relative', marginTop: '60px'}}>
         
-      
-      <div >
-        
-      <div style={{marginRight: 'auto'}}>
+        <div style={{marginRight: 'auto', marginLeft: '70px'}}>
             <h2>Movie Release Announcement</h2>
         </div>
+      <div style={{display: 'flex', marginTop: '50px', marginLeft: '80px'}}>
+      
+      
 
-      <form onSubmit={handleSubmit}>
-      <h3>Movie Name </h3>
+        <div style={{flex: 1, marginRight: '70px'}}>
+        <form onSubmit={handleSubmit}>
+      <h3 style={{color: 'gray'}}>Movie Name </h3>
         <input
           type="text"
           placeholder="Movie Name"
@@ -178,17 +179,17 @@ const MovieReleaseAnnouncement = (props) => {
         <div>
             <Genre onGenreSelect={handleGenreSelect}/>
         </div>
-        <h3>Description</h3>
+        <h3 style={{color: 'gray', marginTop: '5px'}}>Description</h3>
         <div>
           <textarea
-          style={{ width: '400px', height: "2rem" }}
+          style={{ width: '400px', height: "2rem", backgroundColor: 'lightblue', borderRadius: '7px', boxShadow: '5px 5px blue, 10px 10px red' }}
           onChange={handleInputChange}
           value={inputValue}
           placeholder="Add description..."
           />
 
         </div>
-        <h3>Release Date</h3>
+        <h3 style={{color: 'gray', marginTop: '5px'}}>Release Date</h3>
         <div>
             <input
             type="date"
@@ -198,7 +199,11 @@ const MovieReleaseAnnouncement = (props) => {
             style={{borderRadius: '7px'}}
             />
         </div>
-        <h3>Trailer Link</h3>
+        </form>
+        </div>
+
+      <div style={{flex: 1}}>
+        <h3 style={{color: 'gray'}}>Trailer Link</h3>
         <div>
             <input
             style    = {{width: '550px', borderRadius: '7px'}}
@@ -219,7 +224,7 @@ const MovieReleaseAnnouncement = (props) => {
             <Poster onPosterSelect={handlePosterSelect}/>
         </div>
         <div>
-          <h3>Total Cost.</h3>
+          <h3 style={{color: 'gray', marginTop: '5px'}}>Total Cost.</h3>
           <input
               style    = {{width: '180px', borderRadius: '7px'}}
               type="trailer"
@@ -229,12 +234,13 @@ const MovieReleaseAnnouncement = (props) => {
 
           />
         </div>
-        
+        </div>
         
         {/* Other form fields for release date and genre */}
-        <button type="submit" style={{borderRadius: '3px', marginTop: '10px', backgroundColor: 'yellow'}} onClick={sendMovieReleaseData}>Announce Release</button>
-      </form>
+        
+      
       </div>
+      <button type="submit" style={{ marginLeft: '450px',borderRadius: '3px', marginTop: '10px', backgroundColor: 'yellow'}} onClick={sendMovieReleaseData}>Announce Release</button>
     </div>
   );
 };
