@@ -35,12 +35,14 @@ function Login(props) {
 
       const token = response.data.accessToken; 
       const type = response.data.tokenType;
+      const name = response.data.username;
+      
       setToken(token);
       console.log(token)
       console.log(response.data)
       
       if (props.value==='Distributor Login' && response.data.roles[0]==='ROLE_DISTRIBUTOR')
-        navigate('/distributor_page/'+response.data.id, {state: {token}});
+        navigate('/distributor_page/'+response.data.id, {state: {token, name}});
       else if (props.value==='Theatre Login'  && response.data.roles[0]==='ROLE_USER')
         navigate('/theatre_page/'+response.data.id, {state: {token}});
       else if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER')

@@ -141,17 +141,7 @@ const MovieReleaseAnnouncement = (props) => {
     console.log("Form Data: ", formData.get('image'));
     console.log("Token: ", props.token)
     try {
-      const response = await axiosInstance.post('/api/movies/add', 
-      //   distributorId: "64f35e979a849b4b2960866d",
-      //   movieName: movieDetails.movieName,
-      //   releaseDate: "11/09/2023",
-      //   trailer: movieDetails.trailer,
-      //   genre: selectedGenres, // Pass the selected genres
-      //   // image: selectedPosters,
-      //   status: "upcoming",
-      //   description: inputValue, // Pass the selected posters
-      //   // ... Other data fields
-      // }
+      const response = await axiosInstance.post('/api/distributor/addMovie', 
       formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -186,7 +176,7 @@ const MovieReleaseAnnouncement = (props) => {
 
   return (
     
-    <div className='announce-movie'>
+    <div style={{position: 'relative', marginTop: '60px'}}>
         
       
       <div >
@@ -222,7 +212,7 @@ const MovieReleaseAnnouncement = (props) => {
             <input
             type="date"
             value={date}
-            onChange={handleDateChange}
+            onChange={(e) => setDate(e.target.value)}
             placeholder="Select a date"
             style={{borderRadius: '7px'}}
             />

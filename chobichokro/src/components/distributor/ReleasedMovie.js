@@ -101,7 +101,7 @@ function ReleasedMovie(props) {
     for (let i = startIndex; i < props.allMovies.length; i++) {
       const movie = props.allMovies[i];
 
-      if (movie.status === props.stat) {
+      
         movieLists.push(
             <MovieList
                 key={i}
@@ -127,7 +127,7 @@ function ReleasedMovie(props) {
         if (moviesRendered >= moviesPerPage) {
           break;
         }
-      }
+      
     }
 
     return movieLists;

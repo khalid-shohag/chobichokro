@@ -16,6 +16,7 @@ import Login from "../Login";
 function DistributorPage() {
     const location = useLocation();
     // const accessToken = location.state?.token || ''; 
+    const username = location.state?.name || '';
     console.log("Pre", localStorage.getItem('dtoken'))
     if (localStorage.getItem('dtoken')==null) {
       console.log("Satisfied")
@@ -29,6 +30,9 @@ function DistributorPage() {
   console.log("Token: ", location.state?.token)
   const isAuthenticated = !!localStorage.getItem('dtoken');
   const [movies, setMovies] = useState([]);
+  const [runningMovie, setRunningMovie] = useState([]);
+  const [upcomingMovie, setUpcomingMovie] = useState([]);
+
 
 
 
@@ -95,12 +99,32 @@ function DistributorPage() {
       
       console.log(token);
 
-    const getAllMovies = async () => {
+    const getRunningMovies = async () => {
         try {
-          const response = await axiosInstance.get('/api/movies/all');
+          const response = await axiosInstance.get('/api/distributor/get/running_movie', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+          }});
           
           // Handle the response data here, e.g., set it in your component state.
-          setMovies(response.data);
+          setRunningMovie(response.data);
+          console.log('All Movies:', response.data);
+        } catch (error) {
+          // Handle any errors that occur during the request
+          console.log('fix the errors');
+          console.error('fix the errors Error fetching movies:', error);
+        }
+      };
+
+      const getUpcomingMovies = async () => {
+        try {
+          const response = await axiosInstance.get('/api/distributor/get/upcoming_movie', {
+            headers: {  
+              Authorization: `Bearer ${token}`,
+          }});
+          
+          // Handle the response data here, e.g., set it in your component state.
+          setUpcomingMovie(response.data);
           console.log('All Movies:', response.data);
         } catch (error) {
           // Handle any errors that occur during the request
@@ -121,7 +145,7 @@ function DistributorPage() {
         setUpcoming(true)
         setAnnounce(false)
         setRunning(false)
-        getAllMovies()
+        getUpcomingMovies()
     }
     
     const hanldeAnnounce = () => {
@@ -139,7 +163,7 @@ function DistributorPage() {
         setRunning(false);
         setViewDetails(false);
         setUpcoming(false)
-        getAllMovies();
+        // getAllMovies();
     }
 
     
@@ -149,7 +173,7 @@ function DistributorPage() {
       setRunning(true);
       setViewDetails(false);
       setUpcoming(false)
-      getAllMovies();
+      getRunningMovies();
     }
 
     return(
@@ -176,9 +200,11 @@ function DistributorPage() {
       </video>
             
         <div className="column2-dis first-content-dis " >
+          
             
           <Card className="card-value-dis">
-            
+            <h1 style={{color: 'GrayText', fontStyle: 'oblique'}}>{username}</h1>
+            {console.log('Name: ',username)}
             <Card.Body>
                 <Card className="card-internal1-dis">
                     <Card.Body>
@@ -204,7 +230,7 @@ function DistributorPage() {
             </Card.Body>
           </Card>
         </div>  
-        <div className="column-dis first-content-dis" >
+        <div className="column-dis" >
             {announce && (
             
             <MovieReleaseAnnouncement  token={token}/>
@@ -215,11 +241,11 @@ function DistributorPage() {
             )}
             {running && (
             
-            <ReleasedMovie handle = {handleView} stat={'on theater'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            <ReleasedMovie handle = {handleView} stat={'on theater'} sentMoviesData = {handleMovieDetail} allMovies = {runningMovie}/>
             )}
             {upcoming && (
 
-                <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+                <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {upcomingMovie}/>
             )}
         </div>     
         <div className="column-dis first-content-dis">
