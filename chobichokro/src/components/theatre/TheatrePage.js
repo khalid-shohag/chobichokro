@@ -21,15 +21,13 @@ function TheatrePage() {
     const [ticket, setTicket] = useState(false);
     const location = useLocation();
     const token = location.state?.token || ''
-    
-    if (localStorage.getItem('token')=='') {
-        
-        const accessToken = location.state?.token || '';
-    
-        localStorage.setItem('token', accessToken); 
-    }
-    const isAuthenticated = !!localStorage.getItem('token');
+    const name = location.state?.name || ''
+    const address = location.state?.address || ''
+    const id = location.state?.id || ''
 
+    console.log("Theatre DEtails: ", name, address, id)
+    
+    
     const [show, setShow] = useState(false);
     const [runningShow, setRunningShow] = useState(true);
     const [upcomingShow, setUpcomingShow] = useState(false)
@@ -92,21 +90,6 @@ function TheatrePage() {
     const formattedDate = currentDate.toLocaleDateString(undefined, options);
 
 
-  if (!isAuthenticated)
-    return(
-        <div>
-            <div>
-            <Navbar />
-            </div>
-            <div style={{marginTop: '60px'}}>
-            <Login value={'Theatre Login'} />
-            {/* <TheatreLogin /> */}
-            </div>
-            
-        </div>
-    );
-
-    else
         return (
             <div className="container">
                 
@@ -122,8 +105,9 @@ function TheatrePage() {
           zIndex: -1, }}/>
                 
             </div>
-            
-            <div className="row" style={{marginTop: '100px'}}>
+            <h2 style={{color: 'yellowgreen', marginLeft: '650px', marginTop: '100px', fontWeight: 'bold', fontStyle: 'oblique'}}>{name.toUpperCase()}</h2>
+            <div className="row" style={{marginTop: '10px'}}>
+               
             
                 <div className="column">
                     <Button className="btn" onClick={handleRunningShow}>
@@ -212,13 +196,13 @@ function TheatrePage() {
             {
                 (runningShow &&
                     <div className="row">
-                    <RunningShow name={"Running"} status={"Released"} cat={'ticket'}/>
+                    <RunningShow token={token} name={"Running"} status={"Released"} cat={'ticket'}/>
                 </div>)
             }
             {
                 (upcomingShow &&
                     <div className="row">
-                    <RunningShow name={"Upcoming"} status={"upcoming"} cat={'reel'}/>
+                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming"} cat={'reel'}/>
                 </div>)
             }
             

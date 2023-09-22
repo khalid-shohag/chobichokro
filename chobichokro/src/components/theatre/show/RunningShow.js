@@ -9,6 +9,9 @@ import axios from "axios";
 
 export function  RunningShow(props) {
   const [movies, setMovies] = useState([]);
+
+  console.log("SFDJGJSDJG")
+  console.log("TOken props: ", props.token)
   // const navigate = useNavigate()
 
     const getAllMovies = async () => {
@@ -62,7 +65,7 @@ export function  RunningShow(props) {
                         }
                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                     return (
-                        <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, category: props.cat}}>
+                        <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, category: props.cat, theatreId: props.theatreId, thetreName: props.thetreName, token:props.token}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>

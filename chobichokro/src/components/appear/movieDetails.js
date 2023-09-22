@@ -25,6 +25,9 @@ const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
     const location = useLocation()
     const {value} = useParams()
+    const token = props.token
+
+    console.log("TOken Theatre", token)
 
     console.log("Values: ",location.state.id)
 
@@ -53,6 +56,8 @@ const MovieDetails = (props) => {
     const director = movie?.director || ''
     const releaseDate = movie?.releaseDate || ''
     const category = location.state?.category
+    const theatreId = location.state?.theatreId || ''
+    const theatreName = location.state?.theatreName || ''
 
     console.log("Category: ", category)
 
@@ -69,8 +74,19 @@ const MovieDetails = (props) => {
 
     const [reelBooking, setReelBooking] = useState(false)
     const handleReelBooking = () => {
-        setReelBooking(true);
+        setReelBooking(false);
         getBooking(false)
+
+        try{
+            const response = axios.post(`http://localhost:8080/api/theater/want_to_buy/${name}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            console.log('Successfull ', response.data)
+        } catch(e) {
+            console.log("Error: ", e)
+        }
     }
 
     const [theatre, setTheatre] = useState('');
@@ -144,7 +160,7 @@ const MovieDetails = (props) => {
             </Details>
             <Trailer>
                 <MovieTrailerPlayer>
-                    <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true} loop={true} muted={mute} controls={false} width='100%' height='100%' />
+                    <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true}  loop={true} poster={true} muted={mute} controls={false} width='100%' height='100%' />
                    { console.log("Trailer: ",trailerLink)}
                     <UnMute onClick={() => setMute(!mute)}>
                         <img src={speakerImage} alt="mute" style={{height: '25px', width: '30px', borderRadius: '25px'}}/>
@@ -176,7 +192,7 @@ const MovieDetails = (props) => {
         )}
         { reelBooking && (
             <div style={{marginTop: '20px', marginLeft: '250px'}}>
-                < ReelBook />
+                < ReelBook mmovieName={name} theatreId={theatreId} theatreName={theatreName}/>
             </div>
         )}
         </div>
