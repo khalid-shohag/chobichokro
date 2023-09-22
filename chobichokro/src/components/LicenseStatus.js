@@ -38,19 +38,19 @@ function LicenseStatus() {
         formData.append('username', name)
         formData.append('password', password)   
         formData.append('licenseId', licenseNumber)
-        // formData.append('licenseType', licenseType) 
+        formData.append('licenseType', licenseType) 
         // formData.append('address', address)
         formData.append('email', email)
-        let roles = 'ROLE_DISTRIBUTOR'
+        // let roles = 'ROLE_DISTRIBUTOR'
         
         // formData.append('id', identificationNumber)
         let api = 'http://localhost:8080/api/auth/signup'
         if (licenseType === 'theatre_owner') {
-          roles = 'ROLE_THEATRE'
+          // roles = 'ROLE_THEATRE_OWNER'
           formData.append('numberOfScreens', screen) 
           // api = 'http://localhost:8080/api/theater/add/new_theater'
         }
-        formData.append('roles', roles)
+        // formData.append('roles', roles)
 
         try {
           const response = await axios.post(api, formData);

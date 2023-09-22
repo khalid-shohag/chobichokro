@@ -1,9 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from "../navbar";
 import {Card, CardBody} from "reactstrap";
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import { FaLeaf } from 'react-icons/fa';
+import { Button } from 'react-bootstrap';
 
 function PreBooking() {
 
+    const location = useLocation()
+    const token = location.state?.token || ''
+    const [pendingBooking, setPendingBooking] = useState([])
+    const name = location.state?.name || ''
+
+    const getPendingBooking = async () => {
+
+        try {
+            const response = await axios.get(`http://localhost:8080/api/distributor/pending_movie_request/${name}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setPendingBooking(response.data.body)
+            console.log("Pending Booking: ", response.data.body)
+        } catch (error) {
+            console.log("Error fetching data", error);
+        }
+    
+    }
+
+    useEffect(() => {
+        getPendingBooking();
+    }, []);
+
+    const approvePendingBooking = async (id) => {
+        try {
+            const response = axios.post(`http://localhost:8080/api/distributor/accept_pending_request/${id}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log("Response: ", response)
+        }
+        catch(error) {
+            console.log("Error fetching data", error);
+        }
+    }
+    
     const theatreList = [
         {
             id: 1,
@@ -27,13 +70,27 @@ function PreBooking() {
             <Navbar />
             <div style={{marginTop: '80px'}}>
                 <h1>Pre Booking List </h1>
-                {theatreList.map((rv) => {
+                {pendingBooking.map((rv) => {
                     return(
                         <Card key={rv.id} style={{padding: '10px', fontStyle: 'italic', fontSize: '18px', marginBottom: '30px', borderRadius: '5px', height: 'auto', width: '100%', backgroundColor: 'lavender'}}>
                             <CardBody>
-                                <h6>{rv.name}</h6>
-                                {rv.address}
+                                <div style={{display: 'flex'}}>
+                                    <div style={{flex: 1}}>
+                                    <h6>{rv.movie.movieName}</h6>
+                                    <h5>{rv.theater.name}</h5>
+                                    <h5>{rv.theater.address}</h5>
+                                    <h5>{rv.theater.numberOfScreens}</h5>
+
+                                    </div>
+                                    <div style={{flex: 1}}>
+                                        <Button style={{background: 'transparent'}} onClick={approvePendingBooking(rv.id)}>
+                                            Approve
+                                        </Button>
+                                    </div>
+                                </div>
+                                
                             </CardBody>
+                            
                         </Card>
                     );
                 })}

@@ -250,7 +250,7 @@ function DistributorPage() {
             {viewDetails && (
               //  console.log('val not getting'),
               //  console.log(name, genre, link, status, date),
-                <Pagination id={id} name={name} imageSrc={imageSrc} genre={genre} cast={cast} director={director} link={link} status = {status} date={date} description={description} />
+                <Pagination token={token} id={id} name={name} imageSrc={imageSrc} genre={genre} cast={cast} director={director} link={link} status = {status} date={date} description={description} />
             )}
         </div>
     </div>

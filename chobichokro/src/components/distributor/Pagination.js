@@ -14,7 +14,7 @@ function Pagination(props) {
 
   }
   const goBookingList = (id) => {
-    return navigate('/movie/pre-booking/hall/list/'+id)
+    return navigate('/movie/pre-booking/hall/list/'+id, {state: {token: props.token, name: props.name}})
   }
   const goRunningShowList = (id) => {
     return navigate('/movie/running-show/list/'+id)
@@ -118,7 +118,7 @@ function Pagination(props) {
                    <h3>Total Footfalls: </h3>
                    <div style={{display: 'flex'}}>
                      <div style={{flex: 1}}>
-                       <h1>Verdict -> </h1>
+                       <h1>Verdict - </h1>
                      </div>
                      <div style={{
                        marginRight: '250px',

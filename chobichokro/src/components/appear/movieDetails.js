@@ -81,12 +81,12 @@ const MovieDetails = (props) => {
         setReelBooking(true);
         getBooking(false)
 
-        console.log('Ayuujnxfdn', `Bearer ${token}`)
+        console.log('AXN', `Bearer ${token}`)
 
         
         
         try{
-            const response = await axios.post(`http://localhost:8080/api/theater/want_to_buy/${name}`, {
+            const response = await axios.post(`http://localhost:8080/api/theater/want_to_buy/${name}`,{}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     
