@@ -194,6 +194,7 @@ const MovieDetails = (props) => {
             </Details>
             {(status==='Released' && theatreName!='') ? (
                 <div style={{marginTop: '150px', color: 'yellowgreen'}}>
+                    <h2 style={{color: 'lavender'}}>Theatre Name: {theatreName}</h2>
                     <h2>Total Footfalls: </h2>
                     <h2>Total Net collection: </h2>
                     <Details>
