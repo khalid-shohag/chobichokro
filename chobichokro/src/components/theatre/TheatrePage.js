@@ -208,7 +208,7 @@ function TheatrePage() {
             {
                 (runningShow &&
                     <div className="row">
-                    <RunningShow token={token} name={"Running"} status={"Released"} cat={'ticket'}/>
+                    <RunningShow token={token} name={"Running"} status={"Released"} cat={'ticket'} theatreName={name} theatreId={id}/>
                 </div>)
             }
             {

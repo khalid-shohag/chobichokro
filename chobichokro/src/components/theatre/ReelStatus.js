@@ -51,6 +51,7 @@ function ReelStatus(props) {
                                     <h5>Now, you can add the movie show at your theatre</h5>
                                     <h3>Let's Watch</h3>
                                     <h5>&#128522;&#128522;&#128522;&#128522;</h5>
+                                    <h5>&#128526;&#128526;&#128526;&#128526;</h5>
                                 </div>
 
                             </div>

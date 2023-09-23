@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player'
 import { Link } from "react-router-dom";
 import muteImage from '../../assets/muted.png'
 import unmuteImage from '../../assets/unmuted.png'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FaWatchmanMonitoring, FaEye } from 'react-icons/fa';
@@ -26,6 +26,7 @@ const MovieDetails = (props) => {
     const location = useLocation()
     const {value} = useParams()
     const token = location.state?.token || ''
+    const navigate = useNavigate()
 
     console.log("TOken Theatre", token)
     console.log('Ayuujnxfdn', `Bearer ${token}`)
@@ -59,10 +60,21 @@ const MovieDetails = (props) => {
     const category = location.state?.category
     const theatreId = location.state?.theatreId || ''
     const theatreName = location.state?.theatreName || ''
+    const status = location.state?.status || ''
+
+    console.log("STatus ", status)
+    console.log("Theatre Name: ", theatreName)
 
     console.log("MOVie NAme", name)
 
     console.log("Category: ", category)
+
+    const goReview = (id) => {
+        console.log("Review id", id)
+        return navigate('/movie/review/'+id)//<Link to={'/movie/review/'+id} />
+    
+    }
+    const handleReviewClick = () => goReview(props.id);
 
     const genreString = genre.map((genreItem) => genreItem).join(' ');
     const allCasts = cast.map((cst) => cst).join(', ');
@@ -144,8 +156,16 @@ const MovieDetails = (props) => {
                 <Description>
                     {description}
                 </Description>
-                
-                {category==='ticket' ? (
+
+                {(status==='Released' && theatreName!='') ? (
+                    <div>
+                        
+                    </div>
+                ) : (
+                    
+                    <div>
+                        
+                        {category==='ticket' ? (
                      <BookTicket onClick={handleBooking}>
                      <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} />
                      {/* <FaTicketAlt></FaTicketAlt> */}
@@ -162,13 +182,30 @@ const MovieDetails = (props) => {
                 )}
                     
                     
-                <BookTicket>
+                <BookTicket onClick={handleReviewClick}>
                         {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
                         <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
                         <span >REVIEWS</span>
                     </BookTicket>
+                    </div>
+                ) }
+                
+                
             </Details>
-            <Trailer>
+            {(status==='Released' && theatreName!='') ? (
+                <div style={{marginTop: '150px', color: 'yellowgreen'}}>
+                    <h2>Total Footfalls: </h2>
+                    <h2>Total Net collection: </h2>
+                    <Details>
+                    <BookTicket onClick={handleReviewClick}>
+                        {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
+                        <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
+                        <span >REVIEWS</span>
+                    </BookTicket> 
+                    </Details>
+                </div>
+            ): (
+                <Trailer>
                 <MovieTrailerPlayer>
                     <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true}  loop={true} poster={true} muted={mute} controls={false} width='100%' height='100%' />
                    { console.log("Trailer: ",trailerLink)}
@@ -176,7 +213,9 @@ const MovieDetails = (props) => {
                         <img src={speakerImage} alt="mute" style={{height: '25px', width: '30px', borderRadius: '25px'}}/>
                     </UnMute>
                 </MovieTrailerPlayer>
-            </Trailer>
+               </Trailer>
+            )}
+            
         </Container>
 
         {booking && (
