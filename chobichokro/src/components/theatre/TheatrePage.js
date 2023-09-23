@@ -291,8 +291,7 @@ function TheatrePage() {
                  {book && (
                     <SeatBooking theatre={''} hall={hall} show={showTime} movie={movieName} date={formattedDate}/>
                  )}
-                console.log("Show: ", showTime)
-                console.log("Movie: ", movieName)
+               
 
             </div>
 
