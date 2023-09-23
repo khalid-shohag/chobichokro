@@ -14,6 +14,9 @@ import TheatreLogin from './TheatreLogin'
 import TicketBooking from "../appear/TicketBooking";
 import ReelStatus from "./ReelStatus";
 import axios from "axios";
+import {render} from "@testing-library/react";
+// import {delay} from "@reduxjs/toolkit/src/utils";
+
 const theatreImg = require('../../assets/theatre-studio-01.jpg');
 
 
@@ -25,6 +28,7 @@ function TheatrePage() {
     const name = location.state?.name || ''
     const address = location.state?.address || ''
     const id = location.state?.id || ''
+
 
     console.log("Kothay token")
     console.log("Theatre DEtails: ", name, address, id)
@@ -114,9 +118,11 @@ function TheatrePage() {
         setMovieName(movie);
     }
 
-    const showDate = []
-    const screenNum = [] 
-
+    const showDateSet = new Set()
+    const screenNumSet = new Set()
+    // const shwDate = []
+    let [screenNum, setScreenNum] = useState([])
+    let [showDate, setShowDate] = useState([])
     const getShowDate = async () => {
         const formData = new FormData();
         console.log('Form Date', movieName, id)
@@ -131,9 +137,18 @@ function TheatrePage() {
 
             response.data.map((val) => {
                 console.log("VAl", val)
-                showDate.push(val.showtime)
-                screenNum.push(val.hallNumber)
+                showDateSet.add(val.showtime)
+                screenNumSet.add(val.hallNumber)
             })
+            showDate = []
+            showDateSet.forEach((val) => {
+                showDate.push(val)
+            })
+            screenNum = []
+            screenNumSet.forEach((val) => {
+                screenNum.push(val)
+            })
+
         } catch(e) {
             console.log("Error getting Schedule ID: ", e)
         }
@@ -146,7 +161,13 @@ function TheatrePage() {
         
     }
     useEffect(() => {
-        getShowDate()
+        getShowDate().then(() => {
+            console.log("data fetched, now work the next part")
+            setScreenNum(screenNum)
+            console.log("screen number change kore felchi");
+            setShowDate(showDate)
+
+        })
     }, [movieName])
     
 
@@ -226,7 +247,7 @@ function TheatrePage() {
                 {/* <div className="column">Row 2 - Column 2</div> */}
             </div>
             {
-                (ticket &&
+                ticket &&
                 <div className="row">
                     <div>
                 {/* <Card style={{backgroundColor: 'purple'}}>
@@ -234,14 +255,20 @@ function TheatrePage() {
                         <h5>name</h5>
                     </CardBody>
                 </Card> */}
-                
-                
-                
-                
+
+
+
+
                 <div style={{display: 'flex'}}>
                     <div style={{flex: 1, marginLeft: '220px'}}>
                     <h5>{<TicketBooking onSelectedOptions = {handleMovie} name={"Movie"} val = {movies} stat={'yes'}/>}</h5>
                     </div>
+                    {
+                        setTimeout(() => {
+                            console.log("Show Date: ", showDate)
+                            console.log("Screen Number: ", screenNum)
+                        }, 2500)
+                    }
                     <div style={{flex: 1}}>
                         <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val = {screenNum} stat={'no'} />}</h5>
                     </div>
@@ -251,12 +278,12 @@ function TheatrePage() {
 
                  </div>
                 <SeatBooking theatre={''} hall={hall} show={showTime} movie={movieName} date={formattedDate}/>
-                {console.log("Show: ", showTime)}
-                {console.log("Movie: ", movieName)}
+                console.log("Show: ", showTime)
+                console.log("Movie: ", movieName)
 
             </div>
-           
-                </div>)
+
+                </div>
                 
             }
             {

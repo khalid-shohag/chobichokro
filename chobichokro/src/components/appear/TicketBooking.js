@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const TicketBooking = (props) => {
   const [selectedOption, setSelectedOption] = useState('');
+
   const movies = props.val
   const status = props.stat
   console.log("Movies Ticket: ", movies)
@@ -22,10 +23,10 @@ const TicketBooking = (props) => {
         <option value="">{props.name}...</option>
         {movies.map((mv) => {
 
-          console.log("\n\n\nMVVVVVV\n\n", mv)
+          console.log("\n\n\nMVVVVV\n\n", mv)
           
           return(
-              <option key={mv} value={mv}>{mv}</option>
+              <option key={mv} value={mv}> {mv} </option>
           )
           })}
           </select>
