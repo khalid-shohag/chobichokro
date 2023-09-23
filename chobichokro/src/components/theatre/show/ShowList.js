@@ -40,9 +40,9 @@ const ShowList = ({token, onMovieName}) => {
       
       <select style={{ borderRadius: '7px' }} value={selectedOption} onChange={handleSelectChange}>
         <option value="">Select a movie...</option>
-        {movies.map((movie) => {
+        {movies.map((mv) => {
           return(
-              <option key={movie.id} value={movie.movieName}>{movie.movieName}</option>
+              <option key={mv.movie.id} value={mv.movie.movieName}>{mv.movie.movieName}</option>
           )
         })}
         {/*<option value="Jawaan">Jawaan</option>*/}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../navbar";
 import '../distributor/DistributorPage.css'
 import { Button, Card } from "react-bootstrap";
@@ -13,6 +13,7 @@ import Login from "../Login";
 import TheatreLogin from './TheatreLogin'
 import TicketBooking from "../appear/TicketBooking";
 import ReelStatus from "./ReelStatus";
+import axios from "axios";
 const theatreImg = require('../../assets/theatre-studio-01.jpg');
 
 
@@ -35,6 +36,31 @@ function TheatrePage() {
     const [runningShow, setRunningShow] = useState(true);
     const [upcomingShow, setUpcomingShow] = useState(false)
     const [reel, setReel] = useState(false)
+    const [movies, setMovies] = useState([])
+    // const [showDate, setShowDate] = useState([])
+    // const [screenNo, setScreenNo] = useState([])
+
+    const getAllTheatreMovies = async () => {
+        try {
+          const response = await axios.get('http://localhost:8080/api/theater/get/all_my_movie', {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          setMovies(response.data)
+        //   console.log("Running Movies: ", response.data)
+        } catch (error) {
+          console.log("Not getting Movies: ", error)
+        }
+    
+      }
+    
+      useEffect(() => {
+        getAllTheatreMovies()
+      }, [])  
+
+    console.log("Running Movies: ", movies)
+
     const handleTicket = () => {
         setTicket(true);
         setShow(false);
@@ -83,9 +109,46 @@ function TheatrePage() {
         setShowTime(show);
     }
     const [movieName, setMovieName] = useState('')
+    
     const handleMovie = (movie) => {
         setMovieName(movie);
     }
+
+    const showDate = []
+    const screenNum = [] 
+
+    const getShowDate = async () => {
+        const formData = new FormData();
+        console.log('Form Date', movieName, id)
+        formData.append('movieName', movieName)
+        formData.append('theaterId', id) 
+        var response = null 
+        try {
+            response = await axios.get(`http://localhost:8080/api/dropdown/movie/theater?movieName=${movieName}&theaterId=${id}`)
+            console.log("Show Date: ", response.data)
+            // setShowDate(response.data.showtime)
+            // setScreenNo(response.data.hallNumber)
+
+            response.data.map((val) => {
+                console.log("VAl", val)
+                showDate.push(val.showtime)
+                screenNum.push(val.hallNumber)
+            })
+        } catch(e) {
+            console.log("Error getting Schedule ID: ", e)
+        }
+        console.log("\n\\n\n\n\n\n\n")
+        console.log(response.data)
+        console.log("\n\\n\n\n\n\n\n")
+        console.log("Show DATE", showDate)
+        console.log('\n\n')
+        console.log('HAll\n\n', screenNum)
+        
+    }
+    useEffect(() => {
+        getShowDate()
+    }, [movieName])
+    
 
     //get Current Date
     const currentDate = new Date();
@@ -177,13 +240,13 @@ function TheatrePage() {
                 
                 <div style={{display: 'flex'}}>
                     <div style={{flex: 1, marginLeft: '220px'}}>
-                    <h5>{<TicketBooking onSelectedOptions = {handleMovie} name={"Movie"} val1={"Movie 1"} val2={"Movie 2"} val3={"Movie 3"} />}</h5>
+                    <h5>{<TicketBooking onSelectedOptions = {handleMovie} name={"Movie"} val = {movies} stat={'yes'}/>}</h5>
                     </div>
                     <div style={{flex: 1}}>
-                        <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val1={"Hall 1"} val2={"Hall 2"} val3={"Hall 3"} />}</h5>
+                        <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val = {screenNum} stat={'no'} />}</h5>
                     </div>
                     <div style={{flex: 1}}>
-                        <h5> {<TicketBooking onSelectedOptions = {handleShowTime} name={"Show"} val1={"12:30 pm"} val2={"3:30 pm"} val3={"6:30 pm"} />}</h5>
+                        <h5> {<TicketBooking onSelectedOptions = {handleShowTime} name={"Show"} val = {showDate} stat={'no'} />}</h5>
                     </div>
 
                  </div>
