@@ -174,10 +174,19 @@ function TheatrePage() {
                 
                 
                 
-                <h5>Theatre: </h5>
-                <h5>{<TicketBooking onSelectedOptions = {handleMovie} name={"Movie"} val1={"Movie 1"} val2={"Movie 2"} val3={"Movie 3"} />}</h5>
-                <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val1={"Hall 1"} val2={"Hall 2"} val3={"Hall 3"} />}</h5>
-                <h5> {<TicketBooking onSelectedOptions = {handleShowTime} name={"Show"} val1={"12:30 pm"} val2={"3:30 pm"} val3={"6:30 pm"} />}</h5>
+                
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: 1, marginLeft: '220px'}}>
+                    <h5>{<TicketBooking onSelectedOptions = {handleMovie} name={"Movie"} val1={"Movie 1"} val2={"Movie 2"} val3={"Movie 3"} />}</h5>
+                    </div>
+                    <div style={{flex: 1}}>
+                        <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val1={"Hall 1"} val2={"Hall 2"} val3={"Hall 3"} />}</h5>
+                    </div>
+                    <div style={{flex: 1}}>
+                        <h5> {<TicketBooking onSelectedOptions = {handleShowTime} name={"Show"} val1={"12:30 pm"} val2={"3:30 pm"} val3={"6:30 pm"} />}</h5>
+                    </div>
+
+                 </div>
                 <SeatBooking theatre={''} hall={hall} show={showTime} movie={movieName} date={formattedDate}/>
                 {console.log("Show: ", showTime)}
                 {console.log("Movie: ", movieName)}
@@ -194,7 +203,7 @@ function TheatrePage() {
                 </div>)
             }
             {
-                (reel && <div> < ReelStatus /> </div>)
+                (reel && <div> < ReelStatus token={token}/> </div>)
             }
             {
                 (runningShow &&

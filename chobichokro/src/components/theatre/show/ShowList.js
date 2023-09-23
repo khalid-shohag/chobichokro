@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 const ShowList = ({token, onMovieName}) => {
@@ -17,7 +17,7 @@ const ShowList = ({token, onMovieName}) => {
 
   const getAllTheatreMovies = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/theater/all_my_movie', {
+      const response = await axios.get('http://localhost:8080/api/theater/get/all_my_movie', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -29,7 +29,11 @@ const ShowList = ({token, onMovieName}) => {
 
   }
 
-  getAllTheatreMovies()
+  useEffect(() => {
+    getAllTheatreMovies()
+  }, [])  
+
+  
 
   return (
     <div>
