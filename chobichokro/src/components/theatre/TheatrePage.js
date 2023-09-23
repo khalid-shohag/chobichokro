@@ -118,6 +118,11 @@ function TheatrePage() {
         setMovieName(movie);
     }
 
+    const [book, setBook] = useState(false)
+    const handleBook = () => {
+        setBook(true)
+    }
+
     const showDateSet = new Set()
     const screenNumSet = new Set()
     // const shwDate = []
@@ -275,9 +280,17 @@ function TheatrePage() {
                     <div style={{flex: 1}}>
                         <h5> {<TicketBooking onSelectedOptions = {handleShowTime} name={"Show"} val = {showDate} stat={'no'} />}</h5>
                     </div>
+                    <div style={{flex: 1}}>
+                        <Button onClick={handleBook} style={{backgroundColor: 'yellowgreen'}}>
+                            Book
+                        </Button>
+
+                    </div>
 
                  </div>
-                <SeatBooking theatre={''} hall={hall} show={showTime} movie={movieName} date={formattedDate}/>
+                 {book && (
+                    <SeatBooking theatre={''} hall={hall} show={showTime} movie={movieName} date={formattedDate}/>
+                 )}
                 console.log("Show: ", showTime)
                 console.log("Movie: ", movieName)
 
