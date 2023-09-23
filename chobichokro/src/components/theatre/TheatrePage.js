@@ -289,12 +289,11 @@ function TheatrePage() {
 
                  </div>
 
-                <SeatBooking theatre={id} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
                
 
                  {book && (
-                    <SeatBooking theatre={''} hall={hall} show={showTime} movie={movieName} date={formattedDate}/>
-                 )}
+                <SeatBooking theatre={id} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
+                )}
 
 
             </div>
