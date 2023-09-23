@@ -133,7 +133,7 @@ function TheatrePage() {
         console.log('Form Date', movieName, id)
         formData.append('movieName', movieName)
         formData.append('theaterId', id) 
-        var response = null 
+        let response = null
         try {
             response = await axios.get(`http://localhost:8080/api/dropdown/movie/theater?movieName=${movieName}&theaterId=${id}`)
             console.log("Show Date: ", response.data)
@@ -288,10 +288,14 @@ function TheatrePage() {
                     </div>
 
                  </div>
+
+                <SeatBooking theatre={id} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
+               
+
                  {book && (
                     <SeatBooking theatre={''} hall={hall} show={showTime} movie={movieName} date={formattedDate}/>
                  )}
-               
+
 
             </div>
 

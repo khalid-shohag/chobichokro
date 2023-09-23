@@ -5,6 +5,7 @@ import { CardBody, CardFooter, CardHeader } from 'reactstrap';
 import { useState } from 'react';
 import Reciept from '../appear/receipt';
 import PDFViewer from '@react-pdf/renderer';
+import axios from "axios";
 
 
 
@@ -12,10 +13,32 @@ class SeatBooking extends React.Component {
 
 
 
-  
- 
-    constructor() {
-      super();
+    get_available_seats = async (props) => {
+        let response = null
+        const theatre = props.theatre
+        const hall = props.hall
+        const showTime = props.show
+        const movieName = props.movie
+        const date = props.date
+        const token = "Bearer " + props.token;
+        let url = `http://localhost:8080/api/dropdown/get/schedule?movieName=${movieName}&theaterId=${theatre}&date=${date}&hallNumber=${hall}`;
+        console.log(url)
+        try {
+            response = await axios.get(url,{
+                headers:{
+                    Authorization: token
+                }
+            })
+        }catch (e){
+            console.log(e)
+        }
+        if(response == null) return ""
+        return response.data
+    }
+
+
+    constructor(props) {
+      super(props);
         this.state = {
           receipt: false,
         seat: [
@@ -80,6 +103,9 @@ class SeatBooking extends React.Component {
       const showTime = this.props.show
       const movieName = this.props.movie
       const date = this.props.date
+        console.log(this.props)
+        console.log(this.get_available_seats(this.props))
+
       
       return (
         <div style={{marginLeft: '120px'}}>
