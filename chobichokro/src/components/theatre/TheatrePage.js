@@ -60,9 +60,10 @@ function TheatrePage() {
         }
     
       }
+
     
       useEffect(() => {
-        getAllTheatreMovies()
+        getAllTheatreMovies().then(r => console.log("Movies: ", movies)).catch(e => console.log("Error: ", e))
       }, [])  
 
     console.log("Running Movies: ", movies)
@@ -202,9 +203,9 @@ function TheatrePage() {
                 
             </div>
             <h2 style={{color: 'yellowgreen', marginLeft: '650px', marginTop: '100px', fontWeight: 'bold', fontStyle: 'oblique'}}>{name.toUpperCase()}</h2>
-            {addTheatreMoney(setAmount)  
+            {addTheatreMoney(amount,setAmount, token)
             }
-            {console.log("Amount", amount)}
+            {/*{console.log("Amount", amount)}*/}
             <div className="row" style={{marginTop: '10px'}}>
                
                 
@@ -340,7 +341,24 @@ function TheatrePage() {
 
 export default TheatrePage;
 
-function addTheatreMoney(onAmount) {
+
+
+function addTheatreMoney(amount, onAmount, token) {
+    const addMoney = async (amount) => {
+        try {
+            let url = `http://localhost:8080/api/user/add_money?amount=${amount}`
+            const response = await axios.post(url, {}, {
+                headers: {
+                    Authorization : `Bearer ${token}`
+                }
+            }).then((response) => {
+                console.log("Response: ", response)
+            })
+        } catch (error) {
+            console.log("Error: ", error)
+
+        }
+    }
     // const [amount, setAmount] = useState('')
     return(
         <Popup contentStyle={{ background: 'lavender', width: 'auto', borderRadius: '10px' }} trigger={<button style={{width: '150px', borderRadius: '5px', height: 'auto', marginTop: '10px', backgroundColor: 'lightcoral', color: 'white', fontWeight: 'bold', fontStyle: 'oblique', fontSize: '22'}}>Add Money</button>} position="right center"
@@ -356,7 +374,13 @@ function addTheatreMoney(onAmount) {
                         }} />
                     </form>
                     <button style={{backgroundColor: 'greenyellow', borderRadius: '2px', marginTop: '10px', marginLeft: '120px'}} onClick=
-                        {() => close()}>
+                        {() => {
+                            addMoney(amount).then((value) => {
+                                console.log("Amount: ", onAmount)
+                                console.log("Value: ", value)
+                            })
+                            close()
+                        }}>
                             Done
                             
                     </button>
