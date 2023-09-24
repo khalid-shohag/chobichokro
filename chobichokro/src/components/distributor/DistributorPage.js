@@ -225,13 +225,8 @@ function DistributorPage() {
             </Card.Body>
           </Card>
         </div>  
-        <div className="column-dis" >
-            {announce && (
-            
-            <MovieReleaseAnnouncement  token={accessToken}/>
-            )}
-         </div >
-         <div className="column-dis first-content-dis">
+        
+        <div className="column-dis first-content-dis" >
             {release && (
             
             <ReleasedMovie handle = {handleView} stat={'marketout'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
@@ -245,6 +240,14 @@ function DistributorPage() {
                 <ReleasedMovie handle = {handleView} stat={'upcoming'} sentMoviesData = {handleMovieDetail} allMovies = {upcomingMovie}/>
             )}
         </div>     
+        <div className="column-dis" >
+            {announce && (
+            
+            <MovieReleaseAnnouncement  token={accessToken}/>
+            )}
+         </div >
+         
+         
         <div className="column-dis first-content-dis">
           
             {viewDetails && (
