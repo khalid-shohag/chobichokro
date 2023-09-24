@@ -15,6 +15,8 @@ import TicketBooking from "../appear/TicketBooking";
 import ReelStatus from "./ReelStatus";
 import axios from "axios";
 import {render} from "@testing-library/react";
+import 'reactjs-popup/dist/index.css';
+import Popup from "reactjs-popup";
 // import {delay} from "@reduxjs/toolkit/src/utils";
 
 const theatreImg = require('../../assets/theatre-studio-01.jpg');
@@ -181,6 +183,8 @@ function TheatrePage() {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = currentDate.toLocaleDateString(undefined, options);
 
+    const [amount, setAmount] = useState('')
+
 
         return (
             <div className="container">
@@ -198,9 +202,12 @@ function TheatrePage() {
                 
             </div>
             <h2 style={{color: 'yellowgreen', marginLeft: '650px', marginTop: '100px', fontWeight: 'bold', fontStyle: 'oblique'}}>{name.toUpperCase()}</h2>
+            {addTheatreMoney(setAmount)  
+            }
+            {console.log("Amount", amount)}
             <div className="row" style={{marginTop: '10px'}}>
                
-            
+                
                 <div className="column">
                     <Button className="btn" onClick={handleRunningShow}>
                         <Card>
@@ -289,9 +296,12 @@ function TheatrePage() {
 
                  </div>
 
+   
+
                  {book && (
-                     <SeatBooking theatre={id} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
-                 )}
+                <SeatBooking theatre={id} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
+                )}
+
 
 
             </div>
@@ -329,3 +339,32 @@ function TheatrePage() {
 
 
 export default TheatrePage;
+
+function addTheatreMoney(onAmount) {
+    // const [amount, setAmount] = useState('')
+    return(
+        <Popup contentStyle={{ background: 'lavender', width: 'auto', borderRadius: '10px' }} trigger={<button style={{width: '150px', borderRadius: '5px', height: 'auto', marginTop: '10px', backgroundColor: 'lightcoral', color: 'white', fontWeight: 'bold', fontStyle: 'oblique', fontSize: '22'}}>Add Money</button>} position="right center"
+            modal nested> 
+            {
+                close => (
+                    <div>
+                    <form>
+                        <label>Amount</label>
+                        <input style={{marginLeft: '50px'}} type="text" placeholder="Enter Amount"  onChange={(e) => {
+                            onAmount(e.target.value)
+                            
+                        }} />
+                    </form>
+                    <button style={{backgroundColor: 'greenyellow', borderRadius: '2px', marginTop: '10px', marginLeft: '120px'}} onClick=
+                        {() => close()}>
+                            Done
+                            
+                    </button>
+                    </div>
+                    
+                )
+
+            } 
+            </Popup>
+    );
+}
