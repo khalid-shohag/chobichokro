@@ -176,7 +176,7 @@ function TheatrePage() {
 
         })
     }, [movieName])
-    
+
 
     //get Current Date
     const currentDate = new Date();
@@ -296,11 +296,12 @@ function TheatrePage() {
 
                  </div>
 
-               
+   
 
                  {book && (
                 <SeatBooking theatre={id} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
                 )}
+
 
 
             </div>

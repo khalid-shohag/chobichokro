@@ -6,12 +6,13 @@ import { useState } from 'react';
 import Reciept from '../appear/receipt';
 import PDFViewer from '@react-pdf/renderer';
 import axios from "axios";
-
+import {useEffect} from "react";
 
 
 class SeatBooking extends React.Component {
 
-
+    hasGot = 0;
+    scheduleIdName = ""
 
     get_available_seats = async (props) => {
         let response = null
@@ -32,9 +33,42 @@ class SeatBooking extends React.Component {
         }catch (e){
             console.log(e)
         }
+        console.log("type of response: ")
+
         if(response == null) return ""
-        return response.data
+        console.log(typeof response.data[0])
+        console.log("scheduleID :" , response.data[0].scheduleId)
+        let scheduleId = response.data[0].scheduleId
+        this.scheduleIdName = scheduleId
+        url = `http://localhost:8080/api/ticket/${scheduleId}`
+        try {
+            response = await axios.get(url, {
+                headers: {
+                    Authorization: token
+                }
+
+            })
+        }catch (e){
+            console.log(e)
+        }
+        let available = []
+        let booked = []
+        if(response == null)
+            return {
+                "available" : available,
+                "booked" : booked
+            }
+
+        response.data.forEach((ticket) => {
+            if(ticket.booked) booked.push(ticket.seat)
+            else available.push(this.seat)
+        })
+        return {
+            "available" : available,
+            "booked" : booked
+        }
     }
+
 
 
     constructor(props) {
@@ -64,19 +98,59 @@ class SeatBooking extends React.Component {
         reservationCount: 0,
       }
     }
+    book_seat =  async (url, seats, paymentId) => {
+        let token = "Bearer " + this.props.token
+        let n = seats.length
+        let formData = new FormData();
+        formData.append("paymentId", paymentId);
+        formData.append("seatNumbers", seats)
+        try {
+            await axios.post(url, formData,
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                }).then((value) => {
+                console.log(value.data)
+                if(value.data.length === n){
+                    console.log("successfully get the seat");
+                    this.setState({
+                        receipt: true
+                    })
+                }else{
+                    alert("some problem arise");
+                }
 
-    
-    
-    handleReservationSubmit = () => {
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    handleReservationSubmit = (params) => {
         // Log the reservationCount value to the console
         console.log(`Total Reservations: ${this.state.reservationCount}`);
         console.log("Reserved Seats", this.state.seatReserved)
-        this.setState({
-          receipt: true
-        })
+        let seats = this.state.seatReserved
 
-        console.log("Reciept: ", this.state.receipt)
-        // return <Reciept />
+        let n = seats.length
+        function generateRandomString() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+
+            for (let i = 0; i < characters.length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                result += characters.charAt(randomIndex);
+            }
+
+            return result;
+        }
+
+        // generate a random number for payment
+        let paymentId = generateRandomString();
+        let url = `http://localhost:8080/api/user/book_multiple/${this.scheduleIdName}`
+        this.book_seat(url,seats,paymentId).then((value) => {
+            console.log("in the main function : ", value)
+        })
       };
     
     onClickData(seat) {
@@ -103,8 +177,20 @@ class SeatBooking extends React.Component {
       const showTime = this.props.show
       const movieName = this.props.movie
       const date = this.props.date
+        const token = this.props.token
         console.log(this.props)
-        console.log(this.get_available_seats(this.props))
+        if(this.hasGot === 0) {
+            let seats_data = this.get_available_seats(this.props)
+
+            console.log(seats_data.then((value) => {
+                this.setState({
+                    seatAvailable: value.available,
+                    seatUnavailable: value.booked
+                })
+            }))
+            this.hasGot = 1
+        }
+
 
       
       return (
