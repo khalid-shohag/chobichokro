@@ -19,43 +19,46 @@ import AdminLogin from './AdminLogin'
 import profileImg from '../../assets/profile.png'
 import LicensePending from "./LicensePending";
 import LicenseApproved from "./LicenseApproved";
+import Navbar from "../navbar";
+import '../distributor/DistributorPage.css'
+import { CardBody } from "reactstrap";
+import TaxReports from "./TaxReports";
 
 const SystemAdmin = () => {
 
     const location = useLocation()
+    const token = location.state?.token || '';
 
 
     // console.log("token", location.state?.token)
 
-
-    if (localStorage.getItem('atoken')==null) {
-        console.log("Satisfied")
-          
-        const accessToken = location.state?.token || '';
-        console.log("Token: ", accessToken)
-    
-        localStorage.setItem('atoken', accessToken); 
-      }
-    console.log("Storage", localStorage.getItem('atoken'))
     console.log("Token: ", location.state?.token)
-    const isAuthenticated = !!localStorage.getItem('atoken');
+   
 
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
 
     const [pendingResult, setPendingResult] = useState(false)
     const [activeResult, setActiveResult] = useState(false)
+    const [tax, setTax] = useState(false)
 
     const handlePendingClick = () => {
         setPendingResult(true)
         setActiveResult(false)
+        setTax(false)
     }
 
     const handleActiveClick = () => {
         setPendingResult(false)
         setActiveResult(true)
+        setTax(false)
     }
 
+    const handleTax = () => {
+        setPendingResult(false)
+        setActiveResult(false)
+        setTax(true)
+    }
 
     const [color, setColor] = useState(false);
     const changeColor = () => {
@@ -74,17 +77,10 @@ const SystemAdmin = () => {
       var newValue = 10;
       var content = `new ${newValue}`
       console.log(content)
-      console.log("Auth ", isAuthenticated)
+      
 
-    if (!isAuthenticated) {
-        return(
-            <div>
-                <AdminLogin />
-            </div>
-        );
-    }
     
-    else {
+  
 
     return(
         // <div>
@@ -93,75 +89,33 @@ const SystemAdmin = () => {
     <div>
 
 
-        
-     <div className={color ? "header header-bg" : "header"}>
-         <div>
-             <Link to='/'>
-
-                 <h1>ছবিচক্র</h1>
-             </Link>
-         </div>
-        <div>
-            <img src={profileImg}
-            alt="Profile"
-            style={{height: '65px', width: '70px', borderRadius: '40px'}}
-            />
-            
-        </div>
-        <div >
-            <h4>ADMIN</h4>
-            
-        </div>
-        <div>
-        
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li>
-                <Button style={{marginLeft: '300px', marginRight: '120px', height: '60px', background: 'magenta',
-                borderColor:'rgba(0,0,0,0.2)', borderRadius:100,}}  onClick={handlePendingClick}>
-                    Pending Requests
-                    <Badge badgeContent={`${newValue>9 ? "9+": String(newValue)}`} color="primary" style={{ fontSize: '0.5rem', padding: '0.25rem 0.5rem' }}>
-                    <EmailIcon />
-                </Badge>
-                </Button>  
-            </li>
-            <li>
-                <Button style={{marginLeft: '200px', height: '60px', background: 'gray',
-                borderColor:'rgba(0,0,0,0.2)', borderRadius:100,}} onClick={handleActiveClick}>
-                    Approved Requests
-                    <IconButton aria-label="notifications">
-                <Badge badgeContent={`${newValue>9 ? "9+": String(newValue)}`} color="error">
-                    <NotificationsIcon />
-                </Badge>
-                </IconButton>
-                </Button>
-            </li>
-        </ul>
-           </div>
-
-         <DropdownMenu />
-     </div>
+        <Navbar />   
+     
         {console.log("Pending", pendingResult)}
-        <div>
-            {pendingResult && (
-                <div>
-                    <LicensePending token={localStorage.getItem('atoken')}/>
-                </div>
-            )}
+        <div style={{marginTop: '90px', marginLeft: '390px'}}>
+            <Card style={{ display: 'flex', height: '60px', borderRadius: '10px', width: '700px', fontWeight: 'bold', fontSize: '18', boxShadow: 'rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px'}}>
+                <CardBody style={{padding: '10px', marginLeft: '50px', cursor: 'pointer'}} onClick={handlePendingClick}>
+                    Pending Requests 
+                </CardBody>
+                <CardBody style={{padding: '10px', marginLeft: '50px', cursor: 'pointer'}} onClick={handleActiveClick}>
+                    Approved Requests 
+                </CardBody>
+                <CardBody style={{padding: '10px', marginLeft: '50px', cursor: 'pointer'}} onClick={handleTax}>
+                    Tax Reports 
+                </CardBody>
+            </Card>
         </div>
-        <div>
-            {activeResult && (
-                <div>
-                    <LicenseApproved token={localStorage.getItem('atoken')}/>
-                </div>
-            )}
-        </div>
+
+        {pendingResult && <LicensePending />}
+        {activeResult && <LicenseApproved />}
+        {tax && <TaxReports />}
 
         </div>
 
 
         
     );
-            }
+            
 }
 
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Card, CardBody, Button} from 'reactstrap'
-import {FaEnvelope, FaPhone, Fa} from "react-icons/fa";
+import {FaArrowRight, FaEnvelope, FaPhone, faArrowRight, FaCheck, FaTimes} from "react-icons/fa";
 import { ToastContainer, toast } from 'react-custom-alert';
 function LicensePending(props) {
 
@@ -59,29 +59,29 @@ function LicensePending(props) {
 
         <div>
             <ToastContainer />
-            <h1>Pending Requests</h1>
+            <h1 style={{marginLeft: '580px', marginTop: '30px'}}>Pending Requests</h1>
             {console.log("GET")}
            
             { (pendingReq.length> 0) ? pendingReq.map((license) => {
                     return(
-                        <Card key={license.id} style={{backgroundColor: 'pink', height: 'auto', width: '100%', marginTop: '60px'}}>
-                            <CardBody>
+                        <Card key={license.id} style={{ padding: '20px', marginLeft: '400px', backgroundColor: 'pink', borderRadius: '10px', height: 'auto', width: '700px', marginTop: '60px'}}>
+                            <CardBody >
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>
-                                        <h2>License Type: {license.licenseType}</h2>
+                                        <h4 style={{color: 'black'}}>License Type: {license.licenseType}</h4>
                                         <h3>{license.username}</h3>
                                         <FaPhone></FaPhone> {license.phoneNumber}
                                         <FaEnvelope style={{marginLeft :'10px'}}></FaEnvelope> {license.email}
                                         <h4>Transaction No. {license.transactionNumber}</h4>
                                     </div>
-                                    <div style={{flex: 1}}>
-                                        <Button style={{background: 'transparent'}} onClick ={ () => {
+                                    <div style={{flex: 1, marginLeft: '220px'}}>
+                                        <Button style={{background: 'transparent', marginTop: '4px'}} onClick ={ () => {
                                             updateStatus(license.id)
                                         }}>
-                                            Approve
+                                            <FaCheck></FaCheck> Approve
                                         </Button>
-                                        <Button style={{background: 'transparent'}}>
-                                            Cancel
+                                        <Button style={{background: 'transparent', marginTop: '4px'}}>
+                                            <FaTimes></FaTimes>Cancel
                                         </Button>
                                     </div>
 
