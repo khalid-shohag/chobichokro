@@ -29,10 +29,10 @@ function TaxReports() {
 
     return(
         <div>
-            <h1 style={{marginLeft: '630px', marginTop: '30px'}}>Tax Reports</h1>
+            <h1 style={{marginLeft: '43%', marginTop: '30px'}}>Tax Reports</h1>
             {taxReports.map((tax) => {
                 return(
-                    <Card key={tax.id} style={{ marginBottom: '20px', marginLeft: '340px', borderRadius: '10px', boxShadow: '0 0 10px black', padding: '25px', backgroundColor: 'bisque ', height: 'auto', width: '800px', marginTop: '30px'}}>
+                    <Card key={tax.id} style={{ marginBottom: '3%', marginLeft: '23%', borderRadius: '10px', boxShadow: '0 0 10px black', padding: '25px', backgroundColor: 'bisque ', height: 'auto', width: '800px', marginTop: '30px'}}>
                             <CardBody>
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>

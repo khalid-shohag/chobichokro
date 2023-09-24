@@ -41,7 +41,7 @@ function LicenseApproved(props) {
 
         <div>
             <ToastContainer />
-            <h1 style={{marginLeft: '580px', marginTop: '30px'}}>Approved License</h1>
+            <h1 style={{marginLeft: '40%', marginTop: '30px'}}>Approved License</h1>
             {console.log("GET")}
            
             { (pendingReq.length>0) ? (pendingReq.map((license) => {
@@ -50,7 +50,7 @@ function LicenseApproved(props) {
                         handleFindPending()
                     }}
                     return(
-                        <Card key={license.id} style={{marginLeft: '340px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', padding: '25px', backgroundColor: 'lightblue', height: 'auto', width: '800px', marginTop: '60px'}}>
+                        <Card key={license.id} style={{marginLeft: '23%', borderRadius: '10px', boxShadow: '0 0 10px black', padding: '25px', backgroundColor: 'lightblue', height: 'auto', width: '800px', marginTop: '60px'}}>
                             <CardBody>
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>

@@ -59,12 +59,12 @@ function LicensePending(props) {
 
         <div>
             <ToastContainer />
-            <h1 style={{marginLeft: '580px', marginTop: '30px'}}>Pending Requests</h1>
+            <h1 style={{marginLeft: '40%', marginTop: '30px'}}>Pending Requests</h1>
             {console.log("GET")}
            
             { (pendingReq.length> 0) ? pendingReq.map((license) => {
                     return(
-                        <Card key={license.id} style={{ padding: '20px', marginLeft: '400px', backgroundColor: 'pink', borderRadius: '10px', height: 'auto', width: '700px', marginTop: '60px'}}>
+                        <Card key={license.id} style={{ padding: '20px', marginLeft: '26%', backgroundColor: 'pink', borderRadius: '10px', boxShadow: '0 0 10px black', height: 'auto', width: '700px', marginTop: '60px'}}>
                             <CardBody >
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>
@@ -81,7 +81,7 @@ function LicensePending(props) {
                                             <FaCheck></FaCheck> Approve
                                         </Button>
                                         <Button style={{background: 'transparent', marginTop: '4px'}}>
-                                            <FaTimes></FaTimes>Cancel
+                                            <FaTimes></FaTimes> Cancel
                                         </Button>
                                     </div>
 
