@@ -38,7 +38,7 @@ const SystemAdmin = () => {
     const [click, setClick] = useState(false);
     const handleClick = () => setClick(!click);
 
-    const [pendingResult, setPendingResult] = useState(false)
+    const [pendingResult, setPendingResult] = useState(true)
     const [activeResult, setActiveResult] = useState(false)
     const [tax, setTax] = useState(false)
 

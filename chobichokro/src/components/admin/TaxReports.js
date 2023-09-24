@@ -47,7 +47,7 @@ function TaxReports(props) {
                                     </div>
                                     <div style={{flex: 1, marginLeft: '100px'}}>
                                         
-                                        <h4>Tax. {tax.total_tax_revenue}</h4>
+                                        <h3 style={{color: 'darkred'}}>Tax. {tax.total_tax_revenue} taka</h3>
                                         <h2 style={{marginTop: '5px'}}>Total Ticket Sell: {tax.ticket_sell}</h2>
                                     </div>
 
