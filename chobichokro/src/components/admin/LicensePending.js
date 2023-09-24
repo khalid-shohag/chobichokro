@@ -64,7 +64,7 @@ function LicensePending(props) {
            
             { (pendingReq.length> 0) ? pendingReq.map((license) => {
                     return(
-                        <Card key={license.id} style={{ padding: '20px', marginLeft: '26%', backgroundColor: 'pink', borderRadius: '10px', boxShadow: '0 0 10px black', height: 'auto', width: '700px', marginTop: '60px'}}>
+                        <Card key={license.id} style={{ padding: '20px', marginLeft: '26%', backgroundColor: 'honeydew', borderRadius: '10px', boxShadow: '0 0 10px black', height: 'auto', width: '700px', marginTop: '60px'}}>
                             <CardBody >
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>
