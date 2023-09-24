@@ -1,31 +1,35 @@
 import React from "react";
 import {Card, CardBody, Button} from 'reactstrap'
+import axios from "axios";
+import {useState} from "react";
 
-function TaxReports() {
+function TaxReports(props) {
 
-    const taxReports = [ 
-        {
-            id: 1,
-            movieName: "Movie 1",
-            distributorName: "Distributor 1",
-            tax: 1000,
-            ticketSell: 100,
-        },
-        {
-            id: 2,
-            movieName: "Movie 2",
-            distributorName: "Distributor 2",
-            tax: 1800,
-            ticketSell: 150,
-        },
-        {
-            id: 3,
-            movieName: "Movie 3",
-            distributorName: "Distributor 2",
-            tax: 1500,
-            ticketSell: 120,
-        },
-    ]
+    const [taxReports, setTaxReport] = useState([])
+    let ok = true;
+    let getTaxReport = async () => {
+        try {
+            let url = `http://localhost:8080/api/tax/`
+
+            await axios.get(url, {
+                headers:
+                    {
+                        Authorization: `Bearer ${props.token}`
+                    }
+            }).then((value) => {
+                console.log("value" , value.data)
+                setTaxReport(value.data)
+            }).catch(e => console.log(e))
+        }catch (e){
+            console.log(e)
+        }
+    }
+
+    if(ok)
+    getTaxReport().then((value) => {
+        console.log("every details get");
+        ok = false;
+    }).catch(e => console.log(e))
 
     return(
         <div>
@@ -43,8 +47,8 @@ function TaxReports() {
                                     </div>
                                     <div style={{flex: 1, marginLeft: '100px'}}>
                                         
-                                        <h4>Tax. {tax.tax}</h4>
-                                        <h2 style={{marginTop: '5px'}}>Total Ticket Sell: {tax.ticketSell}</h2>
+                                        <h4>Tax. {tax.total_tax_revenue}</h4>
+                                        <h2 style={{marginTop: '5px'}}>Total Ticket Sell: {tax.ticket_sell}</h2>
                                     </div>
 
                                 </div>
