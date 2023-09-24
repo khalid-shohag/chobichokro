@@ -59,7 +59,7 @@ class SeatBooking extends React.Component {
                 "booked" : booked
             }
 
-        response.data.forEach((ticket) => {
+        response.data.map((ticket) => {
             if(ticket.booked) booked.push(ticket.seat)
             else available.push(this.seat)
         })
