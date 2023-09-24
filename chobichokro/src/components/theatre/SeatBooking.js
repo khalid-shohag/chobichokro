@@ -22,6 +22,9 @@ class SeatBooking extends React.Component {
         const movieName = props.movie
         const date = props.date
         const token = "Bearer " + props.token;
+
+        console.log("\n\nI am here\n\n")
+
         let url = `http://localhost:8080/api/dropdown/get/schedule?movieName=${movieName}&theaterId=${theatre}&date=${date}&hallNumber=${hall}`;
         console.log(url)
         try {
@@ -41,6 +44,7 @@ class SeatBooking extends React.Component {
         let scheduleId = response.data[0].scheduleId
         this.scheduleIdName = scheduleId
         url = `http://localhost:8080/api/ticket/${scheduleId}`
+        console.log("URL", url)
         try {
             response = await axios.get(url, {
                 headers: {
@@ -59,15 +63,23 @@ class SeatBooking extends React.Component {
                 "booked" : booked
             }
 
+        console.log("Ticket Response: ", response.data)
+
         response.data.map((ticket) => {
-            if(ticket.isBooked) booked.push(ticket.seat)
-            else available.push(this.seat)
+          console.log("TICKET", ticket)
+          console.log("BOOKED", ticket.booked)
+            if(ticket.booked) booked.push(ticket.seatNumber)
+            else available.push(ticket.seatNumber)
         })
+        console.log("Booked: ", booked)
+        console.log("AVAIL", available)
         return {
             "available" : available,
             "booked" : booked
         }
     }
+
+    
 
 
 
@@ -98,6 +110,8 @@ class SeatBooking extends React.Component {
         reservationCount: 0,
       }
     }
+
+    
     book_seat =  async (url, seats, paymentId) => {
         let token = "Bearer " + this.props.token
         let n = seats.length
@@ -169,6 +183,7 @@ class SeatBooking extends React.Component {
         })
       }
     }
+
     
     render() {
       
@@ -179,6 +194,8 @@ class SeatBooking extends React.Component {
       const date = this.props.date
         const token = this.props.token
         console.log(this.props)
+       
+        
         if(this.hasGot === 0) {
             let seats_data = this.get_available_seats(this.props)
 
@@ -188,6 +205,7 @@ class SeatBooking extends React.Component {
                     seatUnavailable: value.booked
                 })
             }))
+            console.log('Got ', this.seatUnavailable)
             this.hasGot = 1
         }
 

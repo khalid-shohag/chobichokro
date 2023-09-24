@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Card, CardBody, Button} from 'reactstrap'
 import axios from "axios";
 import {useState} from "react";
@@ -25,11 +25,16 @@ function TaxReports(props) {
         }
     }
 
-    if(ok)
-    getTaxReport().then((value) => {
-        console.log("every details get");
-        ok = false;
-    }).catch(e => console.log(e))
+    
+
+    useEffect(() => {
+        getTaxReport()
+    }, [])
+
+    // getTaxReport().then((value) => {
+    //     console.log("every details get");
+    //     ok = false;
+    // }).catch(e => console.log(e))
 
     return(
         <div>
