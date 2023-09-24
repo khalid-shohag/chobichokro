@@ -14,11 +14,15 @@ function Pagination(props) {
 
   }
   const goBookingList = (id) => {
-    return navigate('/movie/pre-booking/hall/list/'+id, {state: {token: props.token, name: props.name}})
+    return navigate('/movie/pre-booking/hall/list/'+id, {state: {token: props.token, title: 'Pre Booking List', name: props.name, requestName: 'pending_movie_request'}})
   }
   const goRunningShowList = (id) => {
     return navigate('/movie/running-show/list/'+id)
   }
+  const goConfirmBookingList = (id) => {
+    return navigate('/movie/confirm-booking/hall/list/'+id, {state: {token: props.token, title: 'Confirm Booking List', name: props.name, requestName: 'approve_movie_request'}})
+  }
+
   // const [imageSrc, setImageSrc] = useState(null);
 
   // useEffect(() => {
@@ -79,6 +83,7 @@ function Pagination(props) {
     const handleReviewClick = () => goReview(props.id);
     const handleBookingClick = () => goBookingList(props.id);
     const handleRunningShowClick = () => goRunningShowList(props.id)
+    const handleConfirmBookingClick = () => goConfirmBookingList(props.id)
      if (props.status==='marketout') {
        return (
 
@@ -262,6 +267,8 @@ function Pagination(props) {
                    </div>
                    <Button style={{background: 'transparent', height: '40px', marginTop: '20px', marginLeft: '0px'}}
                            onClick={handleBookingClick}>Pre-Booking List</Button>
+                  
+                  
 
                  {/*</div>*/}
 

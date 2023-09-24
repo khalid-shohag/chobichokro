@@ -17,6 +17,7 @@ import axios from "axios";
 import {render} from "@testing-library/react";
 import 'reactjs-popup/dist/index.css';
 import Popup from "reactjs-popup";
+import Footer from "../Footer";
 // import {delay} from "@reduxjs/toolkit/src/utils";
 
 const theatreImg = require('../../assets/theatre-studio-01.jpg');
@@ -188,6 +189,7 @@ function TheatrePage() {
 
 
         return (
+            <div>
             <div className="container">
                 
             <div className="row">
@@ -203,7 +205,7 @@ function TheatrePage() {
                 
             </div>
             <h2 style={{color: 'yellowgreen', marginLeft: '650px', marginTop: '100px', fontWeight: 'bold', fontStyle: 'oblique'}}>{name.toUpperCase()}</h2>
-            {addTheatreMoney(amount,setAmount, token)
+            {addTheatreMoney(amount, setAmount, token)
             }
             {/*{console.log("Amount", amount)}*/}
             <div className="row" style={{marginTop: '10px'}}>
@@ -322,15 +324,19 @@ function TheatrePage() {
             {
                 (runningShow &&
                     <div className="row">
-                    <RunningShow token={token} name={"Running"} status={"Released"} cat={'ticket'} theatreName={name} theatreId={id}/>
+                    <RunningShow token={token} name={"Running"} status={"running_movie"} cat={'ticket'} theatreName={name} theatreId={id}/>
                 </div>)
             }
             {
                 (upcomingShow &&
                     <div className="row">
-                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming"} cat={'reel'}/>
+                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming_movie"} cat={'reel'}/>
                 </div>)
             }
+
+            
+            
+            </div>
             
             </div>
         );
@@ -368,7 +374,7 @@ function addTheatreMoney(amount, onAmount, token) {
                     <div>
                     <form>
                         <label>Amount</label>
-                        <input style={{marginLeft: '50px'}} type="text" placeholder="Enter Amount"  onChange={(e) => {
+                        <input style={{marginLeft: '50px', color: 'black'}} type="text" placeholder="Enter Amount"  onChange={(e) => {
                             onAmount(e.target.value)
                             
                         }} />
