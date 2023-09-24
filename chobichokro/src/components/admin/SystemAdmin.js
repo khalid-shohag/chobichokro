@@ -108,7 +108,7 @@ const SystemAdmin = () => {
 
         {pendingResult && <LicensePending />}
         {activeResult && <LicenseApproved />}
-        {tax && <TaxReports />}
+        {tax && <TaxReports token = {token} />}
 
         </div>
 
