@@ -7,6 +7,8 @@ import {Link, useNavigate} from "react-router-dom";
 
 function Pagination(props) {
 
+  console.log('\n\n\nSTATUS\n\n\n', props.status)
+
   const navigate = useNavigate()
   const goReview = (id) => {
     console.log("Review id", id)
@@ -84,12 +86,12 @@ function Pagination(props) {
     const handleBookingClick = () => goBookingList(props.id);
     const handleRunningShowClick = () => goRunningShowList(props.id)
     const handleConfirmBookingClick = () => goConfirmBookingList(props.id)
-     if (props.status==='marketout') {
+     if (props.status==='released') {
        return (
 
 
            <div>
-             <Card style={{width: '500px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
+             <Card style={{width: '600px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
                <CardHeader style={{color: 'black', fontWeight: 'bold'}}>{props.name}</CardHeader>
                <CardBody>
                  {/* console.log({props.imageSrc}); */}
@@ -147,12 +149,12 @@ function Pagination(props) {
            </div>
        );
      }
-     else if(props.status=='on theater') {
+     else if(props.status=='running') {
        return (
 
 
            <div>
-             <Card style={{width: '500px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
+             <Card style={{width: '600px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
                <CardHeader style={{color: 'black', fontWeight: 'bold'}}>{props.name}</CardHeader>
                <CardBody>
                  {/* console.log({props.imageSrc}); */}
@@ -186,7 +188,7 @@ function Pagination(props) {
                    <h3>Total Footfalls: </h3>
                    <div style={{display: 'flex'}}>
                      <div style={{flex: 1}}>
-                       <h1>Verdict -> </h1>
+                       <h1>Verdict - </h1>
                      </div>
                      <div style={{
                        marginRight: '250px',
@@ -217,7 +219,7 @@ function Pagination(props) {
 
 
            <div>
-             <Card style={{width: '500px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
+             <Card style={{width: '600px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
                <CardHeader style={{color: 'black', fontWeight: 'bold', marginBottom: '20px'}}>{props.name}</CardHeader>
                <CardBody>
                  {/* console.log({props.imageSrc}); */}

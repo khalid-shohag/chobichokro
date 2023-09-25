@@ -32,6 +32,7 @@ function DistributorPage() {
   const [movies, setMovies] = useState([]);
   const [runningMovie, setRunningMovie] = useState([]);
   const [upcomingMovie, setUpcomingMovie] = useState([]);
+  const [releasedMovie, setReleasedMovie] = useState([]);
 
 
 
@@ -99,6 +100,17 @@ function DistributorPage() {
       
       console.log(token);
 
+    const getReleasedMovies = async () => {
+      try {
+        const response = await axiosInstance.get('/api/distributor/get/released_movie').then((response) => {
+          console.log(response.data);
+          setReleasedMovie(response.data)
+        });
+      } catch (e) {
+        console.log("Error fetching Released Movies", e)
+      }
+    }
+
     const getRunningMovies = async () => {
         try {
           const response = await axiosInstance.get('/api/distributor/get/running_movie');
@@ -157,6 +169,7 @@ function DistributorPage() {
         setRunning(false);
         setViewDetails(false);
         setUpcoming(false)
+        getReleasedMovies();
         // getAllMovies();
     }
 
@@ -229,11 +242,11 @@ function DistributorPage() {
         <div className="column-dis first-content-dis" >
             {release && (
             
-            <ReleasedMovie handle = {handleView} stat={'marketout'} sentMoviesData = {handleMovieDetail} allMovies = {movies}/>
+            <ReleasedMovie handle = {handleView} stat={'released'} sentMoviesData = {handleMovieDetail} allMovies = {releasedMovie}/>
             )}
             {running && (
             
-            <ReleasedMovie handle = {handleView} stat={'on theater'} sentMoviesData = {handleMovieDetail} allMovies = {runningMovie}/>
+            <ReleasedMovie handle = {handleView} stat={'running'} sentMoviesData = {handleMovieDetail} allMovies = {runningMovie}/>
             )}
             {upcoming && (
 

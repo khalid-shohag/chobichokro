@@ -116,7 +116,7 @@ function ReleasedMovie(props) {
                 poster={movie.posterImageLink}
                 trailer={movie.trailerLink}
                 date={movie.releaseDate}
-                status={movie.status}
+                status={props.stat}
                 description={movie.description}
             />
         );

@@ -20,7 +20,7 @@ function MovieList(props) {
         passMovieDetail();
       }}
     >
-        <Card>
+        <Card style={{color: 'white'}}>
           <CardHeader>
             <h3>{props.name}</h3>
           </CardHeader>
