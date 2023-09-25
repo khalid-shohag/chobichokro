@@ -38,7 +38,7 @@ function ReelStatus(props) {
             <ToastContainer />
             {reel.map((reel) => {
                 return(
-                    <Card key={reel.id} style={{backgroundColor: 'yellow', marginTop: '10px', borderRadius: '7px', padding: '10px'}}>
+                    <Card key={reel.id} style={{marginLeft: '23%', borderRadius: '10px', boxShadow: '0 0 10px red', padding: '25px', backgroundColor: 'lightyellow', height: 'auto', width: '800px', marginTop: '60px',}}>
                         <CardBody>
                             <div style={{display: 'flex'}}>
                                 <div style={{flex: 1}}>
