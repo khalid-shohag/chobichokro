@@ -16,6 +16,26 @@ function Home() {
     const [movies, setMovies] = useState([]);
     const navigate = useNavigate()
 
+    const [allTheatre, setAllTheatre] = useState([])
+
+    const getAllTheatre = async() => {
+        try {
+            const response = await axios.get(
+                'http://localhost:8080/api/theater/all').then((response) => {
+                    console.log("All Theatre", response.data)
+                    setAllTheatre(response.data)
+                })
+
+        }
+         catch(e) {
+            console.log("Error data fetching theatre", e)
+        }
+    }
+
+    useEffect(() => {   
+        getAllTheatre()
+    }, [])
+
     const getAllMovies = async () => {
         try {
             const response = await axios.get("http://localhost:8080/api/movies/all");
@@ -106,7 +126,7 @@ function Home() {
                         }
                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                     return (
-                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName, category: 'ticket'}}>
+                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName, allTheatre: allTheatre, category: 'ticket'}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>
@@ -135,7 +155,7 @@ function Home() {
                         }
                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                     return (
-                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName, category: 'ticket'}}>
+                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName,  category: 'ticket'}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>

@@ -5,8 +5,9 @@ const TicketBooking = (props) => {
 
   const movies = props.val
   const status = props.stat
+  const allTheatre = props.val
   console.log("Movies Ticket: ", movies)
-  console.log('\n\n\nSTatus\n\n\n', status)
+  console.log('\n\n\nSTatus\n\n\n', allTheatre)
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -33,17 +34,38 @@ const TicketBooking = (props) => {
     )
   }
   else {
-    return(
-    <select style={{borderRadius: '7px', height: '40px', width: '200px', marginTop: '15px', marginBottom: '15px', marginLeft: '15px', marginRight: '70px'}} value={selectedOption} onChange={handleSelectChange}>
+    return (
+      <select
+        style={{
+          borderRadius: '7px',
+          height: '40px',
+          width: '200px',
+          marginTop: '15px',
+          marginBottom: '15px',
+          marginLeft: '15px',
+          marginRight: '70px'
+        }}
+        value={selectedOption}
+        onChange={handleSelectChange}
+      >
         <option value="">{props.name}...</option>
-    {movies.map((mv) => {
-          
-      return(
-          <option key={mv.movie.id} value={mv.movie.movieName}>{mv.movie.movieName}</option>
-      )
-  })}
-  </select>
-    )
+        
+        {props.name === 'Theatre' ? (
+          movies.map((mv) => (
+            <option key={mv.id} value={mv.id}>
+              {mv.name}
+            </option>
+          ))
+        ) : (
+          movies.map((mv) => (
+            <option key={mv.movie.id} value={mv.movie.movieName}>
+              {mv.movie.movieName}
+            </option>
+          ))
+        )}
+      </select>
+    );
+    
   }
 
   // return (

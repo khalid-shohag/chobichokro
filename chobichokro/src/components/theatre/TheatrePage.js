@@ -44,6 +44,7 @@ function TheatrePage() {
     const [upcomingShow, setUpcomingShow] = useState(false)
     const [reel, setReel] = useState(false)
     const [movies, setMovies] = useState([])
+    
     // const [showDate, setShowDate] = useState([])
     // const [screenNo, setScreenNo] = useState([])
 

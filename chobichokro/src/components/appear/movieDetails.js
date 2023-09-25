@@ -1,4 +1,5 @@
 import React, { useState, useEffect  } from 'react'
+import { Button } from 'reactstrap';
 
 import styled from '@emotion/styled';
 import ReactPlayer from 'react-player'
@@ -15,7 +16,7 @@ import Navbar from '../navbar';
 import { CardBody } from 'reactstrap';
 import { Card } from 'react-bootstrap';
 import speakerImage from '../../assets/speaker.jpg'
-import { Button } from 'bootstrap';
+
 import TicketBooking from './TicketBooking';
 import SeatBooking from '../theatre/SeatBooking';
 import reelImg from '../../assets/reel.jpg'
@@ -27,6 +28,7 @@ const MovieDetails = (props) => {
     const location = useLocation()
     const {value} = useParams()
     const token = location.state?.token || ''
+    const theatreMovieName = location.state?.id || ''
     const navigate = useNavigate()
 
     console.log("TOken Theatre", token)
@@ -62,6 +64,10 @@ const MovieDetails = (props) => {
     const theatreId = location.state?.theatreId || ''
     const theatreName = location.state?.theatreName || ''
     const status = location.state?.status || ''
+    const allTheatre = location.state?.allTheatre || []
+
+    console.log("All theatre Details", allTheatre)
+    console.log("\n\n\nMovie Name Theatre: \n\n\n", theatreMovieName)
 
     console.log("STatus ", status)
     console.log("Theatre Name: ", theatreName)
@@ -163,6 +169,66 @@ const MovieDetails = (props) => {
     }, [])
 
 
+    const showDateSet = new Set()
+    const screenNumSet = new Set()
+
+    let [screenNum, setScreenNum] = useState([])
+    let [showDate, setShowDate] = useState([])
+    const getShowDate = async () => {
+        const formData = new FormData();
+        console.log('Form Date', id, theatre)
+        formData.append('movieName', id)
+        formData.append('theaterId', theatre) 
+        let response = null
+        try {
+            response = await axios.get(`http://localhost:8080/api/dropdown/movie/theater?movieName=${theatreMovieName}&theaterId=${theatre}`)
+            console.log("Show Date: ", response.data)
+            // setShowDate(response.data.showtime)
+            // setScreenNo(response.data.hallNumber)
+
+            response.data.map((val) => {
+                console.log("VAl", val)
+                showDateSet.add(val.showtime)
+                screenNumSet.add(val.hallNumber)
+            })
+            showDate = []
+            showDateSet.forEach((val) => {
+                showDate.push(val)
+            })
+            screenNum = []
+            screenNumSet.forEach((val) => {
+                screenNum.push(val)
+            })
+
+        } catch(e) {
+            console.log("Error getting Schedule ID: ", e)
+        }
+        console.log("\n\\n\n\n\n\n\n")
+        console.log(response.data)
+        console.log("\n\\n\n\n\n\n\n")
+        console.log("Show DATE", showDate)
+        console.log('\n\n')
+        console.log('HAll\n\n', screenNum)
+        
+    }
+    useEffect(() => {
+        getShowDate().then(() => {
+            console.log("data fetched, now work the next part")
+            setScreenNum(screenNum)
+            console.log("screen number change kore felchi");
+            setShowDate(showDate)
+
+        })
+    }, [id])
+
+    const [book, setBook] = useState(false)
+    const handleBook = () => {
+        setBook(true)
+
+    }
+
+
+
     // const name = movie.movieName
     // const id = movie.id
     // const description = movie.description
@@ -257,7 +323,7 @@ const MovieDetails = (props) => {
         </Container>
 
         {booking && (
-            <div>
+            <div style={{background: 'darkkhaki'}}>
                 <Card style={{backgroundColor: 'purple'}}>
                     <CardBody>
                         <h5>{name}</h5>
@@ -266,10 +332,32 @@ const MovieDetails = (props) => {
                 
                 
                 
-                <h5>Theatre: {<TicketBooking onSelectedOptions = {hanldleTheatre}  name={"Theatre"} val1={"Mothihar"} val2={"Katakhali"} val3={"High-Tech_park"} />}</h5>
-                <h5>Hall: {<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val1={"Hall 1"} val2={"Hall 2"} val3={"Hall 3"} />}</h5>
+                {/* <h5>Hall: {<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val1={"Hall 1"} val2={"Hall 2"} val3={"Hall 3"} />}</h5>
                 <h5>Show: {<TicketBooking onSelectedOptions = {handleShow} name={"Show"} val1={"12:30 pm"} val2={"3:30 pm"} val3={"6:30 pm"} />}</h5>
-                <SeatBooking theatre={theatre} hall={hall} show={show}/>
+                <SeatBooking theatre={theatre} hall={hall} show={show}/> */}
+                <div style={{display: 'flex'}}>
+                <div style={{flex: 1, marginLeft: '220px'}}>
+                    <h5>{<TicketBooking onSelectedOptions = {hanldleTheatre} name={"Theatre"} val = {allTheatre} stat={'yes'}/>}</h5>
+                    </div>
+                    {/* {
+                        setTimeout(() => {
+                            console.log("Show Date: ", showDate)
+                            console.log("Screen Number: ", screenNum)
+                        }, 2500)
+                    } */}
+                    <div style={{flex: 1}}>
+                        <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val = {screenNum} stat={'no'} />}</h5>
+                    </div>
+                    <div style={{flex: 1}}>
+                        <h5> {<TicketBooking onSelectedOptions = {handleShow} name={"Show"} val = {showDate} stat={'no'} />}</h5>
+                    </div>
+                    <div style={{flex: 1}}>
+                        <Button onClick={handleBook} style={{backgroundColor: 'yellowgreen'}}>
+                            Book
+                        </Button>
+
+                    </div>
+                </div>
 
                 {console.log("Theatre: ", theatre)}
                 {console.log("Hall: ", hall)}
@@ -277,6 +365,10 @@ const MovieDetails = (props) => {
 
             </div>
         )}
+
+                {book && (
+                <SeatBooking theatre={theatre} hall={hall} show={show} movie={id} date={show} token ={token}/>
+                )}
         { reelBooking && (
             <div style={{marginTop: '20px', marginLeft: '250px'}}>
                 < ReelBook mmovieName={name} theatreId={theatreId} theatreName={theatreName}/>
