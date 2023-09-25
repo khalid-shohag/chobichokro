@@ -16,7 +16,11 @@ export function  RunningShow(props) {
 
     const getAllMovies = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/api/movies/all");
+            const response = await axios.get(`http://localhost:8080/api/theater/get/${props.status}`, {
+                headers: {
+                    Authorization: `Bearer ${props.token}`
+                }
+            });
             setMovies(response.data);
         } catch (error) {
             console.log("Error fetching data", error);
@@ -52,7 +56,7 @@ export function  RunningShow(props) {
             <Content>
                 {movies.map((movie, key) => {
                     console.log("Status", movie.status)
-                    if (movie.status.includes(props.status)) {
+                   
                         console.log("Find one")
                         const posterImageLink = movie.posterImageLink; // Assuming you have a property like this in your movie object
                         if (posterImageLink) {
@@ -71,7 +75,7 @@ export function  RunningShow(props) {
                             </Wrap>
                         </Link>
                     );
-                }}})}
+                }})}
             </Content>
     </div>
   );

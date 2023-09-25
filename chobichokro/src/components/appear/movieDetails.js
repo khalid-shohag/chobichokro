@@ -20,6 +20,7 @@ import TicketBooking from './TicketBooking';
 import SeatBooking from '../theatre/SeatBooking';
 import reelImg from '../../assets/reel.jpg'
 import { ReelBook } from '../theatre/ReelBook';
+import Footer from '../Footer';
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
@@ -126,6 +127,42 @@ const MovieDetails = (props) => {
     }
 
 
+    const [footFalls, setFootFalls] = useState(0)
+
+    const getTheatreMovieAnalysis = async(theatreName, myMovie) => {
+        console.log("kmaol" , myMovie)
+        if (theatreName != '') {
+            console.log(theatreName)
+            console.log(myMovie)
+        try {
+            let url = `http://localhost:8080/api/theater/get/analysis/${myMovie}`
+            console.log(url)
+            const response = await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    
+                }
+            }).then((value) => {
+                console.log("data value")
+                console.log(value)
+                setFootFalls(value.data.body)
+            })
+            // response.then()
+           
+        } catch(e) {
+            console.log("Error: ", e)
+        }
+    }
+    }
+
+    useEffect( () => {
+        console.log("GET TGE EFFE", name)
+        
+            getTheatreMovieAnalysis(theatreName, name)
+        
+    }, [])
+
+
     // const name = movie.movieName
     // const id = movie.id
     // const description = movie.description
@@ -157,7 +194,7 @@ const MovieDetails = (props) => {
                     {description}
                 </Description>
 
-                {(status==='Released' && theatreName!='') ? (
+                {(theatreName!='') ? (
                     <div>
                         
                     </div>
@@ -192,11 +229,11 @@ const MovieDetails = (props) => {
                 
                 
             </Details>
-            {(status==='Released' && theatreName!='') ? (
+            {(theatreName!='') ? (
                 <div style={{marginTop: '150px', color: 'yellowgreen'}}>
                     <h2 style={{color: 'lavender'}}>Theatre Name: {theatreName}</h2>
-                    <h2>Total Footfalls: </h2>
-                    <h2>Total Net collection: </h2>
+                    <h2>Total Footfalls: {footFalls}</h2>
+                    <h2>Total Net collection: {footFalls*100}</h2>
                     <Details>
                     <BookTicket onClick={handleReviewClick}>
                         {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
@@ -245,6 +282,9 @@ const MovieDetails = (props) => {
                 < ReelBook mmovieName={name} theatreId={theatreId} theatreName={theatreName}/>
             </div>
         )}
+
+          
+
         </div>
     )
 }

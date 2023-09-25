@@ -183,6 +183,7 @@ class SeatBooking extends React.Component {
         })
       }
     }
+
     componentDidMount() {
         let seats_data = this.get_available_seats(this.props)
 
@@ -207,6 +208,7 @@ class SeatBooking extends React.Component {
         console.log('Got ', this.seatUnavailable)
         this.hasGot = 1
     }
+
 
     render() {
       

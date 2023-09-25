@@ -54,7 +54,7 @@ function LicenseApproved(props) {
                             <CardBody>
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>
-                                        <h2>License Type: {license.licenseType}</h2>
+                                        <h3>License Type: {license.licenseType}</h3>
                                         <h3>Name: {license.username}</h3>
                                         <FaPhone></FaPhone> {license.phoneNumber}
                                         

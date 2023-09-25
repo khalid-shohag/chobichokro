@@ -47,6 +47,7 @@ function App() {
         <Route path='/movie/review/:movie_id' element={<MovieReview />} />
         <Route path='/movie/pre-booking/hall/list/:movie_id' element={<PreBooking />} />
         <Route path='/movie/running-show/list/:movie_id' element={<RunningShowList />} />
+        <Route path='/movie/confirm-booking/hall/list/:movie_id' element={<PreBooking />} />
       </Routes>
     </BrowserRouter>
   );
