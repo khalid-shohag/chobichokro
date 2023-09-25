@@ -12,7 +12,7 @@ function Pagination(props) {
   const navigate = useNavigate()
   const goReview = (id) => {
     console.log("Review id", id)
-    return navigate('/movie/review/'+id)//<Link to={'/movie/review/'+id} />
+    return navigate('/movie/review/'+id, {state: {reviews, movieName: props.name}})//<Link to={'/movie/review/'+id} />
 
   }
   const goBookingList = (id) => {
@@ -25,37 +25,10 @@ function Pagination(props) {
     return navigate('/movie/confirm-booking/hall/list/'+id, {state: {token: props.token, title: 'Confirm Booking List', name: props.name, requestName: 'approve_movie_request'}})
   }
 
-  // const [imageSrc, setImageSrc] = useState(null);
 
-  // useEffect(() => {
     const posterImageLink = props.imageSrc
     console.log(props.name, " ", posterImageLink)
-    //   if (posterImageLink) {
-    //
-    //     let poster = posterImageLink.replace("images//", "")
-    //
-    //     console.log("Image Link", "images/\\posterImageLink".replace("images/\\", ""))
-    //     if (poster.includes("images/\\")) {
-    //       poster = posterImageLink.replace("images/\\", "")
-    //       console.log("Poster", poster)
-    //     }
-    //     const posterImageUrl = poster
-    //     // Make a GET request to fetch the image
-    //     axios
-    //       .get(`http://localhost:8080/api/movies/get/${posterImageUrl}`, {
-    //         responseType: "arraybuffer",
-    //       })
-    //       .then((response) => {
-    //         const imageBlob = new Blob([response.data], { type: "image/jpeg" });
-    //         const imageUrl = URL.createObjectURL(imageBlob);
-    //         setImageSrc(imageUrl);
-    //       })
-    //       .catch((error) => {
-    //         console.error("Error fetching image:", error);
-    //       });
-    //   }
-    // }, [props.imageSrc]);
-
+ 
     let poster = posterImageLink.replace("images//", "")
 
     console.log("Image Link", "images/\\posterImageLink".replace("images/\\", ""))
@@ -82,10 +55,39 @@ function Pagination(props) {
     const genreString = genre.map((genreItem) => genreItem).join(' ');
      const castString = cast.map((cast) => cast).join(', ') || ''
     const directorString = director.map((director) => director).join(', ')
-    const handleReviewClick = () => goReview(props.id);
+    const handleReviewClick = (reviews) => goReview(props.id, reviews);
     const handleBookingClick = () => goBookingList(props.id);
     const handleRunningShowClick = () => goRunningShowList(props.id)
     const handleConfirmBookingClick = () => goConfirmBookingList(props.id)
+
+    const [movieAnalysis, setMovieAnalysis] = useState('')
+    const [reviews, setReviews] = useState([])
+
+    const getMovieAnalysis = async () => {
+
+      console.log("Movie Analysis ID: ", props.id)
+
+      try {
+        const response = await axios.get(`http://localhost:8080/api/distributor/get/analysis/${props.id}`, {
+          headers: {
+            Authorization: `Bearer ${props.token}`
+          }}).then((response) => {
+            console.log("Movie Analysis: ", response.data)
+            setMovieAnalysis(response.data)
+            setReviews(response.data.reviews)
+          })
+      } catch(e) {
+        console.log("Error fetching movie analysis", e)
+      }
+        
+    }
+
+    useEffect(() => {
+      console.log("\n\nUSE EFFECT\n\n")
+      if (props.status==='released' || props.status==='running')
+        getMovieAnalysis()
+    }, [])
+
      if (props.status==='released') {
        return (
 
@@ -121,9 +123,12 @@ function Pagination(props) {
                  {/*<div>{props.status}</div>*/}
                  {/*<div>{props.date.slice(0, 10)}</div>*/}
                  <div>
-                   <h3>Total Collection: bdt.</h3>
-                   <h3>Total Footfalls: </h3>
-                   <div style={{display: 'flex'}}>
+                   <h3>Total Collection: {movieAnalysis.totalRevenue} bdt.</h3>
+                   <h3>Total Footfalls: {movieAnalysis.totalTicket}</h3>
+                   <h3>Total Screening: {movieAnalysis.totalScreening}</h3>
+                   <h3>Total Theatre: {movieAnalysis.totalTheater}</h3>
+                   <h3>Average Review: {movieAnalysis.averageSentiment}</h3>
+                   <div style={{display: 'flex'}}> 
                      <div style={{flex: 1}}>
                        <h1>Verdict - </h1>
                      </div>
@@ -134,12 +139,12 @@ function Pagination(props) {
                        fontWeight: 'bold',
                        color: 'darkred'
                      }}>
-                       Superhit
+                       {movieAnalysis.movieVerdict}
                      </div>
 
                    </div>
                    <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}
-                           onClick={handleReviewClick}>Reviews</Button>
+                           onClick={handleReviewClick(reviews)}>Reviews</Button>
 
                  </div>
 
