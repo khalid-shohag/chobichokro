@@ -69,11 +69,22 @@ export function  RunningShow(props) {
                         }
                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                     return (
-                        <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, category: props.cat, theatreId: props.theatreId, theatreName: props.theatreName, token:props.token}}>
+                        (movie.status === 'running') ? (
+                            <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, category: props.cat, theatreId: props.theatreId, theatreName: props.theatreName, token:props.token}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>
                         </Link>
+                        ) : (
+                            <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, category: props.cat, token:props.token}}>
+                            <Wrap>
+                                <img src={posterImageUrl} alt={movie.name} />
+                            </Wrap>
+                        </Link>
+                        ) 
+
+
+                        
                     );
                 }})}
             </Content>

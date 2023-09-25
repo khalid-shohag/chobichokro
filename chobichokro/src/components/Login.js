@@ -91,7 +91,7 @@ function Login(props) {
         
       <div>
         <h2 style={{color: '#2A925E'}}>Login</h2>
-        <form >
+      
           <div style={{marginTop: '30px', marginBottom: '30px' }}>
             <label htmlFor="username" style={{color: '#2A925E'}}>Username:</label>
             <input
@@ -118,7 +118,7 @@ function Login(props) {
               backgroundColor: 'green',
               color: 'white',
               padding: '10px 20px',
-              marginLeft: '130px',
+              marginLeft: '35%',
               border: 'none',
               borderRadius: '10px',
               cursor: 'pointer',
@@ -128,25 +128,25 @@ function Login(props) {
           >
             Sign In
           </button>
-          <label style={{display: 'flex'}}>
+          <label style={{display: 'flex', marginTop: '10px'}}>
           <h3 style={{color: 'beige', flex: 1}}>Not an account? </h3>
           <button 
             style={{
               backgroundColor: 'maroon',
               color: 'white',
-              width: '30%',
+              width: '34%',
               padding: '10px 20px',
               
               border: 'none',
               borderRadius: '10px',
               cursor: 'pointer',
-              flex: 1,
+              
               
             }} onClick={handleRegister}>
             Register
           </button>
           </label>
-          </form>
+          
          </div>
        
       </div>
