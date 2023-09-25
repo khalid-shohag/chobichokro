@@ -20,6 +20,7 @@ import Reciept from './components/appear/receipt';
 import MovieReview from "./components/appear/MovieReview";
 import PreBooking from "./components/appear/PreBooking";
 import RunningShowList from "./components/appear/RunningShowList";
+import AudienceRegistration from './components/audience/AudienceRegistration';
 function App() {
 
 
@@ -41,13 +42,14 @@ function App() {
         {/*Route for pages*/}
         <Route path='/distributor_page/:id' element={<DistributorPage />} />
         <Route path='/theatre_page/:id' element={<TheatrePage />} />
-        <Route path='/audience_dashboard/:id' element={<Dashboard />} />
+        <Route path='/audience_dashboard' element={<Dashboard />} />
         <Route path='/movie/:movie_id' element={<MovieDetails />} />
         <Route path='/movie/reciept' element={<Reciept />} />
         <Route path='/movie/review/:movie_id' element={<MovieReview />} />
         <Route path='/movie/pre-booking/hall/list/:movie_id' element={<PreBooking />} />
         <Route path='/movie/running-show/list/:movie_id' element={<RunningShowList />} />
         <Route path='/movie/confirm-booking/hall/list/:movie_id' element={<PreBooking />} />
+        <Route path='/audience_registration' element={<AudienceRegistration />} />
       </Routes>
     </BrowserRouter>
   );

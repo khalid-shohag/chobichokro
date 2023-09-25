@@ -34,7 +34,7 @@ function ReviewList() {
         <div>
             
                     {movieList.map(movie => (
-                        <Card style={{backgroundColor: '#E9DCC9', marginTop: '10px', marginBottom: '10px', borderRadius: '5px'}}>
+                        <Card style={{backgroundColor: '#E9DCC9', boxShadow: '0 0 10px white', marginTop: '10px', marginBottom: '10px', borderRadius: '5px'}}>
                         <CardBody>
                     <div key={movie.id}>
                         <h2>{movie.name}</h2>

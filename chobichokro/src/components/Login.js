@@ -4,6 +4,7 @@ import axios from "axios";
 import './Login.css'
 import ImageAdmin from '../assets/camera-219958_1280.jpg'
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 const bgLogin = require('../assets/login_page_bg.jpg')
 
 
@@ -16,6 +17,15 @@ function Login(props) {
   const [password, setPassword] = useState('');
   // const [token, setToken] = useState('');
   const navigate = useNavigate();
+
+  const handleRegister = () => {
+    if (props.value==='Distributor Login')
+        navigate('/license_status_check');
+      else if (props.value==='Theatre Login')
+        navigate('/license_status_check');
+      else if (props.value==='Audience Login')
+        navigate('/audience_registration');
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,9 +88,7 @@ function Login(props) {
       
     >
         
-      <div
-
-      >
+      <div>
         <h2 style={{color: '#2A925E'}}>Login</h2>
         <form >
           <div style={{marginTop: '30px', marginBottom: '30px' }}>
@@ -119,9 +127,28 @@ function Login(props) {
           >
             Sign In
           </button>
-        </form>
+          <label style={{display: 'flex'}}>
+          <h3 style={{color: 'beige', flex: 1}}>Not an account? </h3>
+          <button 
+            style={{
+              backgroundColor: 'maroon',
+              color: 'white',
+              width: '30%',
+              padding: '10px 20px',
+              
+              border: 'none',
+              borderRadius: '10px',
+              cursor: 'pointer',
+              flex: 1,
+              
+            }} onClick={handleRegister}>
+            Register
+          </button>
+          </label>
+          </form>
+         </div>
+       
       </div>
-    </div>
     </div>
   //   <div style={{width: '100vw', height:'100vh'}} className="container-v">
   //     <div className="column-v">

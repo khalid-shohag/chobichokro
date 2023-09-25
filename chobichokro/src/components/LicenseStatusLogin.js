@@ -76,26 +76,27 @@ function Login() {
       <div
         style={{
           // backgroundImage: `url(${ImageAdmin})`,
-          backgroundColor: 'lightgoldenrodyellow',
-          background: 'rgba(255, 255, 255, 0.8)',
+          background: 'white',
+          // background: 'rgba(255, 255, 255, 0.8)',
           padding: '20px',
           borderRadius: '10px',
-          boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+          boxShadow: '0 0 10px black',
           width: '400px',
           height: '250px'
         }}
       >
         <h2 style={{color: '#2A925E'}}>Status Check</h2>
-        <form >
-          <div style={{marginTop: '30px', marginBottom: '30px' }}>
-            <label htmlFor="number" style={{color: '#2A925E'}}>Phone/Email:</label>
-            <input
+       
+          <div style={{marginTop: '12%'}}>
+            <label  style={{color: '#2A925E'}}>Phone/Email:</label>
+            {/* <input 
               type="text"
-              id="number"
-              name="number"
-              style={{ width: '100%', height: "50px", borderRadius: '15px'  }}
+              value={number}
+              style={{ width: '100%', height: "50px", borderRadius: '15px', color: 'lavender', border: ''  }}
               onChange={(e) => setNumber(e.target.value)}
-            />
+            /> */}
+            <input type="text" value={number} onChange={(e) => setNumber(e.target.value)} 
+            style={{ width: '100%', height: "50px", borderRadius: '15px', marginBottom: '10px', color: 'black'  }}/>
           </div>
           
           <button
@@ -114,7 +115,7 @@ function Login() {
           >
             Check
           </button>
-        </form>
+       
       </div>
     </div>
     </div>
