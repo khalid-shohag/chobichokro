@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Card, CardBody, CardFooter, CardTitle } from 'reactstrap';
 import { Button } from 'react-bootstrap';
 import Navbar from '../navbar';
+import axios from 'axios';
 
 function AudienceRegistration() {
 
@@ -10,16 +11,52 @@ function AudienceRegistration() {
     const [password, setPassword] = useState('')
     const [verificationCode, setVerificationCode] = useState('')
     const [isVerified, setIsVerified] = useState(false)
+    const [vCode, setVCode] = useState('')
 
     const [verificationCard, setVerificationCard] = useState(false)
     const [registrationCard, setRegistrationCard] = useState(true)
 
-    const handleRegisterClcik = () => {
-        setVerificationCard(true)
-        setRegistrationCard(false)
+    const handleRegisterClcik = async() => {
+
+        const formData = new FormData()
+        formData.append('username', fullName)
+        formData.append('email', email)
+        formData.append('password', password)
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/mail/send-otp', formData).then((response) => {
+            console.log("OTP", response)
+            setVCode(response.data.toString())
+            setVerificationCard(true)
+            setRegistrationCard(false)
+        })
+        } catch(e) {
+            console.log("Error OTP", e)
+        }
+
+        
     }
 
-    const handleVerification = () => {
+    const handleVerification = async () => {
+
+        const formData = new FormData()
+        formData.append('username', fullName)
+        formData.append('email', email)
+        formData.append('password', password)
+        console.log("Verification Code", vCode)
+        if (verificationCode === vCode) {
+            try {
+                const response = await axios.post('http://localhost:8080/api/auth/signup', formData).then((response) => {
+                    console.log("Response", response)
+                    setVCode('')
+            })
+        }     catch(e) {
+                console.log("Error", e)
+            }
+        }
+        else 
+            alert('Wrong Verification Code')
+
         setVerificationCard(false)
         setRegistrationCard(true)
     }
@@ -37,10 +74,10 @@ function AudienceRegistration() {
 
                     <form>
                         <label style={{display: 'flex', color: 'black'}}>
-                         <h3> Full Name </h3>
+                         <h3> User Name </h3>
                         
                        
-                        <input style={{background: 'beige', height: '40px', color: 'black', marginLeft: '10%', borderRadius: '5px'}}
+                        <input style={{background: 'beige', height: '40px', color: 'black', marginLeft: '8%', borderRadius: '5px'}}
                             type='text'
                             placeholder='Enter Full Name'
                             value = {fullName}
