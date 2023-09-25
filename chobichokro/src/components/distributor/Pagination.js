@@ -18,8 +18,8 @@ function Pagination(props) {
   const goBookingList = (id) => {
     return navigate('/movie/pre-booking/hall/list/'+id, {state: {token: props.token, title: 'Pre Booking List', name: props.name, requestName: 'pending_movie_request'}})
   }
-  const goRunningShowList = (id) => {
-    return navigate('/movie/running-show/list/'+id)
+  const goRunningShowList = (id, theatreList) => {
+    return navigate('/movie/running-show/list/'+id, {state: {theatreList, movieName: props.name}})
   }
   const goConfirmBookingList = (id) => {
     return navigate('/movie/confirm-booking/hall/list/'+id, {state: {token: props.token, title: 'Confirm Booking List', name: props.name, requestName: 'approve_movie_request'}})
@@ -57,11 +57,12 @@ function Pagination(props) {
     const directorString = director.map((director) => director).join(', ')
     const handleReviewClick = (reviews) =>  goReview(props.id, reviews);
     const handleBookingClick = () => goBookingList(props.id);
-    const handleRunningShowClick = () => goRunningShowList(props.id)
+    const handleRunningShowClick = (theatreList) => goRunningShowList(props.id, theatreList)
     const handleConfirmBookingClick = () => goConfirmBookingList(props.id)
 
     const [movieAnalysis, setMovieAnalysis] = useState('')
     const [reviews, setReviews] = useState([])
+    const [theatreList, setTheatreList] = useState([])
 
     const getMovieAnalysis = async () => {
 
@@ -75,6 +76,7 @@ function Pagination(props) {
             console.log("Movie Analysis: ", response.data)
             setMovieAnalysis(response.data)
             setReviews(response.data.reviews)
+            setTheatreList(response.data.theaters)
           })
       } catch(e) {
         console.log("Error fetching movie analysis", e)
@@ -189,8 +191,11 @@ function Pagination(props) {
                  {/*<div>{props.status}</div>*/}
                  {/*<div>{props.date.slice(0, 10)}</div>*/}
                  <div>
-                   <h3>Total Collection: bdt.</h3>
-                   <h3>Total Footfalls: </h3>
+                   <h3>Total Collection: {movieAnalysis.totalRevenue}bdt.</h3>
+                   <h3>Total Footfalls: {movieAnalysis.totalTicket}</h3>
+                   <h3>Total Screening: {movieAnalysis.totalScreening}</h3>
+                   <h3>Total Theatre: {movieAnalysis.totalTheater}</h3>
+                   <h3>Average Review: {movieAnalysis.averageSentiment}</h3>
                    <div style={{display: 'flex'}}>
                      <div style={{flex: 1}}>
                        <h1>Verdict - </h1>
@@ -209,7 +214,7 @@ function Pagination(props) {
                    <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}
                            onClick={handleReviewClick}>Reviews</Button>
                    <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}
-                           onClick={handleRunningShowClick}>Show List</Button>
+                           onClick={() => handleRunningShowClick(theatreList)}>Show List</Button>
 
                  </div>
 
