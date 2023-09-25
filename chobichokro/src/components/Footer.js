@@ -3,48 +3,23 @@ import "./Footer.css"
 import React from 'react'
 import {FaHome, FaPhone, FaMailBulk, FaFacebook, FaTwitter, FaLinkedin, FaGithub} from 'react-icons/fa'
 import { Link } from "react-router-dom"
+import { Card } from "react-bootstrap"
+import { CardBody } from "reactstrap"
 
 const Footer = () => {
   return (
-    <div className="footer">
-      <div className="footer-container">
-        <div className="left">
-          <div className="location">
-            <FaHome size={20} style={ {color: "#fff", 
-            marginRight: "2rem"} } />
-            <div>
-                <p>University of Rajshahi</p>
-                <p>Rajshahi 6205, Bangladesh</p>
-            </div>
-          </div>
-          <div className="phone">
-            <h4><FaMailBulk size={20} style={ {color: "#fff", 
-            marginRight: "2rem"} } />
-            shohag9438@gmail.com</h4>
-          
-          </div>
-        </div>
-        <div className="right">
-          <div className="social">
-          <Link to="https://web.facebook.com/mdkhalidhasanshohag.1257">
-          <FaFacebook size={30} style={ {color: "#fff", 
-            marginRight: "2rem"}  } />
-          </Link>
-          
-          <FaTwitter size={30} style={ {color: "#fff", 
-            marginRight: "2rem"} } />
-          <FaLinkedin size={30} style={ {color: "#fff", 
-            marginRight: "2rem"} } />
-          <Link to="https://github.com/Khalid511">
-          <FaGithub size={30} style={ {color: "#fff", 
-            marginRight: "2rem"} } />
-          </Link>
-          
-          </div>
-          
-        </div>
-      </div>
-    </div>
+    <Card style={{background: 'darkcyan', height: '40%'}}>
+      <CardBody style={{marginLeft: '50%', fontSize: '25', fontWeight: 'bolder'}}>
+        Developed By
+      </CardBody>
+      <CardBody style={{marginTop: '2%', marginLeft: '49%', fontSize: '30', fontWeight: 'bolder'}}>
+        RU JavaSipSquad
+      </CardBody>
+      <CardBody style={{marginTop: '2%', marginLeft: '45%', fontSize: '30', fontWeight: 'bolder'}}>
+        Md. Khalid Hasan & Kamol Paul
+      </CardBody>
+
+    </Card>
   )
 }
 

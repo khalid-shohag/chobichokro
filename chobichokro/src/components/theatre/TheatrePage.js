@@ -189,18 +189,18 @@ function TheatrePage() {
 
 
         return (
-            <div>
+            <div >
             <div className="container">
                 
             <div className="row">
                 
                 <Navbar />
-                <img src={theatreImg}  style={{ position: 'absolute', // Position the video absolutely within the div
+                <img src={theatreImg}  style={{ position: 'absolute', 
           top: 0,
           left: 0,
           width: '100%',
           height: 'auto',
-          objectFit: 'cover', // Maintain aspect ratio and cover entire div
+          objectFit: 'cover', 
           zIndex: -1, }}/>
                 
             </div>
@@ -337,6 +337,8 @@ function TheatrePage() {
             
             
             </div>
+
+            
             
             </div>
         );

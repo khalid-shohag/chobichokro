@@ -23,6 +23,7 @@ import Navbar from "../navbar";
 import '../distributor/DistributorPage.css'
 import { CardBody } from "reactstrap";
 import TaxReports from "./TaxReports";
+import Footer from "../Footer";
 
 const SystemAdmin = () => {
 
@@ -109,10 +110,8 @@ const SystemAdmin = () => {
         {pendingResult && <LicensePending />}
         {activeResult && <LicenseApproved />}
         {tax && <TaxReports token = {token} />}
-
+     
         </div>
-
-
         
     );
             

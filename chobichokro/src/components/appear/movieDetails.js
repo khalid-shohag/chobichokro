@@ -20,6 +20,7 @@ import TicketBooking from './TicketBooking';
 import SeatBooking from '../theatre/SeatBooking';
 import reelImg from '../../assets/reel.jpg'
 import { ReelBook } from '../theatre/ReelBook';
+import Footer from '../Footer';
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
@@ -281,6 +282,9 @@ const MovieDetails = (props) => {
                 < ReelBook mmovieName={name} theatreId={theatreId} theatreName={theatreName}/>
             </div>
         )}
+
+          
+
         </div>
     )
 }
