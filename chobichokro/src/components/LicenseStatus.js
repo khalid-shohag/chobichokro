@@ -19,6 +19,7 @@ function LicenseStatus() {
     const [screen, setScreen] = useState('');
     const [post, setPost] = useState('')
     const [licNum, setLicNum] = useState('')
+    const [vCode, setVCode] = useState('')
 
     const identificationNumber = generateRandomString(18)
 
@@ -52,6 +53,7 @@ function LicenseStatus() {
         }
         // formData.append('roles', roles)
 
+        if (verificationCode===vCode) {
         try {
           const response = await axios.post(api, formData);
 
@@ -68,11 +70,25 @@ function LicenseStatus() {
         } catch (error) {
           console.error('Error occured', error);
         }
+      }
+      else
+        alert('Verification Mismatch')
     }
 
-    const handleCodeRequest = () => {
+    const handleCodeRequest = async() => {
+        const formData = new FormData()
+        try {
+          const response = await axios.post(`http://localhost:8080/api/mail/get-mail-otp/${email}`).then((response) => {
+            console.log("OTP", response)
+            setVCode(response.data.toString())
+            
+          })
+          setIsCodeSent(true);
+        } catch(e) {
+          console.log('GET OTP ERROR: ', e)
 
-        setIsCodeSent(true);
+        }
+        
     };
 
     const handleVerification = () => {
