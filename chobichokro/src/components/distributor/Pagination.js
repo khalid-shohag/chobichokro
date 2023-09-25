@@ -55,7 +55,7 @@ function Pagination(props) {
     const genreString = genre.map((genreItem) => genreItem).join(' ');
      const castString = cast.map((cast) => cast).join(', ') || ''
     const directorString = director.map((director) => director).join(', ')
-    const handleReviewClick = (reviews) => goReview(props.id, reviews);
+    const handleReviewClick = (reviews) =>  goReview(props.id, reviews);
     const handleBookingClick = () => goBookingList(props.id);
     const handleRunningShowClick = () => goRunningShowList(props.id)
     const handleConfirmBookingClick = () => goConfirmBookingList(props.id)
@@ -144,7 +144,7 @@ function Pagination(props) {
 
                    </div>
                    <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}
-                           onClick={handleReviewClick(reviews)}>Reviews</Button>
+                           onClick={ () => handleReviewClick(reviews)}>Reviews</Button>
 
                  </div>
 
@@ -154,7 +154,7 @@ function Pagination(props) {
            </div>
        );
      }
-     else if(props.status=='running') {
+     else if(props.status==='running') {
        return (
 
 
