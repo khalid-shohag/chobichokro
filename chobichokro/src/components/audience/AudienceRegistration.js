@@ -100,7 +100,7 @@ function AudienceRegistration() {
                         
                        
                         <input style={{background: 'beige', height: '40px', color: 'black', marginLeft: '10%', borderRadius: '5px'}}
-                            type='text'
+                            type='password'
                             placeholder='Enter Password'
                             value = {password}
                             onChange={(e) => setPassword(e.target.value)}

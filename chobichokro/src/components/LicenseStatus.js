@@ -177,7 +177,7 @@ function LicenseStatus() {
                             <h6>Registration</h6>
                         </Card.Header>
                         <Card.Body>
-                        <form >
+                        
           <div>
             {/* <label htmlFor="username" style={{color: '#2A925E'}}>Username:</label>
             <input
@@ -237,7 +237,6 @@ function LicenseStatus() {
           >
             Register
           </button>
-        </form>
                         </Card.Body>
                     </Card>
                 </div>
