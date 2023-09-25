@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import Navbar from "../navbar";
 import { Button, Nav } from "react-bootstrap";
 import './dashboard.css'
-import profileImage from '../../assets/profile.png'
+
 import { Card } from "react-bootstrap";
 import { CardBody, CardFooter } from "reactstrap";
 import { FaIcons } from "react-icons/fa";
 import { FaFilm, FaStar, FaHeart, FaPen } from "react-icons/fa";
 import ReviewList from "./dashList/ReviewList";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 import bgImage from '../../assets/light.gif'
+const profileImage = require('../../assets/avatar2.png')
 
 function Dashboard() {
+
+    const location = useLocation()
+    const audience_name = location.state?.name || ''
+    const audience_email = location.state?.email || ''
 
     const [review, setReview] = useState(false);
 
@@ -33,16 +39,16 @@ function Dashboard() {
           objectFit: 'cover', // Maintain aspect ratio and cover entire div
           zIndex: -1, // Place it behind other content
         }}/>
-                <div className="column-das first-content-das" style={{flexDirection: 'column'}}>
+                <div className="column-das" style={{flexDirection: 'column'}}>
                     <div>
                     <img src={profileImage} alt='profile' style={{width: '100px', height: '100px', borderRadius: '50%'}} />
                     </div>     
                                  
                     <div style={{marginTop: '10px',  border: '15px solid gray', borderRadius: '5px'}}>
-                        Khalid Hasan    
+                        {audience_name}    
                     </div>
-                    <div style={{marginTop: '10px', border: '1px solid black'}}>
-                        <FaEnvelope></FaEnvelope> <a href="abc@gmail.com"> abc@gmail.com</a>    
+                    <div style={{marginTop: '10px', border: '1px solid black', display: 'flex', fontSize: '5'}}>
+                        <FaEnvelope></FaEnvelope> <a href={audience_email}> {audience_email}</a>    
                     </div>
                     <div style={{marginTop: '10px', border: '1px solid black'}}>
                         <FaPhone></FaPhone> 662656    

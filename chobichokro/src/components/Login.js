@@ -48,17 +48,18 @@ function Login(props) {
       const name = response.data.username;
       const id = response.data.id
       const address = response.data.address
+      const email = response.data.email
       
       // setToken(token);
       console.log("Token Login- ",token)
-      console.log(response.data)
+      console.log("Response: ",response.data)
       
       if (props.value==='Distributor Login' && response.data.roles[0]==='ROLE_DISTRIBUTOR')
         navigate('/distributor_page/'+response.data.id, {state: {token, name}});
       else if (props.value==='Theatre Login'  && response.data.roles[0]==='ROLE_THEATER_OWNER')
         navigate('/theatre_page/'+response.data.id, {state: {token, name, id, address}});
       else if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER')
-        navigate('/audience_dashboard/'+response.data.id, {state: {token}});
+        navigate('/audience_dashboard/'+response.data.id, {state: {token, name, email}});
       else if (props.value==='Admin Login'  && response.data.roles[0]==='ROLE_ADMIN')
         navigate('/admin', {state: {token}});
       else

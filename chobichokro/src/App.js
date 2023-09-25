@@ -42,7 +42,7 @@ function App() {
         {/*Route for pages*/}
         <Route path='/distributor_page/:id' element={<DistributorPage />} />
         <Route path='/theatre_page/:id' element={<TheatrePage />} />
-        <Route path='/audience_dashboard' element={<Dashboard />} />
+        <Route path='/audience_dashboard/:audience_id' element={<Dashboard />} />
         <Route path='/movie/:movie_id' element={<MovieDetails />} />
         <Route path='/movie/reciept' element={<Reciept />} />
         <Route path='/movie/review/:movie_id' element={<MovieReview />} />
