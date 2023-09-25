@@ -183,9 +183,33 @@ class SeatBooking extends React.Component {
         })
       }
     }
-    
 
-    
+    componentDidMount() {
+        let seats_data = this.get_available_seats(this.props)
+
+        console.log(seats_data.then((value) => {
+            this.setState({
+                seatAvailable: value.available,
+                seatUnavailable: value.booked
+            })
+        }))
+        console.log('Got ', this.seatUnavailable)
+        this.hasGot = 1
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        let seats_data = this.get_available_seats(this.props)
+
+        console.log(seats_data.then((value) => {
+            this.setState({
+                seatAvailable: value.available,
+                seatUnavailable: value.booked
+            })
+        }))
+        console.log('Got ', this.seatUnavailable)
+        this.hasGot = 1
+    }
+
+
     render() {
       
       const theatre = this.props.theatre
@@ -196,19 +220,7 @@ class SeatBooking extends React.Component {
         const token = this.props.token
         console.log(this.props)
        
-        
-        if(this.hasGot === 0) {
-            let seats_data = this.get_available_seats(this.props)
 
-            console.log(seats_data.then((value) => {
-                this.setState({
-                    seatAvailable: value.available,
-                    seatUnavailable: value.booked
-                })
-            }))
-            console.log('Got ', this.seatUnavailable)
-            this.hasGot = 1
-        }
 
 
       

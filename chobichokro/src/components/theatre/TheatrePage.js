@@ -125,6 +125,7 @@ function TheatrePage() {
     const [book, setBook] = useState(false)
     const handleBook = () => {
         setBook(true)
+
     }
 
     const showDateSet = new Set()
