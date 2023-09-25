@@ -53,7 +53,7 @@ function LicenseStatus() {
         }
         // formData.append('roles', roles)
 
-        if (verificationCode===vCode) {
+     
         try {
           const response = await axios.post(api, formData);
 
@@ -71,9 +71,9 @@ function LicenseStatus() {
           console.error('Error occured', error);
         }
       }
-      else
-        alert('Verification Mismatch')
-    }
+     
+    
+  
 
     const handleCodeRequest = async() => {
         const formData = new FormData()
@@ -92,7 +92,10 @@ function LicenseStatus() {
     };
 
     const handleVerification = () => {
+      if (verificationCode===vCode) 
         setIsVerified(true);
+      else
+        alert('Verification Mismatch')
     };
 
     return(
@@ -263,7 +266,7 @@ function LicenseStatus() {
         </div>
         </div>
     );
-}
+          }
 
 export default LicenseStatus;
 
