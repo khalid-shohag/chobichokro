@@ -360,7 +360,7 @@ function TheatrePage() {
             {
                 (upcomingShow &&
                     <div className="row">
-                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming_movie"}/>
+                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming_movie"} cat={'ticket'}/>
                 </div>)
             }
             {

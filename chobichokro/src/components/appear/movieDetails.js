@@ -62,6 +62,7 @@ const MovieDetails = (props) => {
     const cast = movie?.cast || []
     const director = movie?.director || ''
     const releaseDate = movie?.releaseDate || ''
+    const movieStatus = movie?.status || ''
     const category = location.state?.category
     const theatreId = location.state?.theatreId || ''
     const theatreName = location.state?.theatreName || ''
@@ -302,45 +303,42 @@ const MovieDetails = (props) => {
                     
                     <div>
                         
-                        {category==='ticket' ? (
+                        {category==='ticket' ? ( <div>
                      <BookTicket onClick={handleBooking}>
                      <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} />
                      {/* <FaTicketAlt></FaTicketAlt> */}
                      <span >BOOK TICKETS</span>
                      
                  </BookTicket>
-                ): (
+                    <BookTicket onClick={handleReviewClick}>
+                    {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
+                    <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
+                    <span >REVIEWS</span>
+                
+                    </BookTicket>
+                    </div>
+                ): (category==='reel') ? (
                     <BookTicket onClick={handleReelBooking}>
                     <img src={reelImg} alt="ticket" style={{height: '40px', width: '40px'}} />
                     {/* <FaTicketAlt></FaTicketAlt> */}
                     <span >BOOK REELS</span>
                     
                     </BookTicket>
-                )}
+                ): (<div></div>)}
                     
                     
-                <BookTicket onClick={handleReviewClick}>
-                        {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
-                        <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
-                        <span >REVIEWS</span>
-                    </BookTicket>
+                
                     </div>
                 ) }
                 
                 
             </Details>
-            {(theatreName!='') ? (
+            {(movieStatus==='running' ) ? (
                 <div style={{marginTop: '150px', color: 'yellowgreen'}}>
                     <h2 style={{color: 'lavender'}}>Theatre Name: {theatreName}</h2>
                     <h2>Total Footfalls: {footFalls}</h2>
                     <h2>Total Net collection: {footFalls*100}</h2>
-                    <Details>
-                    <BookTicket onClick={handleReviewClick}>
-                        {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
-                        <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
-                        <span >REVIEWS</span>
-                    </BookTicket> 
-                    </Details>
+                    
                 </div>
             ): (
                 <Trailer>
