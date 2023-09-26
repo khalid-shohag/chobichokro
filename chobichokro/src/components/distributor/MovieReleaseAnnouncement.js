@@ -138,6 +138,7 @@ const MovieReleaseAnnouncement = (props) => {
 
       // Handle success and reset the form as needed
       console.log('Data sent successfully:', response.data);
+      alert("Movie Release Announced Successfully")
       
   
 
@@ -146,6 +147,7 @@ const MovieReleaseAnnouncement = (props) => {
       console.log("Check CMD")
       // Handle error
       console.error('Error sending data:', error);
+      alert("Movie Announcement Failed")
     }
   };
 
