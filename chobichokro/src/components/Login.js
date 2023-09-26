@@ -46,6 +46,7 @@ function Login(props) {
       const token = response.data.token; 
       const type = response.data.tokenType;
       const name = response.data.username;
+      const theatreName = response.data.username //Theatre response has different naming convention
       const id = response.data.id
       const address = response.data.address
       const email = response.data.email
@@ -65,7 +66,7 @@ function Login(props) {
       if (props.value==='Distributor Login' && response.data.roles[0]==='ROLE_DISTRIBUTOR')
         navigate('/distributor_page/'+response.data.id, {state: {token, name}});
       else if (props.value==='Theatre Login'  && response.data.roles[0]==='ROLE_THEATER_OWNER')
-        navigate('/theatre_page/'+response.data.id, {state: {token, name, id, address}});
+        navigate('/theatre_page/'+response.data.id, {state: {token, theatreName, id, address}});
       else if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER')
         navigate('/audience_dashboard/'+response.data.id, {state: {token, name, email}});
       else if (props.value==='Admin Login'  && response.data.roles[0]==='ROLE_ADMIN')

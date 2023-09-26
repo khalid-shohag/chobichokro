@@ -12,6 +12,7 @@ export function  RunningShow(props) {
 
   console.log("SFDJGJSDJG")
   console.log("TOken props: ", props.token)
+  console.log('\n\n\nTheatre name TEMP', props.theatreName)
   // const navigate = useNavigate()
 
     const getAllMovies = async () => {
@@ -38,6 +39,7 @@ export function  RunningShow(props) {
 //   getAllMovies();
 
   console.log("Movies", movies);
+  
 
   // const [bookCategory, setBookCategory] = useState('')
   // if (props.category=='reel')

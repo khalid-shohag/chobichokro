@@ -28,7 +28,7 @@ function TheatrePage() {
     const [ticket, setTicket] = useState(false);
     const location = useLocation();
     const token = location.state?.token || ''
-    const name = location.state?.name || ''
+    const name = location.state?.theatreName || ''
     const address = location.state?.address || ''
     const id = location.state?.id || ''
 

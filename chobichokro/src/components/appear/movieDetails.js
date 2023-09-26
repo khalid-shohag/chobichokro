@@ -80,7 +80,7 @@ const MovieDetails = (props) => {
     console.log("\n\n\nMovie Name Theatre: \n\n\n", theatreMovieName)
 
     console.log("STatus ", status)
-    console.log("Theatre Name: ", theatreName)
+    console.log("\n\nTheatre Name: ", theatreName)
 
     console.log("MOVie NAme", name, id)
 
