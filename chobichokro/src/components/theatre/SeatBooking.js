@@ -106,7 +106,7 @@ class SeatBooking extends React.Component {
             ['G01','G02','G03', 'G04', 'G05', 'G06', 'G07', 'G08', 'G09', 'G10', 'G11','G12','G13', 'G14', 'G15', 'G16', 'G17', 'G18', 'G19', 'G20'],
         ],
         seatReserved: [],
-        seatUnavailable: ['A12', 'B13', 'C14'],
+        seatUnavailable: [],
         reservationCount: 0,
       }
     }
@@ -217,7 +217,8 @@ class SeatBooking extends React.Component {
       const showTime = this.props.show
       const movieName = this.props.movie
       const date = this.props.date
-        const token = this.props.token
+      const token = this.props.token
+      const theatreName = this.props.theatreName  
         console.log(this.props)
        
 
@@ -264,8 +265,11 @@ class SeatBooking extends React.Component {
           </Card>
           {
                   this.state.receipt && (
-                  // <div><a href='/movie/reciept'>Open Receipt</a></div>
-                  <Reciept movie={movieName} date={date}  theatre={theatre} hall={hall} showTime={showTime} seats={this.state.seatReserved} />
+
+                    
+                    <div style={{marginTop: '7%'}}>
+                    <Reciept movie={movieName} date={date}  theatre={theatreName} hall={hall} showTime={showTime} seats={this.state.seatReserved} />
+                    </div>
                   )
                }
         </div>

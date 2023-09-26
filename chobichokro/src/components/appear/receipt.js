@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Document, Page, Text, View, StyleSheet, PDFViewer, Image } from '@react-pdf/renderer';
 import recieptBG from '..//../assets/reciept_bg.webp'
 
@@ -44,7 +44,7 @@ const MyDocument = (props) => (
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Theatre: {props.theatre}</Text>
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Movie: {props.movie}</Text>
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Hall: {props.hall}</Text>
-        <Text style={{ fontSize: 16, marginBottom: 10 }}>Date: {props.date}, {props.showTime}</Text>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Date: {props.date}</Text>
         <Text style={{ fontSize: 16, marginBottom: 10 }}>Price: 100 tk. per unit</Text>
         <View style={styles.table}>
           
@@ -88,13 +88,16 @@ const MyDocument = (props) => (
 function Reciept(props) {
   const seats = props.seats.map((seat) => seat).join(', ');
   const amount = props.seats.length * 100
+
   return(
-    <PDFViewer PDFViewer style={{ width: '100%', height: '1000px' }}>
+   
+
+    <PDFViewer PDFViewer style={{ width: '100%', height: '200px' }}>
       
       {console.log("PDFVIEWER")}
       <MyDocument theatre={props.theatre} movie={props.movie} date={props.date} hall={props.hall} showTime={props.showTime} seats={seats} seatNum={props.seats.length} amount={amount}/>
     </PDFViewer>
-
+    
   );
 }
 
