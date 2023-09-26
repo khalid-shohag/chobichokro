@@ -20,9 +20,9 @@ function MovieList(props) {
         passMovieDetail();
       }}
     >
-        <Card style={{color: 'white'}}>
+        <Card style={{color: 'palegoldenrod'}}>
           <CardHeader>
-            <h3>{props.name}</h3>
+            <h3 style={{fontSize: '25px'}}>{props.name}</h3>
           </CardHeader>
           <CardBody>
             {genreString}
