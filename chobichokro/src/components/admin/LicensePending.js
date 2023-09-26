@@ -75,12 +75,12 @@ function LicensePending(props) {
                                         <h4>Transaction No. {license.transactionNumber}</h4>
                                     </div>
                                     <div style={{flex: 1, marginLeft: '220px'}}>
-                                        <Button style={{background: 'transparent', marginTop: '4px'}} onClick ={ () => {
+                                        <Button style={{background: 'yellowgreen', marginTop: '4px', borderRadius: '50%', border: 'none'}} onClick ={ () => {
                                             updateStatus(license.id)
                                         }}>
                                             <FaCheck></FaCheck> Approve
                                         </Button>
-                                        <Button style={{background: 'transparent', marginTop: '4px'}}>
+                                        <Button style={{background: 'coral', marginTop: '4px', borderRadius: '50%', border: 'none'}}>
                                             <FaTimes></FaTimes> Cancel
                                         </Button>
                                     </div>
