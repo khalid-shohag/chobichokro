@@ -219,7 +219,7 @@ class SeatBooking extends React.Component {
       const date = this.props.date
       const token = this.props.token
       const theatreName = this.props.theatreName  
-        console.log(this.props)
+      console.log(this.props)
        
 
 

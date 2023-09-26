@@ -82,11 +82,11 @@ const MovieDetails = (props) => {
         console.log("Form Data", formData.get('movieName'))
         try {
             const response = await axios.get(
-                `http://localhost:8080/api/audience/get_theater_list`, formData).then((response) => {
+                `http://localhost:8080/api/audience/get_theater_list?movieName=${theatreMovieName}`).then((response) => {
                     console.log("All Theatre RP", response)
                     setAllTheatre(response.data)
                 })
-
+            console.log('Theatre response', response)
         }
          catch(e) {
             console.log("Error data fetching theatre", e)
@@ -416,11 +416,13 @@ const MovieDetails = (props) => {
                         }, 2500)
                     } */}
                     <div style={{flex: 1}}>
-                        <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val = {screenNum} stat={'no'} />}</h5>
-                    </div>
-                    <div style={{flex: 1}}>
                         <h5> {<TicketBooking onSelectedOptions = {handleShow} name={"Show"} val = {showDate} stat={'no'} />}</h5>
                     </div>
+                    
+                    <div style={{flex: 1}}>
+                        <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val = {screenNum} stat={'no'} />}</h5>
+                    </div>
+                    
                     <div style={{flex: 1}}>
                         <Button onClick={handleBook} style={{backgroundColor: 'yellowgreen'}}>
                             Book

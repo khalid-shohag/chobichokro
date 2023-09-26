@@ -39,51 +39,38 @@ function PreBooking() {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            }).then((response) => {
             console.log("Response: ", response)
+            })
+            alert("Booking Approved")
         }
         catch(error) {
             console.log("Error fetching data", error);
         }
     }
     
-    const theatreList = [
-        {
-            id: 1,
-            name: 'Star Cineplex',
-            Address: 'High Tech Park, Rajshahi'
-        },
-        {
-            id: 2,
-            name: 'RajTilak',
-            Address: 'KataKhali, Rajshahi'
-        },
-        {
-            id: 3,
-            name: 'Monihar',
-            Address: 'Jessore'
-        }
-    ]
+    
     return(
         <div>
             {console.log("PRE BOOKING")}
             <Navbar />
             <div style={{marginTop: '80px'}}>
-                <h1>Pre Booking List </h1>
+                <h1 style={{marginLeft: '40%'}}>Pre Booking List </h1>
                 {pendingBooking.map((rv) => {
                     return(
-                        <Card key={rv.id} style={{padding: '10px', fontStyle: 'italic', fontSize: '18px', marginBottom: '30px', borderRadius: '5px', height: 'auto', width: '100%', backgroundColor: 'lavender'}}>
+                        <Card key={rv.id} style={{marginTop: '2%', boxShadow: '0 0 10px seagreen', padding: '10px', marginLeft: '32%', fontStyle: 'italic', fontSize: '18px', marginBottom: '30px', borderRadius: '5px', height: 'auto', width: '35%', backgroundColor: 'lavender'}}>
                             <CardBody>
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>
-                                    <h6>{rv.movie.movieName}</h6>
-                                    <h5>{rv.theater.name}</h5>
-                                    <h5>{rv.theater.address}</h5>
-                                    <h5>{rv.theater.numberOfScreens}</h5>
+                                    <h6>Movie- {rv.movie.movieName}</h6>
+                                    <h5>Theatre- {rv.theater.name}</h5>
+                                    <h5>Address- {rv.theater.address}</h5>
+                                    <h5>Total screen- {rv.theater.numberOfScreens}</h5>
 
                                     </div>
                                     <div style={{flex: 1}}>
-                                        <Button style={{background: 'transparent'}} onClick={approvePendingBooking(rv.id)}>
+                                        <Button style={{background: 'seagreen', borderRadius: '50%', border: 'none'}}
+                                         onClick={() => approvePendingBooking(rv.id)}>
                                             Approve
                                         </Button>
                                     </div>
