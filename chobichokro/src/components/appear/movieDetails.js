@@ -148,8 +148,10 @@ const MovieDetails = (props) => {
                 
             })
             console.log('Successfull ', response.data)
+            alert('Successfully added to your cart')
         } catch(e) {
             console.log("Error: ", e)
+            alert(`Network Error, can't add to your cart`)
         }
     }
 
@@ -410,11 +412,11 @@ const MovieDetails = (props) => {
                 {book && (
                 <SeatBooking theatre={theatre} hall={hall} show={show} movie={id} date={show} token ={token}/>
                 )}
-        { reelBooking && (
+        {/* { reelBooking && (
             <div style={{marginTop: '20px', marginLeft: '250px'}}>
                 < ReelBook mmovieName={name} theatreId={theatreId} theatreName={theatreName}/>
             </div>
-        )}
+        )} */}
 
           
 
