@@ -53,6 +53,14 @@ function Login(props) {
       // setToken(token);
       console.log("Token Login- ",token)
       console.log("Response: ",response.data)
+
+      if(props.redirectStatus==='yes') {
+        console.log('LOCATION STATE: ', props.category, props.id, props.allTheatre)
+        if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER')
+          navigate(props.pathname, {state: {category: props.category, id: props.id, allTheatre: props.allTheatre, ticketBook: 'yes',
+          ticketToken: token, audienceName: name, audienceEmail: email}});
+          return null;
+      }
       
       if (props.value==='Distributor Login' && response.data.roles[0]==='ROLE_DISTRIBUTOR')
         navigate('/distributor_page/'+response.data.id, {state: {token, name}});

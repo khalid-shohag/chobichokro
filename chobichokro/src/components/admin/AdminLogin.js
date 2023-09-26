@@ -6,7 +6,7 @@ const AdminLogin = () => {
     return(
         <div>
             <Navbar />
-            <Login value={'Admin Login'}/>
+            <Login value={'Admin Login'} redirectStatus={'no'}/>
         </div>
     );
 }

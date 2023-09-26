@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import muteImage from '../../assets/muted.png'
 import unmuteImage from '../../assets/unmuted.png'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { FaWatchmanMonitoring, FaEye } from 'react-icons/fa';
+import { FaWatchmanMonitoring, FaEye, FaEnvelope } from 'react-icons/fa';
 import ticketImage from '../../assets/two-yellow-tickets_1101-56.jpg'
 import Navbar from '../navbar';
 import { CardBody } from 'reactstrap';
@@ -50,6 +50,8 @@ const MovieDetails = (props) => {
         getMovie();
     }, [location.state.id]);
 
+    
+
     // const category = location.state?.category || 'ticket'
    
     const name = movie?.movieName || ''; 
@@ -65,6 +67,14 @@ const MovieDetails = (props) => {
     const theatreName = location.state?.theatreName || ''
     const status = location.state?.status || ''
     const allTheatre = location.state?.allTheatre || []
+    const ticketBook = location.state?.ticketBook || []
+
+    // Audiencce Login redirect info 
+    const ticketToken = location.state?.ticketToken
+    const audienceName = location.state?.audienceName
+    const audienceEmail = location.state?.audienceEmail
+
+    console.log('\n\n\nREDIRECT', audienceName, audienceEmail)
 
     console.log("All theatre Details", allTheatre)
     console.log("\n\n\nMovie Name Theatre: \n\n\n", theatreMovieName)
@@ -72,7 +82,7 @@ const MovieDetails = (props) => {
     console.log("STatus ", status)
     console.log("Theatre Name: ", theatreName)
 
-    console.log("MOVie NAme", name)
+    console.log("MOVie NAme", name, id)
 
     console.log("Category: ", category)
 
@@ -81,7 +91,7 @@ const MovieDetails = (props) => {
         return navigate('/movie/review/'+id)//<Link to={'/movie/review/'+id} />
     
     }
-    const handleReviewClick = () => goReview(props.id);
+    const handleReviewClick = () => goReview(id);
 
     const genreString = genre.map((genreItem) => genreItem).join(' ');
     const allCasts = cast.map((cst) => cst).join(', ');
@@ -91,8 +101,32 @@ const MovieDetails = (props) => {
     //handle the book tickets button
     const [booking, getBooking] = useState(false);
     const handleBooking = () => {
+
+        const movieDetails = {
+            category: 'ticket',
+            id: theatreMovieName,
+            theatreName: theatreName,
+            status: status,
+            allTheatre: allTheatre
+        };
+    
+        const customState = {
+            locationPathname: location.pathname,
+            movieDetails: movieDetails,
+        };
+    
         getBooking(true);
+        navigate('/audience_login', { state: customState });
+    
+        // Assuming getBooking is some action you want to dispatch
+        
+    
     }
+
+    useEffect(() => {
+        if(ticketBook==='yes')
+            getBooking(true)
+    }, [])
 
     const [reelBooking, setReelBooking] = useState(false)
     const handleReelBooking = async () => {
@@ -324,9 +358,18 @@ const MovieDetails = (props) => {
 
         {booking && (
             <div style={{background: 'darkkhaki'}}>
-                <Card style={{backgroundColor: 'purple'}}>
+                <Card style={{backgroundColor: 'navy'}}>
                     <CardBody>
-                        <h5>{name}</h5>
+                    {audienceName!='' ? (
+                    <div style={{display: 'flex', justifyContent: 'space-around', color: 'white'}}>
+                        <h3>Audience Name: {audienceName}</h3>
+                        <h3><FaEnvelope></FaEnvelope> {audienceEmail}</h3>
+                    </div>
+                ): (
+                    <h1>
+                        {name}
+                    </h1>
+                )}
                     </CardBody>
                 </Card>
                 

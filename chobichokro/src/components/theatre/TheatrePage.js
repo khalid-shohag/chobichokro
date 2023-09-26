@@ -32,6 +32,9 @@ function TheatrePage() {
     const address = location.state?.address || ''
     const id = location.state?.id || ''
 
+    console.log("\n\n\n\nTheatre Page: ", location.pathname)
+    console.log('\n\n\nLocation state', location.state)
+
 
     console.log("Kothay token")
     console.log("Theatre DEtails: ", name, address, id)

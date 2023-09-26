@@ -6,7 +6,7 @@ const TheatreLogin = () => {
     return(
         <div>
             <Navbar />
-            <Login value={'Theatre Login'}/>
+            <Login value={'Theatre Login'} redirectStatus={'no'}/>
         </div>
     );
 }

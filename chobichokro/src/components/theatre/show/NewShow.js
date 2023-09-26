@@ -123,7 +123,7 @@ const NewShow = (props) => {
             <h2>Add new Show</h2>
           </CardHeader>
           <CardBody style={{ marginLeft: '150px' }}>
-            <form onSubmit={handleSubmit}>
+           
               <h3>Movie Name </h3>
               <div>
                 <ShowList onMovieName = {onSelectMovieName} token={props.token}/>
@@ -164,7 +164,7 @@ const NewShow = (props) => {
                 marginTop: '10px',
                 backgroundColor: 'yellow'
               }} onClick={sendData}>Add Show</button>
-            </form>
+            
           </CardBody>
         </Card>
       </div>
