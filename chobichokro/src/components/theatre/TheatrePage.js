@@ -45,6 +45,7 @@ function TheatrePage() {
     const [show, setShow] = useState(false);
     const [runningShow, setRunningShow] = useState(true);
     const [upcomingShow, setUpcomingShow] = useState(false)
+    const [newMovieShow, setNewMovieShow] = useState(false)
     const [reel, setReel] = useState(false)
     const [movies, setMovies] = useState([])
     
@@ -79,6 +80,7 @@ function TheatrePage() {
         setRunningShow(false)
         setUpcomingShow(false)
         setReel(false)
+        setNewMovieShow(false)
     }
     const handleShow = () => {
         setTicket(false);
@@ -86,6 +88,7 @@ function TheatrePage() {
         setRunningShow(false);
         setUpcomingShow(false)
         setReel(false)
+        setNewMovieShow(false)
     }
     const handleRunningShow = () => {
         setTicket(false);
@@ -93,6 +96,7 @@ function TheatrePage() {
         setRunningShow(true);
         setUpcomingShow(false)
         setReel(false)
+        setNewMovieShow(false)
     }
 
     const handleUpcomingShow = () => {
@@ -101,6 +105,7 @@ function TheatrePage() {
         setRunningShow(false);
         setUpcomingShow(true)
         setReel(false)
+        setNewMovieShow(false)
     }
 
     const handleReel = () => {
@@ -109,6 +114,16 @@ function TheatrePage() {
         setRunningShow(false);
         setUpcomingShow(false)
         setReel(true)
+        setNewMovieShow(false)
+    }
+
+    const handleNewMovieShow = () => {
+        setTicket(false);
+        setShow(false);
+        setRunningShow(false);
+        setUpcomingShow(false)
+        setReel(false)
+        setNewMovieShow(true)
     }
 
     const [hall, setHall] = useState('');
@@ -256,7 +271,17 @@ function TheatrePage() {
                     </Button>
                 </div>
                 <div className="column">
-                    <Button className="btn" onClick={handleReel}>
+                    <Button className="btn"
+                    onClick={handleNewMovieShow}>
+                        <Card>
+                            <Card.Body>
+                                Buy Reel
+                            </Card.Body>
+                        </Card>
+                    </Button>
+                </div>
+                <div className="column">
+                    <Button className="btn" style={{backgroundColor: 'maroon'}} onClick={handleReel}>
                         <Card>
                             <Card.Body>
                                 Reel
@@ -335,7 +360,13 @@ function TheatrePage() {
             {
                 (upcomingShow &&
                     <div className="row">
-                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming_movie"} cat={'reel'}/>
+                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming_movie"}/>
+                </div>)
+            }
+            {
+                (newMovieShow &&
+                    <div className="row">
+                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Want to Buy"} status={"new_movie"} cat={'reel'}/>
                 </div>)
             }
 

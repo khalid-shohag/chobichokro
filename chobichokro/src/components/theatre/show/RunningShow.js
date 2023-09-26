@@ -77,13 +77,19 @@ export function  RunningShow(props) {
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>
                         </Link>
-                        ) : (
+                        ) : (movie.status==='new') ? (
                             <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, category: props.cat, token:props.token}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>
                         </Link>
-                        ) 
+                        )  : (
+                            <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, token:props.token}}>
+                            <Wrap>
+                                <img src={posterImageUrl} alt={movie.name} />
+                            </Wrap>
+                        </Link>
+                        )
 
 
                         
