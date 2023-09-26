@@ -50,6 +50,8 @@ const MovieDetails = (props) => {
         getMovie();
     }, [location.state.id]);
 
+
+
     
 
     // const category = location.state?.category || 'ticket'
@@ -67,8 +69,33 @@ const MovieDetails = (props) => {
     const theatreId = location.state?.theatreId || ''
     const theatreName = location.state?.theatreName || ''
     const status = location.state?.status || ''
-    const allTheatre = location.state?.allTheatre || []
+    // const allTheatre = location.state?.allTheatre || []
     const ticketBook = location.state?.ticketBook || []
+
+    const [allTheatre, setAllTheatre] = useState([])
+    //Extract Theatre List for a particular movie
+    const getAllTheatre = async() => {
+    console.log("\n\n\nI am at GETTHE\n\n\n")
+    console.log('Name: ', theatreMovieName)
+        const formData = new FormData()
+        formData.append('movieName', theatreMovieName)
+        console.log("Form Data", formData.get('movieName'))
+        try {
+            const response = await axios.get(
+                `http://localhost:8080/api/audience/get_theater_list`, formData).then((response) => {
+                    console.log("All Theatre RP", response)
+                    setAllTheatre(response.data)
+                })
+
+        }
+         catch(e) {
+            console.log("Error data fetching theatre", e)
+        }
+    }
+
+    useEffect(() => {   
+        getAllTheatre()
+    }, [])
 
     // Audiencce Login redirect info 
     const ticketToken = location.state?.ticketToken

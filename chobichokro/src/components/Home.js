@@ -18,23 +18,7 @@ function Home() {
 
     const [allTheatre, setAllTheatre] = useState([])
 
-    const getAllTheatre = async() => {
-        try {
-            const response = await axios.get(
-                'http://localhost:8080/api/theater/all').then((response) => {
-                    console.log("All Theatre", response.data)
-                    setAllTheatre(response.data)
-                })
-
-        }
-         catch(e) {
-            console.log("Error data fetching theatre", e)
-        }
-    }
-
-    useEffect(() => {   
-        getAllTheatre()
-    }, [])
+    
 
     const getAllMovies = async () => {
         try {
