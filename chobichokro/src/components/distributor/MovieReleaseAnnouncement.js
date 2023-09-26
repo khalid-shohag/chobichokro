@@ -228,7 +228,7 @@ const MovieReleaseAnnouncement = (props) => {
           <h3 style={{color: 'gray', marginTop: '5px'}}>Total Cost.</h3>
           <input
               style    = {{width: '180px', borderRadius: '7px'}}
-              type="trailer"
+              type="number"
               placeholder="Taka"
               value={cost}
               onChange={(e) => setCost(e.target.value)}
