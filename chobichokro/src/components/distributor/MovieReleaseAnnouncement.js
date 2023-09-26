@@ -93,6 +93,7 @@ const MovieReleaseAnnouncement = (props) => {
     formData.append('description', inputValue)
     // formData.append('distributorId', "68m35e979a84h9b4b296068d")
     formData.append('image', selectedPosters[0])
+    formData.append('cost', cost)
 
     console.log("Date: ", movieDetails.releaseDate)
     console.log("Details", formData.get('movieName'))
