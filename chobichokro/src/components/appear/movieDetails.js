@@ -491,7 +491,7 @@ const MovieDetails = (props) => {
         )}
 
                 {book && (
-                <SeatBooking theatre={theatre} hall={hall} show={show} movie={id} date={show} token ={token} scheduleId={scheduleId}/>
+                <SeatBooking theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={ticketToken} scheduleId={scheduleId}/>
                 )}
         {/* { reelBooking && (
             <div style={{marginTop: '20px', marginLeft: '250px'}}>
