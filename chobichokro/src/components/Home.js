@@ -43,7 +43,7 @@ function Home() {
 
     return(
         <div>
-        < Navbar />
+        < Navbar setMovies={setMovies}/>
         <div style={{marginTop: '40px'}} >
         <Container>
             {/* {getAllMovies} */}
