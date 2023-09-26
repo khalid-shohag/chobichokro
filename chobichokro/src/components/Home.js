@@ -97,7 +97,7 @@ function Home() {
             <Content>
                 {movies.map((movie, key) => {
                     console.log("Status", movie.status)
-                    if (movie.status.includes("Released")) {
+                    if (movie.status.includes("running")) {
                         console.log("Find one")
                         const posterImageLink = movie.posterImageLink; // Assuming you have a property like this in your movie object
                         if (posterImageLink) {
@@ -110,7 +110,7 @@ function Home() {
                         }
                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                     return (
-                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName, allTheatre: allTheatre, category: 'ticket'}}>
+                        <Link to={'/movie/'+movie.id} state={{id: movie.movieName, category: 'ticket'}}>
                             <Wrap>
                                 <img src={posterImageUrl} alt={movie.name} />
                             </Wrap>
@@ -151,28 +151,6 @@ function Home() {
         </Container>
         </div>
         </div>
-    
-
-        // <div className="scrollable-page-h">
-        //     <Navbar />
-        //     <div className="container-h scrollable-page-h">
-        //         {/* <div className="column-h"> */}
-        //         <div className="row-h fc-h">
-        //             <RunningMovies />
-
-        //         </div>
-        //         {/* <div className="row-h fc-h">
-        //             Hello
-
-        //         </div> */}
-        //         {/* <div className="row-h fc-h">
-        //             World
-
-        //         </div> */}
-        //         </div>
-                
-        //     {/* </div> */}
-        // </div>
     );
 }
 

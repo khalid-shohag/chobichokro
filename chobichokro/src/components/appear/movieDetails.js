@@ -1,6 +1,6 @@
 import React, { useState, useEffect  } from 'react'
 import { Button } from 'reactstrap';
-
+import Modal from 'react-bootstrap/Modal';
 import styled from '@emotion/styled';
 import ReactPlayer from 'react-player'
 // import 'font-awesome/css/font-awesome.min.css'
@@ -10,7 +10,7 @@ import unmuteImage from '../../assets/unmuted.png'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useParams, NavLink } from 'react-router-dom';
 import axios from 'axios';
-import { FaWatchmanMonitoring, FaEye, FaEnvelope } from 'react-icons/fa';
+import { FaWatchmanMonitoring, FaEye, FaEnvelope, FaPlus } from 'react-icons/fa';
 import ticketImage from '../../assets/two-yellow-tickets_1101-56.jpg'
 import Navbar from '../navbar';
 import { CardBody } from 'reactstrap';
@@ -121,6 +121,27 @@ const MovieDetails = (props) => {
     }
     const handleReviewClick = () => goReview(id);
 
+    const [addReview, setAddReview] = useState(false)
+
+    const handleAddReview = () => {
+        // const movieDetails = {
+        //     category: 'ticket',
+        //     id: theatreMovieName,
+        //     theatreName: theatreName,
+        //     status: status,
+        //     allTheatre: allTheatre
+        // };
+    
+        // const customState = {
+        //     locationPathname: location.pathname,
+        //     movieDetails: movieDetails,
+        // };
+    
+        setAddReview(true)
+        
+        // navigate('/audience_login', { state: customState });
+    }
+
     const genreString = genre.map((genreItem) => genreItem).join(' ');
     const allCasts = cast.map((cst) => cst).join(', ');
     console.log(genreString)
@@ -144,6 +165,7 @@ const MovieDetails = (props) => {
         };
     
         getBooking(true);
+        
         navigate('/audience_login', { state: customState });
     
         // Assuming getBooking is some action you want to dispatch
@@ -339,12 +361,21 @@ const MovieDetails = (props) => {
                      <span >BOOK TICKETS</span>
                      
                  </BookTicket>
+                 <div style={{display: 'flex'}}>
                     <BookTicket onClick={handleReviewClick}>
                     {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
                     <FaEye style={{height: '30px', width: '30px', marginRight: '10px'}}></FaEye>
                     <span >REVIEWS</span>
                 
                     </BookTicket>
+                    <BookTicket onClick={handleAddReview} style={{marginLeft: '1%'}}>
+                    {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
+                    {/* <FaEye style={{height: '30px', width: '30px', marginRight: '10px', marginLeft: '3%'}}></FaEye> */}
+                    <FaPlus style={{height: '30px', width: '30px', marginRight: '10px'}}></FaPlus>
+                    <span >ADD REVIEWS</span>
+                
+                    </BookTicket>
+                    </div>
                     </div>
                 ): (category==='reel') ? (
                     <BookTicket onClick={handleReelBooking}>
@@ -362,7 +393,7 @@ const MovieDetails = (props) => {
                 
                 
             </Details>
-            {(movieStatus==='running' ) ? (
+            {( theatreName!='' && movieStatus==='running' ) ? (
                 <div style={{marginTop: '150px', color: 'yellowgreen'}}>
                     <h2 style={{color: 'lavender'}}>Theatre Name: {theatreName}</h2>
                     <h2>Total Footfalls: {footFalls}</h2>
@@ -383,6 +414,8 @@ const MovieDetails = (props) => {
             
         </Container>
 
+        {addReview && (<AddAudienceReview />)}
+
         {booking && (
             <div style={{background: 'darkkhaki'}}>
                 <Card style={{backgroundColor: 'navy'}}>
@@ -399,6 +432,9 @@ const MovieDetails = (props) => {
                 )}
                     </CardBody>
                 </Card>
+
+               
+
                 
                 
                 
@@ -418,7 +454,7 @@ const MovieDetails = (props) => {
                     <div style={{flex: 1}}>
                         <h5> {<TicketBooking onSelectedOptions = {handleShow} name={"Show"} val = {showDate} stat={'no'} />}</h5>
                     </div>
-                    
+
                     <div style={{flex: 1}}>
                         <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val = {screenNum} stat={'no'} />}</h5>
                     </div>
@@ -461,7 +497,7 @@ const Container = styled.div`
     height: 100%;
     width: 100%;
     background: #0c111b;
-    border-radius: 10px;
+    border-radius: 3px;
     overflow: hidden;
 
     @media (max-width: 900px) {
@@ -549,3 +585,32 @@ const UnMute = styled.button`
         background: rgb(249, 249, 249);
     }
 `
+
+
+
+
+export function AddAudienceReview() {
+  return (
+    <div
+      className="modal show"
+      style={{ display: 'block', position: 'initial' }}
+    >
+    {console.log("Add Review")}
+      <Modal.Dialog>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>Modal body text goes here.</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary">Close</Button>
+          <Button variant="primary">Save changes</Button>
+        </Modal.Footer>
+      </Modal.Dialog>
+    </div>
+  );
+}
+
