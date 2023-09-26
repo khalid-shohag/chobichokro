@@ -28,8 +28,10 @@ const MovieReleaseAnnouncement = (props) => {
 
   let value = '', onChange = null;
   const [date, setDate] = useState(value || '');
+  const [d, sd] = useState('')
 
   const handleDateChange = (event) => {
+    sd(event.target.value)
     const inputDate = event.target.value;
     const parsedDate = new Date(inputDate);
     if (!isNaN(parsedDate.getTime())) {
@@ -170,7 +172,7 @@ const MovieReleaseAnnouncement = (props) => {
       
 
         <div style={{flex: 1, marginRight: '70px'}}>
-        <form onSubmit={handleSubmit}>
+       
       <h3 style={{color: 'gray'}}>Movie Name </h3>
         <input
           type="text"
@@ -196,13 +198,13 @@ const MovieReleaseAnnouncement = (props) => {
         <div>
             <input
             type="date"
-            value={date}
+            value={d}
             onChange={handleDateChange}
             placeholder="Select a date"
             style={{borderRadius: '7px'}}
             />
         </div>
-        </form>
+       
         </div>
 
       <div style={{flex: 1}}>
@@ -243,7 +245,7 @@ const MovieReleaseAnnouncement = (props) => {
         
       
       </div>
-      <button type="submit" style={{ marginLeft: '450px',borderRadius: '3px', marginTop: '10px', backgroundColor: 'yellow'}} onClick={sendMovieReleaseData}>Announce Release</button>
+      <button type="submit" style={{ marginLeft: '34%',borderRadius: '3px', cursor: 'pointer', marginTop: '10%', backgroundColor: 'yellow', border: 'none'}} onClick={sendMovieReleaseData}>Announce Release</button>
     </div>
   );
 };

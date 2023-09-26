@@ -100,7 +100,6 @@ function LicenseRegistration() {
         }}
       >
         <h2 style={{color: 'black'}}>Request for License no.</h2>
-        <form >
         <div style={{marginTop: '10px', marginBottom: '10px' }}>
         <label style={{marginRight: '40px', color: 'blue'}}>
         <input
@@ -188,7 +187,7 @@ function LicenseRegistration() {
           >
             Request
           </button>
-        </form>
+        
       </div>
             </div>
         </div>

@@ -3,9 +3,11 @@ import { Card, CardBody, CardFooter, CardTitle } from 'reactstrap';
 import { Button } from 'react-bootstrap';
 import Navbar from '../navbar';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function AudienceRegistration() {
 
+    const navigate = useNavigate()
     const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -116,7 +118,7 @@ function AudienceRegistration() {
                 </CardBody>
                 <CardFooter style={{background: 'lavender'}}>
                     <h2 style={{marginLeft: '25%', marginTop: '10px'}}>Already Registered?
-                     <Button style={{height: '40px', background: 'transparent'}}>
+                     <Button style={{height: '40px', background: 'transparent'}} onClick={() => navigate('/audience_login')}>
                         Log in
                      </Button>
                      </h2>
