@@ -80,9 +80,15 @@ const MovieDetails = (props) => {
         const formData = new FormData()
         formData.append('movieName', theatreMovieName)
         console.log("Form Data", formData.get('movieName'))
+        console.log("-------------------------------------------------------")
+
+        console.log( "movie name", theatreMovieName)
+        console.log("-------------------------------------------------------")
+        let url = `http://localhost:8080/api/audience/get_theater_list?movieName=${theatreMovieName}`
         try {
-            const response = await axios.get(
-                `http://localhost:8080/api/audience/get_theater_list?movieName=${theatreMovieName}`).then((response) => {
+
+            const response = await axios.get(`http://localhost:8080/api/audience/get_theater_list?movieName=${theatreMovieName}`).then((response) => {
+
                     console.log("All Theatre RP", response)
                     setAllTheatre(response.data)
                 })
@@ -94,7 +100,10 @@ const MovieDetails = (props) => {
     }
 
     useEffect(() => {   
-        getAllTheatre()
+        getAllTheatre().then((value) => {
+            console.log(value)
+            console.log("All Theatre", allTheatre)
+        })
     }, [])
 
     // Audiencce Login redirect info 
@@ -145,6 +154,7 @@ const MovieDetails = (props) => {
     
         getBooking(true);
         navigate('/audience_login', { state: customState });
+        console.log("get back from login")
     
         // Assuming getBooking is some action you want to dispatch
         
@@ -175,25 +185,69 @@ const MovieDetails = (props) => {
                 
             })
             console.log('Successfull ', response.data)
-            alert('Successfully added to your cart')
+            // alert('Successfully added to your cart')
         } catch(e) {
             console.log("Error: ", e)
-            alert(`Network Error, can't add to your cart`)
+            // alert(`Network Error, can't add to your cart`)
         }
     }
 
     const [theatre, setTheatre] = useState('');
-    const hanldleTheatre = (theatre) => {
+    const hanldleTheatre = async (theatre) => {
+        console.log("Theatre: ", theatre)
         setTheatre(theatre)
+        const formData = new FormData()
+        formData.append('movieName', theatreMovieName)
+        formData.append('theaterId', theatre)
+        // alert("Theatre: "+theatre)
+
+        let url = `http://localhost:8080/api/audience/get_showtime_list?movieName=${theatreMovieName}&theaterId=${theatre}`
+        try {
+            await axios.get(url).then((response) => {
+                setShow(response.data)
+                // alert("Show: "+response.data)
+                setShowDate(response.data)
+            }).catch(e => console.log(e))
+        }catch (e) {
+            console.log("Error: ", e)
+        }
     }
     const [hall, setHall] = useState('');
-    const handleHall = (hall) => {
+    const handleHall =async (hall) => {
+
         setHall(hall);
+        // alert("Hall: "+hall)
+        let data = new FormData();
+        data.append('movieName', theatreMovieName);
+        data.append('theaterId', theatre);
+        data.append('date', show);
+        data.append('hallNumber', hall);
+        //http://localhost:8080/api/audience/get_schedule_id?movieName=string&theaterId=string&date=string&hallNumber=0
+        let url = `http://localhost:8080/api/audience/get_schedule_id?movieName=${theatreMovieName}&theaterId=${theatre}&date=${show}&hallNumber=${hall}`
+        const response = await axios.get(url).then((value) => {
+            console.log("Schedule ID: ", value.data)
+            setScheduleId(value.data)
+            // alert("Schedule ID: "+value.data)
+        }).catch(e => console.log(e))
+
+
     }
 
     const [show, setShow] = useState('')
-    const handleShow = (show) => {
+    const handleShow = async (show) => {
         setShow(show);
+        let data = new FormData();
+        data.append('movieName', theatreMovieName);
+        data.append('theaterId', theatre);
+        data.append('date', show);
+        let url = `http://localhost:8080/api/audience/get_hall_list?movieName=${theatreMovieName}&theaterId=${theatre}&date=${show}`
+        const response = await axios.get(url).then((value) => {
+            console.log("Hall: ", value.data)
+            setScreenNum(value.data)
+            // alert("Hall: "+value.data)
+        })
+
+
     }
 
 
@@ -286,7 +340,9 @@ const MovieDetails = (props) => {
     }, [id])
 
     const [book, setBook] = useState(false)
-    const handleBook = () => {
+    const [scheduleId , setScheduleId] = useState('')
+    const handleBook = async () => {
+       // alert("booked button clicked")
         setBook(true)
 
     }
@@ -387,7 +443,7 @@ const MovieDetails = (props) => {
             <div style={{background: 'darkkhaki'}}>
                 <Card style={{backgroundColor: 'navy'}}>
                     <CardBody>
-                    {audienceName!='' ? (
+                    {audienceName!=='' ? (
                     <div style={{display: 'flex', justifyContent: 'space-around', color: 'white'}}>
                         <h3>Audience Name: {audienceName}</h3>
                         <h3><FaEnvelope></FaEnvelope> {audienceEmail}</h3>
@@ -439,7 +495,7 @@ const MovieDetails = (props) => {
         )}
 
                 {book && (
-                <SeatBooking theatre={theatre} hall={hall} show={show} movie={id} date={show} token ={token}/>
+                <SeatBooking theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={ticketToken} scheduleId={scheduleId}/>
                 )}
         {/* { reelBooking && (
             <div style={{marginTop: '20px', marginLeft: '250px'}}>
