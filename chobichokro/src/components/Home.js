@@ -63,7 +63,7 @@ function Home() {
 
     return(
         <div>
-        < Navbar />
+        < Navbar setMovies={setMovies} />
         {load ? (
            <DataLoading value={'Home Page'}/>
         ): (
