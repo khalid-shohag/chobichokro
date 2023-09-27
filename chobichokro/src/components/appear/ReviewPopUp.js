@@ -29,7 +29,7 @@ function ReviewPopUp(props) {
         let movieName = props.movieName
         alert(token)
         alert(movieName)
-        
+
         let url = `http://localhost:8080/api/user/add_review/${movieName}`
         let data = new FormData()
         data.append('opinion', opinion.toString())
@@ -50,7 +50,7 @@ function ReviewPopUp(props) {
 
     return (
         <Popup contentStyle={{ background: 'lavender', width: 'auto', borderRadius: '10px' }} trigger={<Button
-        style={{background: 'white', marginTop: '5%', height: '60px', width: '150px'}} >
+        style={{background: 'white', marginTop: '6.5%', height: '60px', width: '150px'}} >
             <FaPlus></FaPlus> Add Review</Button>}
         modal nested> 
         {

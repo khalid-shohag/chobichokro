@@ -14,7 +14,7 @@ function MovieReview(props) {
       <div>
           <Navbar />
           <div style={{marginTop: '80px'}}>
-              <h1 style={{marginLeft: '40%'}}>All Reviews- {name} </h1>
+              <h1 style={{marginLeft: '37%'}}>All Reviews- {name} </h1>
               {reviews.map((rv) => {
                   return(
                     <Card key={rv.id} style={{marginLeft: '2%', marginRight: '3%', padding: '10px', fontStyle: 'italic', fontSize: '18px', marginBottom: '30px', borderRadius: '5px', height: 'auto',  backgroundColor: 'lavender'}}>

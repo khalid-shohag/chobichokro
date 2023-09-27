@@ -134,9 +134,9 @@ const MovieDetails = (props) => {
         await axios.get(`http://localhost:8080/api/review/movie/${id}`).then(response => {
             alert("Movie name", name)
             alert(response)
-            alert(JSON.stringify(response.data))
+            alert(JSON.stringify(response.data[0]))
             setReviews(response.data)
-            navigate('/movie/review/'+id, {state: {reviews: reviews, movieName: name}})
+            navigate('/movie/review/'+id, {state: {reviews: response.data, movieName: name}})
         } ).catch(e => {
             console.log("Error: ", e)
             alert('Error getting data')
@@ -409,7 +409,7 @@ const MovieDetails = (props) => {
         <div style={{background: 'black', height: '100vh'}}>
             <Navbar />
         <Container style={{marginTop: '65px'}}>
-            <Details>
+            <Details >
                 <h1 style={{color: '#680C07'}}>
                     {name}
                 </h1>
@@ -427,7 +427,11 @@ const MovieDetails = (props) => {
                     <h3>Director: {director}</h3>
                     <h5 >Release Date- {releaseDate.substring(0, 10)}</h5>
                 </Card>
-                <Description>
+                <Description style={{ position: 'relative',
+                height: '150px',
+                overflowY: 'scroll',
+                marginBottom: '100px',
+                scrollbarWidth: 'none'}}>
                     {description}
                 </Description>
 
@@ -487,15 +491,15 @@ const MovieDetails = (props) => {
                     
                 </div>
             ): (
-                <Trailer>
-                <MovieTrailerPlayer>
-                    <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true}  loop={true} poster={true} muted={mute} controls={false} width='100%' height='100%' />
-                   { console.log("Trailer: ",trailerLink)}
-                    <UnMute onClick={() => setMute(!mute)}>
-                        <img src={speakerImage} alt="mute" style={{height: '25px', width: '30px', borderRadius: '25px'}}/>
-                    </UnMute>
-                </MovieTrailerPlayer>
-               </Trailer>
+                // <Trailer>
+                // <MovieTrailerPlayer>
+                    <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true}  loop={true} poster={true} muted={false} controls={true} width='80%' height='85%' />
+                //    { console.log("Trailer: ",trailerLink)}
+                //     <UnMute onClick={() => setMute(!mute)}>
+                //         <img src={speakerImage} alt="mute" style={{height: '25px', width: '30px', borderRadius: '25px'}}/>
+                //     </UnMute>
+                // </MovieTrailerPlayer>
+            //    </Trailer>
             )}
             
         </Container>
