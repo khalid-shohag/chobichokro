@@ -14,6 +14,7 @@ import { FaWatchmanMonitoring, FaEye, FaEnvelope, FaPlus } from 'react-icons/fa'
 import ticketImage from '../../assets/two-yellow-tickets_1101-56.jpg'
 import Navbar from '../navbar';
 import { CardBody } from 'reactstrap';
+import './Appear.css'
 import { Card } from 'react-bootstrap';
 import speakerImage from '../../assets/speaker.jpg'
 
@@ -428,11 +429,16 @@ const MovieDetails = (props) => {
                     <h5 >Release Date- {releaseDate.substring(0, 10)}</h5>
                 </Card>
                 <Description style={{ position: 'relative',
-                height: '150px',
+                height: '140px',
                 overflowY: 'scroll',
-                marginBottom: '100px',
-                scrollbarWidth: 'none'}}>
+                marginBottom: '100px', 
+                '&::-webkit-scrollbar': {
+                    display: 'none', // Hide scrollbar for Chrome, Safari, and Opera
+                  },
+            }}>
+                    
                     {description}
+                   
                 </Description>
 
                 {(theatreName!='') ? (
@@ -677,7 +683,16 @@ const UnMute = styled.button`
     }
 `
 
+const scrollableStyle = styled.div`
+/* Hide scrollbar for Chrome, Safari, and Opera */
+&::-webkit-scrollbar {
+  display: none;
+}
 
+/* Hide scrollbar for IE, Edge, and Firefox */
+-ms-overflow-style: none;
+scrollbar-width: none;
+`
 
 
 export function AddAudienceReview() {
