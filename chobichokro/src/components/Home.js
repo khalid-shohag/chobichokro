@@ -78,7 +78,7 @@ function Home() {
 
 
                 <div style={{marginTop: '40px'}}>
-                    <Container>
+                    <Container style={{background: 'black'}}>
                         {/* {getAllMovies} */}
                         <Card style={{
                             backgroundColor: 'darkgreen',
