@@ -1,11 +1,10 @@
 import React from "react";
-import { useLocation } from "react-router";
+import {useLocation} from "react-router";
 import styled from "@emotion/styled";
 import Navbar from "./navbar";
-import { DataLoading } from "./appear/DataLoading";
-import { Card } from "reactstrap";
-import { CardBody } from "reactstrap";
-import { Link } from "react-router-dom";
+import {DataLoading} from "./appear/DataLoading";
+import {Card, CardBody} from "reactstrap";
+import {Link} from "react-router-dom";
 
 export function SearchResult() {
 
@@ -14,29 +13,29 @@ export function SearchResult() {
     // const searchLoad = location.state?.searchLoad || false
     const searchLoad = false
 
-    return(
+    return (
         <div style={{background: 'black', height: '100vh'}}>
-           <Navbar />
-           <Container >
-           <Card style={{
-                        backgroundColor: 'darkgreen',
-                        marginBottom: '1%',
-                        marginTop: '5%',
-                        marginLeft: '2%',
-                        marginRight: '2%',
-                        borderRadius: '5px',
+            <Navbar/>
+            <Container>
+                <Card style={{
+                    backgroundColor: 'darkgreen',
+                    marginBottom: '1%',
+                    marginTop: '5%',
+                    marginLeft: '2%',
+                    marginRight: '2%',
+                    borderRadius: '5px',
 
-                    }}>
-                        <CardBody style={{marginLeft: '44%'}}>
-                            <h1 style={{color: 'black',}}>Search Result</h1>
-                        </CardBody>
-                    </Card>
-                    <Content>
-                        {searchLoad ? (<div style={{justifyContent: "center",}}>
-                            <DataLoading value={'Search results'} />
-                        </div>): (<div>
+                }}>
+                    <CardBody style={{marginLeft: '44%'}}>
+                        <h1 style={{color: 'black',}}>Search Result</h1>
+                    </CardBody>
+                </Card>
+                <Content>
+                    {searchLoad ? (<div style={{justifyContent: "center",}}>
+                        <DataLoading value={'Search results'}/>
+                    </div>) : (<div>
 
-                        
+
                         {movies.map((movie, key) => {
                             // Construct the poster image URL
                             const posterImageLink = movie.posterImageLink; // Assuming you have a property like this in your movie object
@@ -72,10 +71,10 @@ export function SearchResult() {
                                 );
                             }
                         })}
-                        </div>)}
+                    </div>)}
 
-                    </Content>
-           </Container>
+                </Content>
+            </Container>
         </div>
     )
 }

@@ -1,19 +1,19 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=Oxygen&family=Roboto:wght@100;300;400&display=swap');
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Outfit', sans-serif;
-  font-family: 'Oxygen', sans-serif;
-  font-family: 'Roboto', sans-serif;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+    font-family: 'Oxygen', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1, h4, p, a {
-  color: #2A925E;
-  text-decoration: none; 
+    color: #2A925E;
+    text-decoration: none;
 }
 
 h6 {
-  color: #2A925E;
+    color: #2A925E;
 }

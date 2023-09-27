@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "../navbar";
 import '../distributor/DistributorPage.css'
-import { Button, Card } from "react-bootstrap";
-import { CardBody } from "reactstrap";
+import {Button, Card} from "react-bootstrap";
 import './TheatrePage.css'
 import SeatBooking from "./SeatBooking";
 import NewShow from "./show/NewShow";
-import ShowList from "./show/ShowList";
-import { RunningShow } from "./show/RunningShow";
-import { useLocation } from "react-router-dom";
-import Login from "../Login";
-import TheatreLogin from './TheatreLogin'
+import {RunningShow} from "./show/RunningShow";
+import {useLocation} from "react-router-dom";
 import TicketBooking from "../appear/TicketBooking";
 import ReelStatus from "./ReelStatus";
 import axios from "axios";
-import {render} from "@testing-library/react";
 import 'reactjs-popup/dist/index.css';
 import Popup from "reactjs-popup";
-import Footer from "../Footer";
 // import {delay} from "@reduxjs/toolkit/src/utils";
-import { TheatreDataLoading } from "../appear/TheatreDataLoading";
 
 const theatreImg = require('../../assets/theatre-studio-01.jpg');
 
@@ -43,37 +36,37 @@ function TheatrePage() {
     console.log("Theatre DEtails: ", name, address, id)
     console.log("Token TTT: ", token)
     console.log('njfdjkn')
-    
-    
+
+
     const [show, setShow] = useState(false);
     const [runningShow, setRunningShow] = useState(true);
     const [upcomingShow, setUpcomingShow] = useState(false)
     const [newMovieShow, setNewMovieShow] = useState(false)
     const [reel, setReel] = useState(false)
     const [movies, setMovies] = useState([])
-    
+
     // const [showDate, setShowDate] = useState([])
     // const [screenNo, setScreenNo] = useState([])
 
     const getAllTheatreMovies = async () => {
         try {
-          const response = await axios.get('http://localhost:8080/api/theater/get/all_my_movie', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })
-          setMovies(response.data)
-        //   console.log("Running Movies: ", response.data)
+            const response = await axios.get('http://localhost:8080/api/theater/get/all_my_movie', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setMovies(response.data)
+            //   console.log("Running Movies: ", response.data)
         } catch (error) {
-          console.log("Not getting Movies: ", error)
+            console.log("Not getting Movies: ", error)
         }
-    
-      }
 
-    
-      useEffect(() => {
+    }
+
+
+    useEffect(() => {
         getAllTheatreMovies().then(r => console.log("Movies: ", movies)).catch(e => console.log("Error: ", e))
-      }, [])  
+    }, [])
 
     console.log("Running Movies: ", movies)
 
@@ -139,7 +132,7 @@ function TheatrePage() {
         setShowTime(show);
     }
     const [movieName, setMovieName] = useState('')
-    
+
     const handleMovie = (movie) => {
         setMovieName(movie);
     }
@@ -159,7 +152,7 @@ function TheatrePage() {
         const formData = new FormData();
         console.log('Form Date', movieName, id)
         formData.append('movieName', movieName)
-        formData.append('theaterId', id) 
+        formData.append('theaterId', id)
         let response = null
         try {
             response = await axios.get(`http://localhost:8080/api/dropdown/movie/theater?movieName=${movieName}&theaterId=${id}`)
@@ -181,7 +174,7 @@ function TheatrePage() {
                 screenNum.push(val)
             })
 
-        } catch(e) {
+        } catch (e) {
             console.log("Error getting Schedule ID: ", e)
         }
         console.log("\n\\n\n\n\n\n\n")
@@ -190,7 +183,7 @@ function TheatrePage() {
         console.log("Show DATE", showDate)
         console.log('\n\n')
         console.log('HAll\n\n', screenNum)
-        
+
     }
     useEffect(() => {
         getShowDate().then(() => {
@@ -205,192 +198,202 @@ function TheatrePage() {
 
     //get Current Date
     const currentDate = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = {year: 'numeric', month: 'long', day: 'numeric'};
     const formattedDate = currentDate.toLocaleDateString(undefined, options);
 
     const [amount, setAmount] = useState('')
 
 
-        return (
-            <div >
+    return (
+        <div>
             <div className="container">
-                
-            <div className="row">
-                
-                <Navbar />
-                <img src={theatreImg}  style={{ position: 'absolute', 
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: 'auto',
-          objectFit: 'cover', 
-          zIndex: -1, }}/>
-                
-            </div>
-            <h2 style={{color: 'yellowgreen', marginLeft: '650px', marginTop: '100px', fontWeight: 'bold', fontStyle: 'oblique'}}>{name.toUpperCase()}</h2>
-            {/* {addTheatreMoney(amount, setAmount, token)
-            } */}
-            {/*{console.log("Amount", amount)}*/}
-            <div className="row" style={{marginTop: '10px'}}>
-               
-                
-                <div className="column">
-                    <Button className="btn" onClick={handleRunningShow}>
-                        <Card>
-                            <Card.Body>
-                                Running
-                            </Card.Body>
-                        </Card>
-                    </Button>
-                </div>
-                <div className="column">
-                    <Button className="btn" style={{backgroundColor: 'maroon'}}
-                    onClick={handleShow}>
-                        <Card>
-                            <Card.Body>
-                                Add Show
-                            </Card.Body>
-                        </Card>
-                    </Button>
-                </div>
-                <div className="column">
-                    <Button className="btn"
-                    onClick={handleTicket}>
-                        <Card>
-                            <Card.Body>
-                                Ticket
-                            </Card.Body>
-                        </Card>
-                    </Button>
-                </div>
-                <div className="column">
-                    <Button className="btn" style={{backgroundColor: 'maroon'}}
-                    onClick={handleUpcomingShow}>
-                        <Card>
-                            <Card.Body>
-                                Upcoming
-                            </Card.Body>
-                        </Card>
-                    </Button>
-                </div>
-                <div className="column">
-                    <Button className="btn"
-                    onClick={handleNewMovieShow}>
-                        <Card>
-                            <Card.Body>
-                                Buy Reel
-                            </Card.Body>
-                        </Card>
-                    </Button>
-                </div>
-                <div className="column">
-                    <Button className="btn" style={{backgroundColor: 'maroon'}} onClick={handleReel}>
-                        <Card>
-                            <Card.Body>
-                                Reel
-                            </Card.Body>
-                        </Card>
-                    </Button>
-                </div>
-                {/* <div className="column">Row 2 - Column 2</div> */}
-            </div>
-            {
-                ticket &&
+
                 <div className="row">
-                    <div>
-                {/* <Card style={{backgroundColor: 'purple'}}>
+
+                    <Navbar/>
+                    <img src={theatreImg} style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: 'auto',
+                        objectFit: 'cover',
+                        zIndex: -1,
+                    }}/>
+
+                </div>
+                <h2 style={{
+                    color: 'yellowgreen',
+                    marginLeft: '650px',
+                    marginTop: '100px',
+                    fontWeight: 'bold',
+                    fontStyle: 'oblique'
+                }}>{name.toUpperCase()}</h2>
+                {/* {addTheatreMoney(amount, setAmount, token)
+            } */}
+                {/*{console.log("Amount", amount)}*/}
+                <div className="row" style={{marginTop: '10px'}}>
+
+
+                    <div className="column">
+                        <Button className="btn" onClick={handleRunningShow}>
+                            <Card>
+                                <Card.Body>
+                                    Running
+                                </Card.Body>
+                            </Card>
+                        </Button>
+                    </div>
+                    <div className="column">
+                        <Button className="btn" style={{backgroundColor: 'maroon'}}
+                                onClick={handleShow}>
+                            <Card>
+                                <Card.Body>
+                                    Add Show
+                                </Card.Body>
+                            </Card>
+                        </Button>
+                    </div>
+                    <div className="column">
+                        <Button className="btn"
+                                onClick={handleTicket}>
+                            <Card>
+                                <Card.Body>
+                                    Ticket
+                                </Card.Body>
+                            </Card>
+                        </Button>
+                    </div>
+                    <div className="column">
+                        <Button className="btn" style={{backgroundColor: 'maroon'}}
+                                onClick={handleUpcomingShow}>
+                            <Card>
+                                <Card.Body>
+                                    Upcoming
+                                </Card.Body>
+                            </Card>
+                        </Button>
+                    </div>
+                    <div className="column">
+                        <Button className="btn"
+                                onClick={handleNewMovieShow}>
+                            <Card>
+                                <Card.Body>
+                                    Buy Reel
+                                </Card.Body>
+                            </Card>
+                        </Button>
+                    </div>
+                    <div className="column">
+                        <Button className="btn" style={{backgroundColor: 'maroon'}} onClick={handleReel}>
+                            <Card>
+                                <Card.Body>
+                                    Reel
+                                </Card.Body>
+                            </Card>
+                        </Button>
+                    </div>
+                    {/* <div className="column">Row 2 - Column 2</div> */}
+                </div>
+                {
+                    ticket &&
+                    <div className="row">
+                        <div>
+                            {/* <Card style={{backgroundColor: 'purple'}}>
                     <CardBody>
                         <h5>name</h5>
                     </CardBody>
                 </Card> */}
 
 
+                            <div style={{display: 'flex'}}>
+                                <div style={{flex: 1, marginLeft: '220px'}}>
+                                    <h5>{<TicketBooking onSelectedOptions={handleMovie} name={"Movie"} val={movies}
+                                                        stat={'yes'}/>}</h5>
+                                </div>
+                                {
+                                    setTimeout(() => {
+                                        console.log("Show Date: ", showDate)
+                                        console.log("Screen Number: ", screenNum)
+                                    }, 2500)
+                                }
+                                <div style={{flex: 1}}>
+                                    <h5>{<TicketBooking onSelectedOptions={handleHall} name={"Hall"} val={screenNum}
+                                                        stat={'no'}/>}</h5>
+                                </div>
+                                <div style={{flex: 1}}>
+                                    <h5> {<TicketBooking onSelectedOptions={handleShowTime} name={"Show"} val={showDate}
+                                                         stat={'no'}/>}</h5>
+                                </div>
+                                <div style={{flex: 1}}>
+                                    <Button onClick={handleBook} style={{backgroundColor: 'yellowgreen'}}>
+                                        Book
+                                    </Button>
+
+                                </div>
+
+                            </div>
 
 
-                <div style={{display: 'flex'}}>
-                    <div style={{flex: 1, marginLeft: '220px'}}>
-                    <h5>{<TicketBooking onSelectedOptions = {handleMovie} name={"Movie"} val = {movies} stat={'yes'}/>}</h5>
+                            {book && (
+                                <SeatBooking bgColor={'transparent'} theatre={id} theatreName={name} hall={hall}
+                                             show={showTime} movie={movieName} date={showTime} token={token}/>
+                            )}
+
+
+                        </div>
+
                     </div>
-                    {
-                        setTimeout(() => {
-                            console.log("Show Date: ", showDate)
-                            console.log("Screen Number: ", screenNum)
-                        }, 2500)
-                    }
-                    <div style={{flex: 1}}>
-                        <h5>{<TicketBooking onSelectedOptions = {handleHall} name={"Hall"} val = {screenNum} stat={'no'} />}</h5>
-                    </div>
-                    <div style={{flex: 1}}>
-                        <h5> {<TicketBooking onSelectedOptions = {handleShowTime} name={"Show"} val = {showDate} stat={'no'} />}</h5>
-                    </div>
-                    <div style={{flex: 1}}>
-                        <Button onClick={handleBook} style={{backgroundColor: 'yellowgreen'}}>
-                            Book
-                        </Button>
 
-                    </div>
-
-                 </div>
-
-   
-
-                 {book && (
-                <SeatBooking bgColor={'transparent'} theatre={id} theatreName={name} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
-                )}
-
+                }
+                {
+                    (show &&
+                        <div className="row">
+                            <NewShow token={token}/>
+                        </div>)
+                }
+                {
+                    (reel && <div style={{
+                        position: 'relative',
+                        height: '600px',
+                        overflowY: 'scroll',
+                        marginBottom: '100px'
+                    }}>< ReelStatus token={token}/></div>)
+                }
+                {
+                    (runningShow &&
+                        <div className="row">
+                            <RunningShow token={token} name={"Running"} status={"running_movie"} cat={'ticket'}
+                                         theatreName={name} theatreId={id}/>
+                        </div>)
+                }
+                {
+                    (upcomingShow &&
+                        <div className="row">
+                            <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"}
+                                         status={"upcoming_movie"} cat={'ticket'}/>
+                        </div>)
+                }
+                {
+                    (newMovieShow &&
+                        <div className="row">
+                            <RunningShow token={token} theatreName={name} theatreId={id} name={"Want to Buy"}
+                                         status={"new_movie"} cat={'reel'}/>
+                        </div>)
+                }
 
 
             </div>
 
-                </div>
-                
-            }
-            {
-                (show &&
-                    <div className="row">
-                    <NewShow token={token}/>
-                </div>)
-            }
-            {
-                (reel && <div style={{ position: 'relative',
-                height: '600px',
-                overflowY: 'scroll',
-                marginBottom: '100px'}}> < ReelStatus token={token}/> </div>)
-            }
-            {
-                (runningShow &&
-                    <div className="row">
-                    <RunningShow token={token} name={"Running"} status={"running_movie"} cat={'ticket'} theatreName={name} theatreId={id}/>
-                </div>)
-            }
-            {
-                (upcomingShow &&
-                    <div className="row">
-                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Upcoming"} status={"upcoming_movie"} cat={'ticket'}/>
-                </div>)
-            }
-            {
-                (newMovieShow &&
-                    <div className="row">
-                    <RunningShow token={token} theatreName={name} theatreId={id} name={"Want to Buy"} status={"new_movie"} cat={'reel'}/>
-                </div>)
-            }
 
-            
-            
-            </div>
+        </div>
+    );
 
-            
-            
-            </div>
-        );
-   
-   
+
 }
 
 
 export default TheatrePage;
-
 
 
 function addTheatreMoney(amount, onAmount, token) {
@@ -399,7 +402,7 @@ function addTheatreMoney(amount, onAmount, token) {
             let url = `http://localhost:8080/api/user/add_money?amount=${amount}`
             const response = await axios.post(url, {}, {
                 headers: {
-                    Authorization : `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 }
             }).then((response) => {
                 console.log("Response: ", response)
@@ -410,35 +413,51 @@ function addTheatreMoney(amount, onAmount, token) {
         }
     }
     // const [amount, setAmount] = useState('')
-    return(
-        <Popup contentStyle={{ background: 'lavender', width: 'auto', borderRadius: '10px' }} trigger={<button style={{width: '150px', borderRadius: '5px', height: 'auto', marginTop: '10px', backgroundColor: 'lightcoral', color: 'white', fontWeight: 'bold', fontStyle: 'oblique', fontSize: '22'}}>Add Money</button>} position="right center"
-            modal nested> 
+    return (
+        <Popup contentStyle={{background: 'lavender', width: 'auto', borderRadius: '10px'}} trigger={<button style={{
+            width: '150px',
+            borderRadius: '5px',
+            height: 'auto',
+            marginTop: '10px',
+            backgroundColor: 'lightcoral',
+            color: 'white',
+            fontWeight: 'bold',
+            fontStyle: 'oblique',
+            fontSize: '22'
+        }}>Add Money</button>} position="right center"
+               modal nested>
             {
                 close => (
                     <div>
-                    <form>
-                        <label>Amount</label>
-                        <input style={{marginLeft: '50px', color: 'black'}} type="text" placeholder="Enter Amount"  onChange={(e) => {
-                            onAmount(e.target.value)
-                            
-                        }} />
-                    </form>
-                    <button style={{backgroundColor: 'greenyellow', borderRadius: '2px', marginTop: '10px', marginLeft: '120px'}} onClick=
-                        {() => {
-                            addMoney(amount).then((value) => {
-                                console.log("Amount: ", onAmount)
-                                console.log("Value: ", value)
-                            })
-                            close()
-                        }}>
+                        <form>
+                            <label>Amount</label>
+                            <input style={{marginLeft: '50px', color: 'black'}} type="text" placeholder="Enter Amount"
+                                   onChange={(e) => {
+                                       onAmount(e.target.value)
+
+                                   }}/>
+                        </form>
+                        <button style={{
+                            backgroundColor: 'greenyellow',
+                            borderRadius: '2px',
+                            marginTop: '10px',
+                            marginLeft: '120px'
+                        }} onClick=
+                                    {() => {
+                                        addMoney(amount).then((value) => {
+                                            console.log("Amount: ", onAmount)
+                                            console.log("Value: ", value)
+                                        })
+                                        close()
+                                    }}>
                             Done
-                            
-                    </button>
+
+                        </button>
                     </div>
-                    
+
                 )
 
-            } 
-            </Popup>
+            }
+        </Popup>
     );
 }

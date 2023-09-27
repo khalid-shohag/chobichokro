@@ -1,20 +1,20 @@
 .container {
     display: flex;
     flex-direction: column;
-  }
-  
-  .row {
+}
+
+.row {
     display: flex;
-  }
-  
-  .column {
+}
+
+.column {
     flex: 1;
     padding: 20px;
     /* border: 1px solid #ccc; */
-  }
-  
+}
 
-  .btn {
+
+.btn {
     width: 100px;
     height: 70px;
     margin-right: 10px;
@@ -23,5 +23,5 @@
     border-color: aliceblue;
     border-radius: 8px;
     cursor: pointer;
-  }
+}
   

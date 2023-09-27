@@ -3,9 +3,9 @@ import Navbar from "../navbar";
 import Login from "../Login";
 
 const AdminLogin = () => {
-    return(
+    return (
         <div>
-            <Navbar />
+            <Navbar/>
             <Login value={'Admin Login'} redirectStatus={'no'}/>
         </div>
     );

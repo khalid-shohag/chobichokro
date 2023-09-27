@@ -20,7 +20,6 @@ const Director = ({onDirectorSelect}) => {
     };
 
 
-
     const handleAddPerson = (name) => {
         setSelectedPersons([...selectedPersons, name]);
     };
@@ -47,7 +46,8 @@ const Director = ({onDirectorSelect}) => {
                 placeholder="Enter director"
                 style={{borderRadius: '7px'}}
             />
-            <button onClick={handleAddPersonClick} style={{borderRadius: '3px', marginLeft: '8px'}}>Add director</button>
+            <button onClick={handleAddPersonClick} style={{borderRadius: '3px', marginLeft: '8px'}}>Add director
+            </button>
             {selectedPersons.length > 0 && (
                 <div>
                     <h3>Director:</h3>

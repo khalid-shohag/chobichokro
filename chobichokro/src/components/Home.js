@@ -30,7 +30,7 @@ function Home() {
             const response = await axios.get("http://localhost:8080/api/movies/all").then(res => {
                 console.log("All Movies", res.data)
                 setMovies(res.data)
-                if(load === true) {
+                if (load === true) {
                     setLoad(false)
                 }
             })
@@ -43,8 +43,9 @@ function Home() {
 
 
     useEffect(() => {
-        if(search === false) {
-            getAllMovies().then(r => alert("in the useEfect of home"));
+        if (search === false) {
+            getAllMovies().then(r => {
+            });
         }
 
     }, [search, load]);
@@ -74,7 +75,7 @@ function Home() {
             < Navbar setMovies={setMovies} setSearch={setSearch} setSearchLoad={setSearchLoad}/>
             {load ? (
                 <DataLoading value={'Home Page'}/>
-            ) :   (
+            ) : (
 
 
                 <div style={{marginTop: '40px'}}>

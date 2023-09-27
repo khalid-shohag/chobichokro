@@ -1,22 +1,20 @@
-import React from "react";
-import { Card, Button, CardHeader, CardBody } from "reactstrap";
-import { useState, useEffect } from "react";
-import posterImage from '../../../assets/aqua-film-reel.jpg'
+import React, {useEffect, useState} from "react";
+import {Card, CardBody} from "reactstrap";
 import styled from "@emotion/styled";
-import { useNavigate, Link } from "react-router-dom"
-import { TheatreDataLoading } from "../../appear/TheatreDataLoading";
+import {Link} from "react-router-dom"
+import {TheatreDataLoading} from "../../appear/TheatreDataLoading";
 
 import axios from "axios";
 
-export function  RunningShow(props) {
-  const [movies, setMovies] = useState([]);
+export function RunningShow(props) {
+    const [movies, setMovies] = useState([]);
 
-  console.log("SFDJGJSDJG")
-  console.log("TOken props: ", props.token)
-  console.log('\n\n\nTheatre name TEMP', props.theatreName)
-  const [load, setLoad] = useState(true)
+    console.log("SFDJGJSDJG")
+    console.log("TOken props: ", props.token)
+    console.log('\n\n\nTheatre name TEMP', props.theatreName)
+    const [load, setLoad] = useState(true)
 
-  // const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const getAllMovies = async () => {
         try {
@@ -27,8 +25,9 @@ export function  RunningShow(props) {
             }).then(res => {
                 console.log("All Movies", res.data)
                 setMovies(res.data)
-                setLoad(false) })
-           
+                setLoad(false)
+            })
+
         } catch (error) {
             console.log("Error fetching data", error);
             setLoad(false)
@@ -39,78 +38,91 @@ export function  RunningShow(props) {
         getAllMovies();
     }, []);
 
-  // const navigateAndPassData = (id, data) => {
-  //     navigate(`/movie/${id}`, {data})
-  // }
+    // const navigateAndPassData = (id, data) => {
+    //     navigate(`/movie/${id}`, {data})
+    // }
 
 //   getAllMovies();
 
-  console.log("Movies", movies);
-  
+    console.log("Movies", movies);
 
-  // const [bookCategory, setBookCategory] = useState('')
-  // if (props.category=='reel')
-  //   setBookCategory('reel')
-  // else
-  //   setBookCategory('ticket')
 
- 
-  return(
-    <div>
-        
-        
-      <Card style={{background: 'transparent'}}>
-                <CardBody style={{marginLeft :'20px'}}>
-                <h1>{props.name}</h1>
+    // const [bookCategory, setBookCategory] = useState('')
+    // if (props.category=='reel')
+    //   setBookCategory('reel')
+    // else
+    //   setBookCategory('ticket')
+
+
+    return (
+        <div>
+
+
+            <Card style={{background: 'transparent'}}>
+                <CardBody style={{marginLeft: '20px'}}>
+                    <h1>{props.name}</h1>
                 </CardBody>
             </Card>
             {load ? (
-            <TheatreDataLoading value={props.name}/>
-        ): (
-            <div>
-            <Content style={{marginLeft :'20px'}}>
-                {movies.map((movie, key) => {
-                    console.log("Status", movie.status)
-                   
-                        console.log("Find one")
-                        const posterImageLink = movie.posterImageLink; // Assuming you have a property like this in your movie object
-                        if (posterImageLink) {
-                            let poster = posterImageLink.replace("images//", "")
-                            
-                        console.log("Image Link", "images/\\posterImageLink".replace("images/\\", ""))
-                        if (poster.includes("images/\\")) {
-                            poster = posterImageLink.replace("images/\\", "")
-                            console.log("Poster", poster)
-                        }
-                        const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
-                    return (
-                        (movie.status === 'running') ? (
-                            <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, category: props.cat, theatreId: props.theatreId, theatreName: props.theatreName, token:props.token}}>
-                            <Wrap>
-                                <img src={posterImageUrl} alt={movie.name} />
-                            </Wrap>
-                        </Link>
-                        ) : (movie.status==='new') ? (
-                            <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, category: props.cat, token:props.token}}>
-                            <Wrap>
-                                <img src={posterImageUrl} alt={movie.name} />
-                            </Wrap>
-                        </Link>
-                        )  : (
-                            <Link to={ `/movie/${movie.id}`} state={{id: movie.movieName, status: movie.status, token:props.token}}>
-                            <Wrap>
-                                <img src={posterImageUrl} alt={movie.name} />
-                            </Wrap>
-                        </Link>
-                        )
+                <TheatreDataLoading value={props.name}/>
+            ) : (
+                <div>
+                    <Content style={{marginLeft: '20px'}}>
+                        {movies.map((movie, key) => {
+                            console.log("Status", movie.status)
+
+                            console.log("Find one")
+                            const posterImageLink = movie.posterImageLink; // Assuming you have a property like this in your movie object
+                            if (posterImageLink) {
+                                let poster = posterImageLink.replace("images//", "")
+
+                                console.log("Image Link", "images/\\posterImageLink".replace("images/\\", ""))
+                                if (poster.includes("images/\\")) {
+                                    poster = posterImageLink.replace("images/\\", "")
+                                    console.log("Poster", poster)
+                                }
+                                const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
+                                return (
+                                    (movie.status === 'running') ? (
+                                        <Link to={`/movie/${movie.id}`} state={{
+                                            id: movie.movieName,
+                                            status: movie.status,
+                                            category: props.cat,
+                                            theatreId: props.theatreId,
+                                            theatreName: props.theatreName,
+                                            token: props.token
+                                        }}>
+                                            <Wrap>
+                                                <img src={posterImageUrl} alt={movie.name}/>
+                                            </Wrap>
+                                        </Link>
+                                    ) : (movie.status === 'new') ? (
+                                        <Link to={`/movie/${movie.id}`} state={{
+                                            id: movie.movieName,
+                                            status: movie.status,
+                                            category: props.cat,
+                                            token: props.token
+                                        }}>
+                                            <Wrap>
+                                                <img src={posterImageUrl} alt={movie.name}/>
+                                            </Wrap>
+                                        </Link>
+                                    ) : (
+                                        <Link to={`/movie/${movie.id}`}
+                                              state={{id: movie.movieName, status: movie.status, token: props.token}}>
+                                            <Wrap>
+                                                <img src={posterImageUrl} alt={movie.name}/>
+                                            </Wrap>
+                                        </Link>
+                                    )
 
 
-                        
-                    );
-                }})}
-            </Content> </div>)}
-    </div>
-  );
+                                );
+                            }
+                        })}
+                    </Content></div>)}
+        </div>
+    );
 }
 
 
