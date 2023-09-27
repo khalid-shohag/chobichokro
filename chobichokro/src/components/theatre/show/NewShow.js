@@ -31,7 +31,7 @@ const NewShow = (props) => {
         }).then(res => { 
           console.log("Theatre ID: ", res.data.id)
           setIdTheatre(res.data.id);
-          props.setLoad(false)
+          // props.setLoad(false)
           setLoad(false)
         })
        
@@ -42,6 +42,7 @@ const NewShow = (props) => {
 
     useEffect(() => {
         getTheatreId();
+       
     }, []);
 
   const onSelectShowTime = (time) => {
@@ -168,7 +169,7 @@ const NewShow = (props) => {
               </div>
               <h3>Hall</h3>
               <div>
-                <Hall onHall={onSelectHall}/>
+                <Hall onHall={onSelectHall} token={props.token}/>
               </div>
 
               <button type="submit" style={{

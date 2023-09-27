@@ -348,7 +348,7 @@ function TheatrePage() {
             {
                 (show &&
                     <div className="row">
-                    <NewShow setLoad = {setLoad} token={token}/>
+                    <NewShow token={token}/>
                 </div>)
             }
             {

@@ -1,26 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const Hall = ({onHall}) => {
+const Hall = (props) => {
   const [selectedOption, setSelectedOption] = useState('');
+  const [screen, setScreen] = useState(0)
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    onHall(event.target.value)
+    props.onHall(event.target.value)
   };
 
   const handleRemoveOption = () => {
     setSelectedOption('');
   };
 
+  const getTotalScreenNumber = async() => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/theater/my_theater', {
+        headers: {
+          Authorization: `Bearer ${props.token}`
+        }
+      }).then(res => {
+        console.log("Total Screen: ", JSON.stringify(res.data.numberOfScreens))
+        setScreen(res.data.numberOfScreens)
+        alert("Total Screen: " + JSON.stringify(res.data.numberOfScreens))
+      })
+    } catch (error) {
+      console.log("Error fetching data", error);
+    } 
+  }
+
+
+  useEffect(() => {
+    getTotalScreenNumber();
+  }, []);
+
   return (
     <div>
       
       <select style={{borderRadius: '7px', height: '40px', width: '200px'}} value={selectedOption} onChange={handleSelectChange}>
         <option value="">Screen...</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3"> 3</option>
-       
+        
+
+      {(() => {
+       // Replace with your actual number
+      const options = [];
+
+      for (let i = 1; i <= screen; i++) {
+        options.push(
+          <option key={i} value={i}>
+            {i}
+          </option>
+        );
+      }
+
+      return options;
+     })()}
+
         
         {/* Add more options as needed */}
       </select>

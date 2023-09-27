@@ -64,6 +64,7 @@ function Pagination(props) {
     const [movieAnalysis, setMovieAnalysis] = useState('')
     const [reviews, setReviews] = useState([])
     const [theatreList, setTheatreList] = useState([])
+    const [load, setLoad] = useState(true)
 
     const getMovieAnalysis = async () => {
 
@@ -78,6 +79,7 @@ function Pagination(props) {
             setMovieAnalysis(response.data)
             setReviews(response.data.reviews)
             setTheatreList(response.data.theaters)
+            setLoad(false)
           })
       } catch(e) {
         console.log("Error fetching movie analysis", e)
@@ -126,11 +128,14 @@ function Pagination(props) {
                  {/*<div>{props.status}</div>*/}
                  {/*<div>{props.date.slice(0, 10)}</div>*/}
                  <div>
+                 {load ? (<div> Loading...</div>) : (
+                    <div>
                    <h3>Total Collection: {movieAnalysis.totalRevenue} bdt.</h3>
                    <h3>Total Footfalls: {movieAnalysis.totalTicket}</h3>
                    <h3>Total Screening: {movieAnalysis.totalScreening}</h3>
                    <h3>Total Theatre: {movieAnalysis.totalTheater}</h3>
                    <h3>Average Review: {movieAnalysis.averageSentiment}</h3>
+                   
                    <div style={{display: 'flex'}}> 
                      <div style={{flex: 1}}>
                        <h1>Verdict - </h1>
@@ -144,8 +149,11 @@ function Pagination(props) {
                      }}>
                        {movieAnalysis.movieVerdict}
                      </div>
-
+                     
                    </div>
+                   </div>
+                   )}
+
                    <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}
                            onClick={ () => handleReviewClick(reviews)}>Reviews</Button>
 
@@ -191,7 +199,9 @@ function Pagination(props) {
                  {/*<div><a href={props.link} style={{color: 'darkred'}}>Trailer</a></div>*/}
                  {/*<div>{props.status}</div>*/}
                  {/*<div>{props.date.slice(0, 10)}</div>*/}
-                 <div>
+                 <div> 
+                  {load ? (<div> Loading...</div>) : (
+                    <div>
                    <h3>Total Collection: {movieAnalysis.totalRevenue}bdt.</h3>
                    <h3>Total Footfalls: {movieAnalysis.totalTicket}</h3>
                    <h3>Total Screening: {movieAnalysis.totalScreening}</h3>
@@ -210,8 +220,11 @@ function Pagination(props) {
                      }}>
                        Superhit
                      </div>
+                     
 
                    </div>
+                   </div>
+                  )}
                    <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}
                            onClick={handleReviewClick}>Reviews</Button>
                    <Button style={{background: 'transparent', height: '40px', marginLeft: '0px'}}
