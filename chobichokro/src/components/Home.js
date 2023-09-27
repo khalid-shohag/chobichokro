@@ -23,6 +23,7 @@ function Home() {
     const getAllMovies = async () => {
         try {
             const response = await axios.get("http://localhost:8080/api/movies/all");
+
             setMovies(response.data);
         } catch (error) {
             console.log("Error fetching data", error);
@@ -43,7 +44,7 @@ function Home() {
 
     return(
         <div>
-        < Navbar />
+        < Navbar setMovies={setMovies}/>
         <div style={{marginTop: '40px'}} >
         <Container>
             {/* {getAllMovies} */}
@@ -94,6 +95,7 @@ function Home() {
                 <h1>Running</h1>
                 </CardBody>
             </Card>
+
             <Content>
                 {movies.map((movie, key) => {
                     console.log("Status", movie.status)

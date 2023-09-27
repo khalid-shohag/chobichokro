@@ -78,7 +78,7 @@ function Login(props) {
         alert('Invalid')
 
     } catch (error) {
-      console.error('Error occured', error);
+      console.error('Error occurred', error);
       alert('Invalid');
     }
   };
