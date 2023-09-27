@@ -5,12 +5,9 @@ import { useState } from "react";
 import Hamburger from 'hamburger-react'
 import DropdownMenu from "./SelectedLoginUser";
 import { Link, useNavigate } from "react-router-dom";
-import {configureStore} from "@reduxjs/toolkit";
-import axios from "axios";
-import {toast} from "react-custom-alert";
 
 
-const Navbar = (props)=> {
+const Navbar = ()=> {
 
     const [click, setClick] = useState(false);
     const navigate= useNavigate()
@@ -20,7 +17,6 @@ const Navbar = (props)=> {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = ['Admin', 'Theatre', 'Audience'];
-  const setMovies = props.setMovies;
 
     const goToPage = (item) => {
         setIsMenuOpen(false);
@@ -50,38 +46,6 @@ const Navbar = (props)=> {
     // You can implement different actions for each item click here
   };
 
-    async function searchHandler(value){
-        console.log(value);
-        value = value.trim();
-        if(value === ""){
-            toast.warning("Please enter some keywords to search",{
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                color: 'red'
-            });
-            return;
-        }
-        // alert(value)
-        const url = "http://localhost:8080/api/movies/query/" + value;
-        // alert(url)
-
-
-        await axios.get(url).then((response) => {
-            console.log(response.data);
-            if(response.data.length === 0){
-                toast.warning("No movies found, try with different keywords",{
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                    });
-            }else{
-            setMovies(response.data);
-            }
-        });
-
-    }
-
     return(
         <div className="header navbar" style={{backgroundColor: 'black'}}>
             <Link to='/'>
@@ -107,7 +71,6 @@ const Navbar = (props)=> {
                 </li>
                 <li>
                 <input
-                    id="search"
                     type="text"
                     placeholder="Search..."
                     style={{ border: 'none', outline: 'none', width: '100%', padding: '5px' }}
@@ -117,7 +80,7 @@ const Navbar = (props)=> {
                     <button
                         type="button"
                         style={{ background: 'transparent', border: 'none', outline: 'none', cursor: 'pointer' }}
-                        onClick={() => {searchHandler(document.getElementById('search').value);}}
+                        onClick={() => {alert('Searched')}}
                     >
                         <FaSearch style={{ fontSize: '20px', color: 'blue' }} />
                     </button>

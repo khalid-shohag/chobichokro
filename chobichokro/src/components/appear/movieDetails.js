@@ -22,9 +22,8 @@ import SeatBooking from '../theatre/SeatBooking';
 import reelImg from '../../assets/reel.jpg'
 import { ReelBook } from '../theatre/ReelBook';
 import Footer from '../Footer';
-
-import {BackdropModel} from "../kamol/BackdropModel";
-
+import 'reactjs-popup/dist/index.css';
+import Popup from "reactjs-popup";
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
@@ -148,7 +147,7 @@ const MovieDetails = (props) => {
         //     locationPathname: location.pathname,
         //     movieDetails: movieDetails,
         // };
-        // alert("add review button clicked")
+    
         setAddReview(true)
         
         // navigate('/audience_login', { state: customState });
@@ -405,7 +404,7 @@ const MovieDetails = (props) => {
                     {description}
                 </Description>
 
-                {(theatreName!=='') ? (
+                {(theatreName!='') ? (
                     <div>
                         
                     </div>
@@ -427,14 +426,13 @@ const MovieDetails = (props) => {
                     <span >REVIEWS</span>
                 
                     </BookTicket>
-                     <BackdropModel movieName={name} request_token={ticketToken}/>
-                    {/*<BookTicket onClick={handleAddReview} style={{marginLeft: '1%'}}>*/}
-                    {/*/!* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> *!/*/}
-                    {/*/!* <FaEye style={{height: '30px', width: '30px', marginRight: '10px', marginLeft: '3%'}}></FaEye> *!/*/}
-                    {/*<FaPlus style={{height: '30px', width: '30px', marginRight: '10px'}}></FaPlus>*/}
-                    {/*<span >ADD REVIEWS</span>*/}
-
-                    {/*</BookTicket>*/}
+                    <BookTicket onClick={handleAddReview} style={{marginLeft: '1%'}}>
+                    {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
+                    {/* <FaEye style={{height: '30px', width: '30px', marginRight: '10px', marginLeft: '3%'}}></FaEye> */}
+                    <FaPlus style={{height: '30px', width: '30px', marginRight: '10px'}}></FaPlus>
+                    <span >ADD REVIEWS</span>
+                
+                    </BookTicket>
                     </div>
                     </div>
                 ): (category==='reel') ? (
@@ -474,8 +472,7 @@ const MovieDetails = (props) => {
             
         </Container>
 
-        {/*{addReview && (<AddAudienceReview />)}*/}
-        {/*    {addReview && (<BackdropModel />)}*/}
+        {addReview && (<AddAudienceReview />)}
 
         {booking && (
             <div style={{background: 'darkkhaki'}}>
@@ -650,32 +647,32 @@ const UnMute = styled.button`
 
 
 
-// export function AddAudienceReview() {
-//   return (
-//     <Popup contentStyle={{ background: 'lavender', width: 'auto', borderRadius: '10px' }} trigger={<button >Review</button>}
-//     modal nested> 
-//     {
-//         close => (
-//             <div>
-//             <form>
-//                 <label>Amount</label>
-//                 <input style={{marginLeft: '50px', color: 'black'}} type="text" placeholder="Enter Amount"  
-//                  />
-//             </form>
-//             <button style={{backgroundColor: 'greenyellow', borderRadius: '2px', marginTop: '10px', marginLeft: '120px'}} onClick=
-//                 {() => {
+export function AddAudienceReview() {
+  return (
+    <Popup contentStyle={{ background: 'lavender', width: 'auto', borderRadius: '10px' }} trigger={<button >Review</button>}
+    modal nested> 
+    {
+        close => (
+            <div>
+            <form>
+                <label>Amount</label>
+                <input style={{marginLeft: '50px', color: 'black'}} type="text" placeholder="Enter Amount"  
+                 />
+            </form>
+            <button style={{backgroundColor: 'greenyellow', borderRadius: '2px', marginTop: '10px', marginLeft: '120px'}} onClick=
+                {() => {
                     
-//                     close()
-//                 }}>
-//                     Done
+                    close()
+                }}>
+                    Done
                     
-//             </button>
-//             </div>
+            </button>
+            </div>
             
-//         )
+        )
 
-//     } 
-//     </Popup>
-//   );
-// }
+    } 
+    </Popup>
+  );
+}
 
