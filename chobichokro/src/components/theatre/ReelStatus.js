@@ -5,11 +5,13 @@ import { FaCheck } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css';
 import axios from "axios";
+import { TheatreDataLoading } from "../appear/TheatreDataLoading";
 
 function ReelStatus(props) {
 
     const token = props.token
     const [reel, setReel] = useState([])
+    const [load, setLoad] = useState(true)
 
 
     const getAllBookedReel = async () => {
@@ -18,12 +20,16 @@ function ReelStatus(props) {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
+            }).then((response) => {
+                setReel(response.data)
+                setLoad(false)
             })
 
-            setReel(response.data)
+            
         }
         catch(error) {
             console.log("Get Reel Booked Errror: ", error)
+            setLoad(false)
         }
     }
 
@@ -36,16 +42,21 @@ function ReelStatus(props) {
     return(
         <div>
             <ToastContainer />
+            {load ? (
+                <TheatreDataLoading value={'Reel Status'} />
+            ): (
+                <div>
+            
             {reel.map((reel) => {
                 return(
-                    <Card key={reel.id} style={{marginLeft: '23%', borderRadius: '10px', boxShadow: '0 0 10px red', padding: '25px', backgroundColor: 'lightyellow', height: 'auto', width: '800px', marginTop: '60px',}}>
+                    <Card key={reel.id} style={{marginLeft: '23%', overflowY: 'auto', borderRadius: '10px', boxShadow: '0 0 10px red', padding: '25px', backgroundColor: 'lightyellow', height: 'auto', width: '800px', marginTop: '60px',}}>
                         <CardBody>
                             <div style={{display: 'flex'}}>
                                 <div style={{flex: 1}}>
-                                <h5>{reel.movie.movieName}</h5>
-                                <h5 style={{color: 'green'}}>Distributor: {reel.distributorName}</h5>
+                                <h1 style={{color: 'crimson'}}>{reel.movie.movieName}</h1>
+                                <h2 style={{color: 'green'}}>Distributor: {reel.distributorName}</h2>
                                 <h3>Release Date: {reel.movie.releaseDate.substring(0, 10)}</h3>
-                                <h2>Reel Status: Reached</h2>
+                                <h4>Reel Status: Reached</h4>
                                 </div>
                                 <div style={{flex: 1}}>
                                     <h5>Now, you can add the movie show at your theatre</h5>
@@ -61,6 +72,7 @@ function ReelStatus(props) {
                     </Card>
                 )
             })}
+            </div>)}
         </div>
     );
 }

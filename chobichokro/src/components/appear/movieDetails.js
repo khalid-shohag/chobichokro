@@ -24,6 +24,7 @@ import { ReelBook } from '../theatre/ReelBook';
 import Footer from '../Footer';
 import 'reactjs-popup/dist/index.css';
 import Popup from "reactjs-popup";
+import ReviewPopUp from './ReviewPopUp';
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
@@ -388,17 +389,17 @@ const MovieDetails = (props) => {
                     {name}
                 </h1>
                 
-                <Card>
-                    <CardBody style={{color: 'white', fontWeight: 'bold'}}>
+                <Card style={{background: 'white', borderRadius: '5px'}}>
+                    <CardBody style={{fontWeight: 'bold'}}>
                         {genreString}
                     </CardBody>
                     <h4 style={{color: 'red'}}>Casts</h4>
-                    <CardBody style={{color: 'aqua', fontWeight: 'bold'}}>
+                    <CardBody style={{color: 'seagreen', fontWeight: 'bold'}}>
                         {allCasts}
                         
                     </CardBody>
-                    <h4>Director: {director}</h4>
-                    <h5 style={{color: 'white'}}>Release Date- {releaseDate.substring(0, 10)}</h5>
+                    <h3>Director: {director}</h3>
+                    <h5 >Release Date- {releaseDate.substring(0, 10)}</h5>
                 </Card>
                 <Description>
                     {description}
@@ -426,13 +427,14 @@ const MovieDetails = (props) => {
                     <span >REVIEWS</span>
                 
                     </BookTicket>
-                    <BookTicket onClick={handleAddReview} style={{marginLeft: '1%'}}>
+                    {/* <BookTicket onClick={handleAddReview} style={{marginLeft: '1%'}}> */}
                     {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
                     {/* <FaEye style={{height: '30px', width: '30px', marginRight: '10px', marginLeft: '3%'}}></FaEye> */}
-                    <FaPlus style={{height: '30px', width: '30px', marginRight: '10px'}}></FaPlus>
+                    {/* <FaPlus style={{height: '30px', width: '30px', marginRight: '10px'}}></FaPlus>
                     <span >ADD REVIEWS</span>
                 
-                    </BookTicket>
+                    </BookTicket> */}
+                    <ReviewPopUp movieName={name} request_token={ticketToken}/>
                     </div>
                     </div>
                 ): (category==='reel') ? (

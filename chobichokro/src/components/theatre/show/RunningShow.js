@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import posterImage from '../../../assets/aqua-film-reel.jpg'
 import styled from "@emotion/styled";
 import { useNavigate, Link } from "react-router-dom"
+import { TheatreDataLoading } from "../../appear/TheatreDataLoading";
 
 import axios from "axios";
 
@@ -13,6 +14,8 @@ export function  RunningShow(props) {
   console.log("SFDJGJSDJG")
   console.log("TOken props: ", props.token)
   console.log('\n\n\nTheatre name TEMP', props.theatreName)
+  const [load, setLoad] = useState(true)
+
   // const navigate = useNavigate()
 
     const getAllMovies = async () => {
@@ -21,10 +24,14 @@ export function  RunningShow(props) {
                 headers: {
                     Authorization: `Bearer ${props.token}`
                 }
-            });
-            setMovies(response.data);
+            }).then(res => {
+                console.log("All Movies", res.data)
+                setMovies(res.data)
+                setLoad(false) })
+           
         } catch (error) {
             console.log("Error fetching data", error);
+            setLoad(false)
         }
     };
 
@@ -50,12 +57,18 @@ export function  RunningShow(props) {
  
   return(
     <div>
+        
+        
       <Card style={{background: 'transparent'}}>
-                <CardBody>
+                <CardBody style={{marginLeft :'20px'}}>
                 <h1>{props.name}</h1>
                 </CardBody>
             </Card>
-            <Content>
+            {load ? (
+            <TheatreDataLoading value={props.name}/>
+        ): (
+            <div>
+            <Content style={{marginLeft :'20px'}}>
                 {movies.map((movie, key) => {
                     console.log("Status", movie.status)
                    
@@ -95,7 +108,7 @@ export function  RunningShow(props) {
                         
                     );
                 }})}
-            </Content>
+            </Content> </div>)}
     </div>
   );
 }
@@ -116,15 +129,16 @@ const Wrap = styled.div`
     border-radius: 10px;
     cursor: pointer;
     overflow: hidden;
-    border: 3px solid rgba(249, 249, 249, 0.1);
+    border: 10px transparent rgba(249, 249, 249, 0.1);
     box-shadow: rgba(0 0 0 / 69%) 0px 26px 30px -10px,
-    rgba(0 0 0 / 73%) 0px 16px 10px -10px;
+    rgba(0 0 0 / 73%) 0px 16px 10px -10px,
     transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
 
     img {
         width: 200px;
         height: 250px;
         object-fit: cover;
+        
     }
 
     &:hover {

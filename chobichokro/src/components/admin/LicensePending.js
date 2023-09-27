@@ -3,11 +3,13 @@ import axios from "axios";
 import {Card, CardBody, Button} from 'reactstrap'
 import {FaArrowRight, FaEnvelope, FaPhone, faArrowRight, FaCheck, FaTimes} from "react-icons/fa";
 import { ToastContainer, toast } from 'react-custom-alert';
+import { DataLoading } from "../appear/DataLoading";
 function LicensePending(props) {
 
     const [pendingReq, setPendingReq] = useState([])
     const [s, gs] = useState(false)
     const [findPending, setFindPending] = useState(false)
+    const [load, setLoad] = useState(true)
 
     const handleFindPending = () => {
         setFindPending(true)
@@ -15,11 +17,15 @@ function LicensePending(props) {
 
     const getAllPendingReq = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/license/get/pending')
-            setPendingReq(response.data)
-            console.log("Data: ", response.data)
+            const response = await axios.get('http://localhost:8080/api/license/get/pending').then(res => {
+                console.log("Pending Requests", res.data)
+                setPendingReq(res.data)
+                setLoad(false)
+        })
+            
         } catch (e) {
             console.log("Error fetching Pending Requests", e)
+            setLoad(false)
         }
 
     }
@@ -59,9 +65,15 @@ function LicensePending(props) {
 
         <div>
             <ToastContainer />
-            <h1 style={{marginLeft: '40%', marginTop: '30px'}}>Pending Requests</h1>
+            <h1 style={{marginLeft: '40%', marginTop: '30px', color: 'darkred'}}>Pending Requests</h1>
             {console.log("GET")}
            
+            {load ? (
+                <DataLoading value={'Pending Requests'}/>
+            ): (
+
+            
+            <div>
             { (pendingReq.length> 0) ? pendingReq.map((license) => {
                     return(
                         <Card key={license.id} style={{ padding: '20px', marginLeft: '26%', backgroundColor: 'honeydew', borderRadius: '10px', boxShadow: '0 0 10px black', height: 'auto', width: '700px', marginTop: '60px'}}>
@@ -104,7 +116,7 @@ function LicensePending(props) {
                 )
             )
             
-            }
+            }</div>)}
             
             
         </div>

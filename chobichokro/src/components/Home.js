@@ -7,6 +7,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { Card, CardBody } from "reactstrap";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import { DataLoading } from "./appear/DataLoading";
 
 
 //help from the github repo tfs frontend
@@ -17,13 +18,20 @@ function Home() {
     const navigate = useNavigate()
 
     const [allTheatre, setAllTheatre] = useState([])
+    const [load, setLoad] = useState(true)
 
     
 
     const getAllMovies = async () => {
         try {
-            const response = await axios.get("http://localhost:8080/api/movies/all");
-            setMovies(response.data);
+            const response = await axios.get("http://localhost:8080/api/movies/all").then(res => {
+                console.log("All Movies", res.data)
+                setMovies(res.data)
+                setLoad(false)
+        })
+               
+                  
+           
         } catch (error) {
             console.log("Error fetching data", error);
         }
@@ -41,15 +49,32 @@ function Home() {
 
     console.log("Movies", movies);
 
+    // if(load) {
+    //     return(
+    //         <div style={{
+    //             display: "flex",
+    //             flexDirection: "column",
+    //             alignItems: "center",
+    //             justifyContent: "center",
+    //             height: "100vh",
+    //           }}>Loading the data {console.log("loading state")}</div>
+    //     );
+    // }
+
     return(
         <div>
         < Navbar />
+        {load ? (
+           <DataLoading value={'Home Page'}/>
+        ): (
+            
+        
         <div style={{marginTop: '40px'}} >
         <Container>
             {/* {getAllMovies} */}
-            <Card style={{backgroundColor: 'darkred'}}>
-                <CardBody>
-                <h1 style={{color: 'black'}}>Trending</h1>
+            <Card style={{backgroundColor: 'darkgreen', marginBottom: '1%', marginTop: '1%', marginLeft: '2%', marginRight: '2%', borderRadius: '5px'}}>
+                <CardBody style={{marginLeft: '44%'}}>
+                <h1 style={{color: 'black', }}>Trending</h1>
                 </CardBody>
             </Card>
             <Content>
@@ -89,9 +114,9 @@ function Home() {
             }})}
         
             </Content>
-            <Card style={{backgroundColor: 'black'}}>
-                <CardBody>
-                <h1>Running</h1>
+            <Card style={{backgroundColor: 'darkblue', marginBottom: '1%', marginTop: '1%', marginLeft: '2%', marginRight: '2%', borderRadius: '5px'}}>
+                <CardBody style={{marginLeft: '44%'}}>
+                <h1 style={{color: 'black', fontStyle: 'bolder'}}>Running</h1>
                 </CardBody>
             </Card>
             <Content>
@@ -118,8 +143,8 @@ function Home() {
                     );
                 }}})}
             </Content>
-            <Card style={{backgroundColor: 'gray'}}>
-                <CardBody>
+            <Card style={{backgroundColor: 'yellowgreen', marginBottom: '1%', marginTop: '1%', mrginLeft: '2%', marginRight: '2%', borderRadius: '5px'}}>
+                <CardBody style={{marginLeft: '44%'}}>
                 <h1 style={{color: 'black'}}>Upcoming</h1>
                 </CardBody>
             </Card>
@@ -150,6 +175,7 @@ function Home() {
             
         </Container>
         </div>
+        )}
         </div>
     );
 }
@@ -158,7 +184,7 @@ export default Home;
 
 const Container = styled.div`
     margin-top: 10px;
-    padding: 30px 0px 26px;
+    padding: 30px 10px 26px;
 `
 
 const Content = styled.div`

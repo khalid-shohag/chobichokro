@@ -3,11 +3,13 @@ import axios from "axios";
 import {Card, CardBody, Button} from 'reactstrap'
 import {FaEnvelope, FaPhone, Fa} from "react-icons/fa";
 import { ToastContainer, toast } from 'react-custom-alert';
+import { DataLoading } from "../appear/DataLoading";
 function LicenseApproved(props) {
 
     const [pendingReq, setPendingReq] = useState([])
     const [s, gs] = useState(false)
     const [findPending, setFindPending] = useState(false)
+    const [load, setLoad] = useState(true)
 
     const handleFindPending = () => {
         setFindPending(true)
@@ -15,11 +17,15 @@ function LicenseApproved(props) {
 
     const getAllPendingReq = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/license/get/approved')
-            setPendingReq(response.data)
-            console.log("Data: ", response.data)
+            const response = await axios.get('http://localhost:8080/api/license/get/approved').then(response => {
+                setPendingReq(response.data)
+                console.log("Data: ", response.data)
+                setLoad(false)
+        })
+            
         } catch (e) {
             console.log("Error fetching Pending Requests", e)
+            setLoad(false)
         }
 
     }
@@ -43,7 +49,12 @@ function LicenseApproved(props) {
             <ToastContainer />
             <h1 style={{marginLeft: '40%', marginTop: '30px'}}>Approved License</h1>
             {console.log("GET")}
-           
+            {load ? (
+                <DataLoading value={'Approved Requests'}/>
+            ): (
+
+            
+            <div>
             { (pendingReq.length>0) ? (pendingReq.map((license) => {
                 if (license.status === 'approved') {
                     {if (!findPending)  {
@@ -80,7 +91,7 @@ function LicenseApproved(props) {
                 </Card>
             )
             
-            }
+            } </div>)}
            
             
            

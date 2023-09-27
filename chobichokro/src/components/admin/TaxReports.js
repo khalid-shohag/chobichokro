@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 import {Card, CardBody, Button} from 'reactstrap'
 import axios from "axios";
 import {useState} from "react";
+import { DataLoading } from "../appear/DataLoading";
+
 
 function TaxReports(props) {
 
     const [taxReports, setTaxReport] = useState([])
+    const [load, setLoad] = useState(true)
     let ok = true;
     let getTaxReport = async () => {
         try {
@@ -19,9 +22,11 @@ function TaxReports(props) {
             }).then((value) => {
                 console.log("value" , value.data)
                 setTaxReport(value.data)
+                setLoad(false)
             }).catch(e => console.log(e))
         }catch (e){
             console.log(e)
+            setLoad(false)
         }
     }
 
@@ -39,6 +44,12 @@ function TaxReports(props) {
     return(
         <div>
             <h1 style={{marginLeft: '43%', marginTop: '30px'}}>Tax Reports</h1>
+            {load ? (
+                <DataLoading value={'Tax Reports'}/>
+            ): (
+
+            
+            <div>
             {taxReports.map((tax) => {
                 return(
                     <Card key={tax.id} style={{ marginBottom: '3%', marginLeft: '23%', borderRadius: '10px', boxShadow: '0 0 10px black', padding: '25px', backgroundColor: 'bisque ', height: 'auto', width: '800px', marginTop: '30px'}}>
@@ -62,7 +73,7 @@ function TaxReports(props) {
                             </CardBody>
                         </Card>
                 )
-            })}
+            })} </div>)}
         </div>
     );
 }

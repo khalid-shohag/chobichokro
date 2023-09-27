@@ -225,8 +225,8 @@ function TheatrePage() {
                 
             </div>
             <h2 style={{color: 'yellowgreen', marginLeft: '650px', marginTop: '100px', fontWeight: 'bold', fontStyle: 'oblique'}}>{name.toUpperCase()}</h2>
-            {addTheatreMoney(amount, setAmount, token)
-            }
+            {/* {addTheatreMoney(amount, setAmount, token)
+            } */}
             {/*{console.log("Amount", amount)}*/}
             <div className="row" style={{marginTop: '10px'}}>
                
@@ -349,7 +349,10 @@ function TheatrePage() {
                 </div>)
             }
             {
-                (reel && <div> < ReelStatus token={token}/> </div>)
+                (reel && <div style={{ position: 'relative',
+                height: '600px',
+                overflowY: 'scroll',
+                marginBottom: '100px'}}> < ReelStatus token={token}/> </div>)
             }
             {
                 (runningShow &&
