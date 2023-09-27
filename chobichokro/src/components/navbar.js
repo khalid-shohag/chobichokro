@@ -17,6 +17,7 @@ const Navbar = (props)=> {
     const [selectedItem, setSelectedItem] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+
   const menuItems = ['Admin', 'Theatre', 'Audience'];
 
     const goToPage = (item) => {
@@ -55,8 +56,12 @@ const Navbar = (props)=> {
             if(res.data.length === 0) {
                 alert("No movie found")
             }
-            else
+            else{
                 props.setMovies(res.data)
+                props.setSearch(true)
+                alert("Movie found")
+            }
+
             return res.data
 
         }).catch(err => {
