@@ -19,6 +19,7 @@ import 'reactjs-popup/dist/index.css';
 import Popup from "reactjs-popup";
 import Footer from "../Footer";
 // import {delay} from "@reduxjs/toolkit/src/utils";
+import { TheatreDataLoading } from "../appear/TheatreDataLoading";
 
 const theatreImg = require('../../assets/theatre-studio-01.jpg');
 
@@ -31,6 +32,8 @@ function TheatrePage() {
     const name = location.state?.theatreName || ''
     const address = location.state?.address || ''
     const id = location.state?.id || ''
+
+    const [load, setLoad] = useState(true)
 
     console.log("\n\n\n\nTheatre Page: ", location.pathname)
     console.log('\n\n\nLocation state', location.state)
@@ -345,7 +348,7 @@ function TheatrePage() {
             {
                 (show &&
                     <div className="row">
-                    <NewShow token={token}/>
+                    <NewShow setLoad = {setLoad} token={token}/>
                 </div>)
             }
             {

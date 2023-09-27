@@ -6,6 +6,8 @@ import ShowTime from './ShowTime';
 import Hall from './Hall';
 import axios from 'axios';
 import {configureStore} from "@reduxjs/toolkit";
+import { display } from '@mui/system';
+import { TheatreDataLoading } from '../../appear/TheatreDataLoading';
 
 const NewShow = (props) => {
   const [name, setName] = useState('');
@@ -14,17 +16,25 @@ const NewShow = (props) => {
   const [date, setDate] = useState('');
   const [showTime, setShowTime] = useState([]);
   const [movieName, setMovieName] = useState('');
+  const [load, setLoad] = useState(true)
+  const [buttonClcik, setButtonClick] = useState(false)
 
   const [idTheatre, setIdTheatre] = useState('');
 
   const getTheatreId = async () => {
+    
     try {
         const response = await axios.get("http://localhost:8080/api/theater/my_theater", {
           headers: {
             Authorization: `Bearer ${props.token}`
           } 
-        });
-        setIdTheatre(response.data.id);
+        }).then(res => { 
+          console.log("Theatre ID: ", res.data.id)
+          setIdTheatre(res.data.id);
+          props.setLoad(false)
+          setLoad(false)
+        })
+       
     } catch (error) {
         console.log("Error fetching data", error);
     }
@@ -87,11 +97,13 @@ const NewShow = (props) => {
 
   }
 
-  const sendData = async () => {
+  const sendData = () => {
     console.log("Details");
     console.log(name, time, hall);
     console.log("theatre: ", idTheatre);
-
+    setButtonClick(true)
+    console.log("Button Click: ", buttonClcik)
+    alert(load)
 
     makeSchedule(startDate, endDate, showTime, movieName, hall, idTheatre, props.token)
   };
@@ -103,17 +115,17 @@ const NewShow = (props) => {
   };
 
   return (
-    <div>
+    <div style={{display: 'flex'}}>
       <div>
         <Card style={{
-          backgroundColor: 'gray',
+          background: 'gray',
           marginLeft: '450px',
           borderRadius: '10px',
           width: '500px',
           height: 'auto',
           marginTop: '50px',
-          background: 'transparent',
-          border: '15px solid yellowgreen',
+          // background: 'transparent',
+          border: '10px solid yellowgreen',
           borderWidth: '15px', 
           borderStyle: 'solid',
           // backgroundColor: 'yellow',
@@ -162,11 +174,19 @@ const NewShow = (props) => {
               <button type="submit" style={{
                 borderRadius: '3px',
                 marginTop: '10px',
-                backgroundColor: 'yellow'
+                border: 'none',
+                backgroundColor: '#5cb85c',
+                marginLeft: '17%',
+                height: '40px',
+                width: '100px',
               }} onClick={sendData}>Add Show</button>
             
           </CardBody>
         </Card>
+      </div>
+      <div style={{marginLeft: '6%'}}>
+        {/* {buttonClcik? (alert("Button Click: ")): (<div></div>)} */}
+        {buttonClcik ? (load ? (<TheatreDataLoading value='Add Show' />):(<div></div> )) : (<div></div>)}
       </div>
     </div>
   );

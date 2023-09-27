@@ -89,7 +89,7 @@ function Pagination(props) {
       console.log("\n\nUSE EFFECT\n\n")
       if (props.status==='released' || props.status==='running')
         getMovieAnalysis()
-    }, [])
+    }, [props.id])
 
      if (props.status==='released') {
        return (
