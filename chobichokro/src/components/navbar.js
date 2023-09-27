@@ -5,9 +5,10 @@ import { useState } from "react";
 import Hamburger from 'hamburger-react'
 import DropdownMenu from "./SelectedLoginUser";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
-const Navbar = ()=> {
+const Navbar = (props)=> {
 
     const [click, setClick] = useState(false);
     const navigate= useNavigate()
@@ -15,6 +16,7 @@ const Navbar = ()=> {
 
     const [selectedItem, setSelectedItem] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
   const menuItems = ['Admin', 'Theatre', 'Audience'];
 
@@ -46,6 +48,28 @@ const Navbar = ()=> {
     // You can implement different actions for each item click here
   };
 
+    async function handleSearch(value) {
+        const url = `http://localhost:8080/api/movies/query/${value}`
+        alert(url)
+        await axios.get(url).then(res => {
+            console.log(res.data)
+            if(res.data.length === 0) {
+                alert("No movie found")
+            }
+            else{
+                props.setMovies(res.data)
+                props.setSearch(true)
+                alert("Movie found")
+            }
+
+            return res.data
+
+        }).catch(err => {
+            console.log(err)
+            return err;
+        })
+    }
+
     return(
         <div className="header navbar" style={{backgroundColor: 'black'}}>
             <Link to='/'>
@@ -71,6 +95,7 @@ const Navbar = ()=> {
                 </li>
                 <li>
                 <input
+                    id={'search'}
                     type="text"
                     placeholder="Search..."
                     style={{ border: 'none', outline: 'none', width: '100%', padding: '5px' }}
@@ -80,7 +105,9 @@ const Navbar = ()=> {
                     <button
                         type="button"
                         style={{ background: 'transparent', border: 'none', outline: 'none', cursor: 'pointer' }}
-                        onClick={() => {alert('Searched')}}
+                        onClick={() => {
+                            handleSearch(document.getElementById('search').value)
+                                .then(r => console.log(r)) }}
                     >
                         <FaSearch style={{ fontSize: '20px', color: 'blue' }} />
                     </button>
