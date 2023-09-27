@@ -25,9 +25,11 @@ import Footer from '../Footer';
 import 'reactjs-popup/dist/index.css';
 import Popup from "reactjs-popup";
 import ReviewPopUp from './ReviewPopUp';
+import { async } from 'q';
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
+    const [reviews, setReviews] = useState([])
     const location = useLocation()
     const {value} = useParams()
     const token = location.state?.token || ''
@@ -126,9 +128,32 @@ const MovieDetails = (props) => {
 
     console.log("Category: ", category)
 
-    const goReview = (id) => {
+    const goReview = async (id) => {
         console.log("Review id", id)
-        return navigate('/movie/review/'+id)//<Link to={'/movie/review/'+id} />
+
+        await axios.get(`http://localhost:8080/api/review/movie/${id}`).then(response => {
+            alert("Movie name", name)
+            alert(response)
+            alert(JSON.stringify(response.data))
+            setReviews(response.data)
+            navigate('/movie/review/'+id, {state: {reviews: reviews, movieName: name}})
+        } ).catch(e => {
+            console.log("Error: ", e)
+            alert('Error getting data')
+        })
+        // try {
+        //     const response = await axios.get(`http://localhost:8080/api/review/movie/${id}`).then((response) => {
+        //         alert("Movie name", name)
+        //         alert(response)
+        //         setReviews(response.data)
+        //         navigate('/movie/review/'+id, {state: {reviews, movieName: name}})
+        //     }) 
+            
+        // } catch(e) {
+        //     console.log("Review Error: ", e)
+        //     alert('Error Getting review')
+        // }
+        //<Link to={'/movie/review/'+id} />
     
     }
     const handleReviewClick = () => goReview(id);
@@ -381,20 +406,21 @@ const MovieDetails = (props) => {
     // console.log("name", name)
     
     return (
-        <div>
+        <div style={{background: 'black', height: '100vh'}}>
             <Navbar />
         <Container style={{marginTop: '65px'}}>
             <Details>
-                <h1>
+                <h1 style={{color: '#680C07'}}>
                     {name}
                 </h1>
                 
-                <Card style={{background: 'white', borderRadius: '5px'}}>
+                <Card style={{background: 'white', borderRadius: '5px', padding: '10px'}}>
+                <h4 style={{color: 'blue', marginTop: '2%'}}>Genre</h4>
                     <CardBody style={{fontWeight: 'bold'}}>
-                        {genreString}
+                         {genreString}
                     </CardBody>
-                    <h4 style={{color: 'red'}}>Casts</h4>
-                    <CardBody style={{color: 'seagreen', fontWeight: 'bold'}}>
+                    <h4 style={{color: 'red', marginTop: '2%'}}>Casts</h4>
+                    <CardBody style={{color: 'seagreen', fontWeight: 'bold', marginBottom: '2%'}}>
                         {allCasts}
                         
                     </CardBody>
@@ -477,8 +503,8 @@ const MovieDetails = (props) => {
         {addReview && (<AddAudienceReview />)}
 
         {booking && (
-            <div style={{background: 'darkkhaki'}}>
-                <Card style={{backgroundColor: 'navy'}}>
+            <div style={{background: '#0c111b'}}>
+                <Card >
                     <CardBody>
                     {audienceName!=='' ? (
                     <div style={{display: 'flex', justifyContent: 'space-around', color: 'white'}}>
@@ -534,8 +560,9 @@ const MovieDetails = (props) => {
             </div>
         )}
 
-                {book && (
-                <SeatBooking theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={ticketToken} scheduleId={scheduleId}/>
+                {book && ( 
+                <SeatBooking bgColor={'#0c111b'} theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={ticketToken} scheduleId={scheduleId}/>
+                
                 )}
         {/* { reelBooking && (
             <div style={{marginTop: '20px', marginLeft: '250px'}}>

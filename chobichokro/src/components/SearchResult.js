@@ -15,9 +15,9 @@ export function SearchResult() {
     const searchLoad = false
 
     return(
-        <div>
+        <div style={{background: 'black', height: '100vh'}}>
            <Navbar />
-           <Container>
+           <Container >
            <Card style={{
                         backgroundColor: 'darkgreen',
                         marginBottom: '1%',

@@ -332,7 +332,7 @@ function TheatrePage() {
    
 
                  {book && (
-                <SeatBooking theatre={id} theatreName={name} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
+                <SeatBooking bgColor={'transparent'} theatre={id} theatreName={name} hall={hall} show={showTime} movie={movieName} date={showTime} token ={token}/>
                 )}
 
 

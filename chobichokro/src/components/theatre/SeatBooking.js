@@ -279,9 +279,9 @@ class SeatBooking extends React.Component {
 
       
       return (
-        <div style={{marginLeft: '120px'}}>
-          <Card style={{backgroundColor: 'transparent', borderRadius: '5px'}}>
-            <CardHeader style={{color: 'white'}}>
+        <div style={{ backgroundColor: this.props.bgColor,}}>
+          <Card style={{marginLeft: '120px', borderRadius: '5px'}}>
+            <CardHeader style={{ color: 'white'}}>
                 <label >
                     <input type='radio' style={{backgroundColor: 'yellowgreen'}}>
                     </input>
@@ -310,7 +310,9 @@ class SeatBooking extends React.Component {
                 />
             </CardBody>
             <CardFooter>
-                <button style={{marginLeft: '550px', cursor: 'pointer', backgroundColor: 'gold', borderColor: 'gold'}}
+                <button style={{marginLeft: '550px', cursor: 'pointer', backgroundColor: 'green', border: 'none',
+                height: '70px', width: '90px', borderRadius: '10px'
+              }}
                 onClick={this.handleReservationSubmit}>Submit</button>
                 {/* <Reciept /> */}
                 

@@ -8,6 +8,7 @@ import {Link, useNavigate} from "react-router-dom";
 function Pagination(props) {
 
   console.log('\n\n\nSTATUS\n\n\n', props.status)
+ 
 
   const navigate = useNavigate()
   const goReview = (id) => {

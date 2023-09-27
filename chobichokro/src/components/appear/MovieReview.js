@@ -7,6 +7,8 @@ function MovieReview(props) {
     const location = useLocation()
     const reviews = location.state?.reviews || ''
     const name = location.state?.movieName || ''
+    // alert("Name: ", name)
+    alert("Reviews: ", location.state?.reviews)
     
     return(
       <div>
