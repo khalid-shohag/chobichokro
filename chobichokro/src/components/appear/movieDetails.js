@@ -1,6 +1,6 @@
 import React, { useState, useEffect  } from 'react'
 import { Button } from 'reactstrap';
-import Modal from 'react-bootstrap/Modal';
+// import Modal from 'react-bootstrap/Modal';
 import styled from '@emotion/styled';
 import ReactPlayer from 'react-player'
 // import 'font-awesome/css/font-awesome.min.css'
