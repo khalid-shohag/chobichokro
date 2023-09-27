@@ -57,11 +57,14 @@ const Navbar = (props)=> {
                 alert("No movie found")
             }
             else{
-                props.setMovies(res.data)
-                props.setSearch(true)
+                // props.setMovies(res.data)
+                // props.setSearch(true)
                 alert("Movie found")
+                // props.setSearchLoad(false)
+                navigate('/search/'+value, {state: {data: res.data}})
             }
-
+            
+            
             return res.data
 
         }).catch(err => {

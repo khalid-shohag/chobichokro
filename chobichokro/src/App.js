@@ -21,6 +21,7 @@ import MovieReview from "./components/appear/MovieReview";
 import PreBooking from "./components/appear/PreBooking";
 import RunningShowList from "./components/appear/RunningShowList";
 import AudienceRegistration from './components/audience/AudienceRegistration';
+import { SearchResult } from './components/SearchResult';
 function App() {
 
 
@@ -50,6 +51,7 @@ function App() {
         <Route path='/movie/running-show/list/:movie_id' element={<RunningShowList />} />
         <Route path='/movie/confirm-booking/hall/list/:movie_id' element={<PreBooking />} />
         <Route path='/audience_registration' element={<AudienceRegistration />} />
+        <Route path='/search/:query' element={<SearchResult />} />
       </Routes>
     </BrowserRouter>
   );

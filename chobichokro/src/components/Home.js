@@ -22,6 +22,7 @@ function Home() {
     const [allTheatre, setAllTheatre] = useState([])
     const [load, setLoad] = useState(true)
     const [search, setSearch] = useState(false)
+    const [searchLoad, setSearchLoad] = useState(false)
 
 
     const getAllMovies = async () => {
@@ -70,64 +71,10 @@ function Home() {
 
     return (
         <div>
-            < Navbar setMovies={setMovies} setSearch={setSearch}/>
+            < Navbar setMovies={setMovies} setSearch={setSearch} setSearchLoad={setSearchLoad}/>
             {load ? (
                 <DataLoading value={'Home Page'}/>
-            ) : search ? (
-                <div>
-                    <Card style={{
-                        backgroundColor: 'darkgreen',
-                        marginBottom: '1%',
-                        marginTop: '5%',
-                        marginLeft: '2%',
-                        marginRight: '2%',
-                        borderRadius: '5px',
-
-                    }}>
-                        <CardBody style={{marginLeft: '44%'}}>
-                            <h1 style={{color: 'black',}}>Search Result</h1>
-                        </CardBody>
-                    </Card>
-                    <Content>
-                        {movies.map((movie, key) => {
-                            // Construct the poster image URL
-                            const posterImageLink = movie.posterImageLink; // Assuming you have a property like this in your movie object
-                            if (posterImageLink) {
-                                let poster = posterImageLink.replace("images//", "")
-
-                                console.log("Image Link", "images/\\posterImageLink".replace("images/\\", ""))
-                                if (poster.includes("images/\\")) {
-                                    poster = posterImageLink.replace("images/\\", "")
-                                    console.log("Poster", poster)
-                                }
-                                const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
-                                const id = movie.id
-                                const movieName = movie.movieName
-                                const description = movie.description
-                                const trailerLink = movie.trailerLink
-                                const linkMovieDetails = {
-                                    "id": id,
-                                    "name": movieName,
-                                    "description": description,
-                                    "trailer": trailerLink
-                                };
-
-                                return (
-                                    // <Link to={{ pathname: `/movie/${id}`, state: {he: '1254'} }}  key = {movie.id} movieName={movie.movieName} description={movie.description} trailer={movie.trailerLink}>
-                                    <Link to={`/movie/${id}`} state={{id: movie.movieName, category: 'ticket'}}>
-                                        {/* <Button onClick={navigateAndPassData(movie.id, linkMovieDetails)}> */}
-                                        <Wrap>
-                                            <img src={posterImageUrl} alt={movie.movieName}/>
-                                        </Wrap>
-                                        {/* </Button> */}
-                                    </Link>
-                                );
-                            }
-                        })}
-
-                    </Content>
-
-                </div>):  (
+            ) :   (
 
 
                 <div style={{marginTop: '40px'}}>
@@ -226,7 +173,7 @@ function Home() {
                             backgroundColor: 'yellowgreen',
                             marginBottom: '1%',
                             marginTop: '1%',
-                            mrginLeft: '2%',
+                            marginLeft: '2%',
                             marginRight: '2%',
                             borderRadius: '5px'
                         }}>
