@@ -22,7 +22,9 @@ import SeatBooking from '../theatre/SeatBooking';
 import reelImg from '../../assets/reel.jpg'
 import { ReelBook } from '../theatre/ReelBook';
 import Footer from '../Footer';
+
 import {BackdropModel} from "../kamol/BackdropModel";
+
 
 const MovieDetails = (props) => {
     const [mute, setMute] = useState(true);
@@ -648,28 +650,32 @@ const UnMute = styled.button`
 
 
 
-export function AddAudienceReview() {
-  return (
-    <div
-      className="modal show"
-      style={{ display: 'block', position: 'initial' }}
-    >
-    {console.log("Add Review")}
-      <Modal.Dialog>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
+// export function AddAudienceReview() {
+//   return (
+//     <Popup contentStyle={{ background: 'lavender', width: 'auto', borderRadius: '10px' }} trigger={<button >Review</button>}
+//     modal nested> 
+//     {
+//         close => (
+//             <div>
+//             <form>
+//                 <label>Amount</label>
+//                 <input style={{marginLeft: '50px', color: 'black'}} type="text" placeholder="Enter Amount"  
+//                  />
+//             </form>
+//             <button style={{backgroundColor: 'greenyellow', borderRadius: '2px', marginTop: '10px', marginLeft: '120px'}} onClick=
+//                 {() => {
+                    
+//                     close()
+//                 }}>
+//                     Done
+                    
+//             </button>
+//             </div>
+            
+//         )
 
-        <Modal.Body>
-          <p>Modal body text goes here.</p>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
-        </Modal.Footer>
-      </Modal.Dialog>
-    </div>
-  );
-}
+//     } 
+//     </Popup>
+//   );
+// }
 
