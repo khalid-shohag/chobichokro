@@ -88,65 +88,67 @@ function Login(props) {
       alert('Invalid');
 
     }
+  }
+    
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        const formData = new FormData()
-        formData.append("username", username)
-        formData.append("password", password)
+    //     const formData = new FormData()
+    //     formData.append("username", username)
+    //     formData.append("password", password)
 
-        try {
-            const response = await axios.post('http://localhost:8080/api/auth/signin', formData
-                // {
-                //   username,
-                //   password
-                // }
-            );
+    //     try {
+    //         const response = await axios.post('http://localhost:8080/api/auth/signin', formData
+    //             // {
+    //             //   username,
+    //             //   password
+    //             // }
+    //         );
 
 
-            const token = response.data.token;
-            const type = response.data.tokenType;
-            const name = response.data.username;
-            const theatreName = response.data.username //Theatre response has different naming convention
-            const id = response.data.id
-            const address = response.data.address
-            const email = response.data.email
+    //         const token = response.data.token;
+    //         const type = response.data.tokenType;
+    //         const name = response.data.username;
+    //         const theatreName = response.data.username //Theatre response has different naming convention
+    //         const id = response.data.id
+    //         const address = response.data.address
+    //         const email = response.data.email
 
-            // setToken(token);
-            console.log("Token Login- ", token)
-            console.log("Response: ", response.data)
+    //         // setToken(token);
+    //         console.log("Token Login- ", token)
+    //         console.log("Response: ", response.data)
 
-            if (props.redirectStatus === 'yes') {
-                console.log('LOCATION STATE: ', props.category, props.id, props.allTheatre)
-                if (props.value === 'Audience Login' && response.data.roles[0] === 'ROLE_USER') {
-                    navigate(props.pathname, {
-                        state: {
-                            category: props.category, id: props.id, allTheatre: props.allTheatre, ticketBook: 'yes',
-                            ticketToken: token, audienceName: name, audienceEmail: email
-                        }
-                    });
-                } else
-                    alert('Invalid')
-                return null;
-            }
+    //         if (props.redirectStatus === 'yes') {
+    //             console.log('LOCATION STATE: ', props.category, props.id, props.allTheatre)
+    //             if (props.value === 'Audience Login' && response.data.roles[0] === 'ROLE_USER') {
+    //                 navigate(props.pathname, {
+    //                     state: {
+    //                         category: props.category, id: props.id, allTheatre: props.allTheatre, ticketBook: 'yes',
+    //                         ticketToken: token, audienceName: name, audienceEmail: email
+    //                     }
+    //                 });
+    //             } else
+    //                 alert('Invalid')
+    //             return null;
+    //         }
 
-            if (props.value === 'Distributor Login' && response.data.roles[0] === 'ROLE_DISTRIBUTOR')
-                navigate('/distributor_page/' + response.data.id, {state: {token, name}});
-            else if (props.value === 'Theatre Login' && response.data.roles[0] === 'ROLE_THEATER_OWNER')
-                navigate('/theatre_page/' + response.data.id, {state: {token, theatreName, id, address}});
-            else if (props.value === 'Audience Login' && response.data.roles[0] === 'ROLE_USER')
-                navigate('/audience_dashboard/' + response.data.id, {state: {token, name, email}});
-            else if (props.value === 'Admin Login' && response.data.roles[0] === 'ROLE_ADMIN')
-                navigate('/admin', {state: {token}});
-            else
-                alert('Invalid')
+    //         if (props.value === 'Distributor Login' && response.data.roles[0] === 'ROLE_DISTRIBUTOR')
+    //             navigate('/distributor_page/' + response.data.id, {state: {token, name}});
+    //         else if (props.value === 'Theatre Login' && response.data.roles[0] === 'ROLE_THEATER_OWNER')
+    //             navigate('/theatre_page/' + response.data.id, {state: {token, theatreName, id, address}});
+    //         else if (props.value === 'Audience Login' && response.data.roles[0] === 'ROLE_USER')
+    //             navigate('/audience_dashboard/' + response.data.id, {state: {token, name, email}});
+    //         else if (props.value === 'Admin Login' && response.data.roles[0] === 'ROLE_ADMIN')
+    //             navigate('/admin', {state: {token}});
+    //         else
+    //             alert('Invalid')
 
-        } catch (error) {
-            console.error('Error occured', error);
-            alert('Invalid');
-        }
-    };
+    //     } catch (error) {
+    //         console.error('Error occured', error);
+    //         alert('Invalid');
+    //     }
+    // };
 
     return (
         <div className="container-v">
@@ -242,6 +244,6 @@ function Login(props) {
         //   </div>
     );
 }
-}
+
 
 export default Login;

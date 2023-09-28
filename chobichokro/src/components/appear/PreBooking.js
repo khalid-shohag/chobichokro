@@ -4,6 +4,9 @@ import {Card, CardBody} from "reactstrap";
 import {useLocation} from 'react-router-dom';
 import axios from 'axios';
 import {Button} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { DataLoading } from './DataLoading';
 
 function PreBooking() {
 
@@ -11,6 +14,7 @@ function PreBooking() {
     const token = location.state?.token || ''
     const [pendingBooking, setPendingBooking] = useState([])
     const name = location.state?.name || ''
+    const [load, setLoad] = useState(true)
 
     const getPendingBooking = async () => {
 
@@ -21,6 +25,7 @@ function PreBooking() {
                 }
             })
             setPendingBooking(response.data.body)
+            setLoad(false)
             console.log("Pending Booking: ", response.data.body)
         } catch (error) {
             console.log("Error fetching data", error);
@@ -40,8 +45,10 @@ function PreBooking() {
                 }
             }).then((response) => {
                 console.log("Response: ", response)
+                toast("Booking Approved")
+                getPendingBooking();
             })
-            alert("Booking Approved")
+            
         } catch (error) {
             console.log("Error fetching data", error);
         }
@@ -51,9 +58,14 @@ function PreBooking() {
     return (
         <div>
             {console.log("PRE BOOKING")}
+            <ToastContainer position='top-center'/>
             <Navbar/>
+           
+
+            
             <div style={{marginTop: '80px'}}>
                 <h1 style={{marginLeft: '40%'}}>Pre Booking List </h1>
+                {load ? (<DataLoading value={'Booking List'} />) : (<div>
                 {pendingBooking.map((rv) => {
                     return (
                         <Card key={rv.id} style={{
@@ -90,8 +102,9 @@ function PreBooking() {
 
                         </Card>
                     );
-                })}
+                })} </div>)}
             </div>
+            
         </div>
     );
 }
