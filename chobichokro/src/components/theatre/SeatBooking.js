@@ -20,34 +20,26 @@ class SeatBooking extends React.Component {
         if(this.props.scheduleId != null){
             this.scheduleIdName = this.props.scheduleId
            let scheduleIdGetFromMovieDetails = this.props.scheduleId
-            // alert(scheduleIdGetFromMovieDetails)
+            alert(scheduleIdGetFromMovieDetails)
             let useless_url = `http://localhost:8080/api/ticket/${scheduleIdGetFromMovieDetails}`
             console.log("ius" ,useless_url)
-            // alert("url", useless_url);
+            alert("url", useless_url);
             try {
-                response = await axios.get(useless_url, {
+                response = await axios.get(`http://localhost:8080/api/ticket/${scheduleIdGetFromMovieDetails}`, {
                     headers: {
-                        Authorization: token
+                        Authorization: localStorage.getItem('audience_token')
                     }
 
-                }).then((value) => {
-                    console.log(value)
-                })
-            }catch (e){
-                console.log(e)
-            }
+                }).then((response) => {
+                    console.log("VAlues", response)
 
-            if(response == null)
-                return {
-                    "available" : available,
-                    "booked" : booked
-                }
-
-            console.log("Ticket Response: ", response.data)
+                    console.log("Ticket Response: ", response.data)
+            alert("Ticket Response: ", JSON.stringify(response.data))
 
             response.data.map((ticket) => {
-                console.log("TICKET", ticket)
-                console.log("BOOKED", ticket.booked)
+                // console.log("TICKET", ticket)
+                // console.log("BOOKED", ticket.booked)
+                // alert("ticket", ticket.seatNumber, ticket.booked)
                 if(ticket.booked) booked.push(ticket.seatNumber)
                 else available.push(ticket.seatNumber)
             })
@@ -57,6 +49,20 @@ class SeatBooking extends React.Component {
                 "available" : available,
                 "booked" : booked
             }
+                    
+                })
+            }catch (e){
+                console.log(e)
+            }
+
+            if(response == null)
+              alert("response is null")
+                return {
+                    "available" : available,
+                    "booked" : booked
+                }
+
+            
         }
 
         const theatre = props.theatre

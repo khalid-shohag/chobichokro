@@ -203,9 +203,9 @@ const MovieDetails = (props) => {
         };
     
         getBooking(true);
-        
+        if(localStorage.getItem('audience_token')==null) {
         navigate('/audience_login', { state: customState });
-        console.log("get back from login")
+        console.log("get back from login") }
     
         // Assuming getBooking is some action you want to dispatch
         
@@ -275,6 +275,7 @@ const MovieDetails = (props) => {
         data.append('hallNumber', hall);
         //http://localhost:8080/api/audience/get_schedule_id?movieName=string&theaterId=string&date=string&hallNumber=0
         let url = `http://localhost:8080/api/audience/get_schedule_id?movieName=${theatreMovieName}&theaterId=${theatre}&date=${show}&hallNumber=${hall}`
+        alert(url)
         const response = await axios.get(url).then((value) => {
             console.log("Schedule ID: ", value.data)
             setScheduleId(value.data)
@@ -571,7 +572,7 @@ const MovieDetails = (props) => {
         )}
 
                 {book && ( 
-                <SeatBooking bgColor={'#0c111b'} theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={ticketToken} scheduleId={scheduleId}/>
+                <SeatBooking bgColor={'#0c111b'} theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={localStorage.getItem('audience_token')} scheduleId={scheduleId}/>
                 
                 )}
         {/* { reelBooking && (
