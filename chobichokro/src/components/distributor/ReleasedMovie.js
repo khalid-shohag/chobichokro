@@ -85,111 +85,121 @@
 //
 //
 
-import React, { useState } from "react";
-import { Button } from "reactstrap";
+import React, {useState} from "react";
+import {Button} from "reactstrap";
 import MovieList from "./MovieList";
 
 function ReleasedMovie(props) {
-  const [pageNo, setPageNo] = useState(1);
-  const moviesPerPage = 5;
-  const [startIndex, setStartIndex] = useState(0);
+    const [pageNo, setPageNo] = useState(1);
+    const moviesPerPage = 5;
+    const [startIndex, setStartIndex] = useState(0);
 
-  const renderMovieLists = () => {
-    const movieLists = [];
-    let moviesRendered = 0;
+    const renderMovieLists = () => {
+        const movieLists = [];
+        let moviesRendered = 0;
 
-    for (let i = startIndex; i < props.allMovies.length; i++) {
-      const movie = props.allMovies[i];
+        for (let i = startIndex; i < props.allMovies.length; i++) {
+            const movie = props.allMovies[i];
 
-      
-        movieLists.push(
-            <MovieList
-                key={i}
-                colorValue={i % 2 === 0 ? "aqua" : "lime"}
-                handleChange={props.handle}
-                sentMoviesData={props.sentMoviesData}
-                id={movie.id}
-                name={movie.movieName}
-                genre={movie.genre}
-                cast={movie.cast}
-                director={movie.director}
-                poster={movie.posterImageLink}
-                trailer={movie.trailerLink}
-                date={movie.releaseDate}
-                status={props.stat}
-                description={movie.description}
-            />
-        );
 
-        moviesRendered++;
+            movieLists.push(
+                <MovieList
+                    key={i}
+                    colorValue={i % 2 === 0 ? "aqua" : "lime"}
+                    handleChange={props.handle}
+                    sentMoviesData={props.sentMoviesData}
+                    id={movie.id}
+                    name={movie.movieName}
+                    genre={movie.genre}
+                    cast={movie.cast}
+                    director={movie.director}
+                    poster={movie.posterImageLink}
+                    trailer={movie.trailerLink}
+                    date={movie.releaseDate}
+                    status={props.stat}
+                    description={movie.description}
+                />
+            );
 
-        // Check if we have rendered enough movies for this page
-        if (moviesRendered >= moviesPerPage) {
-          break;
+            moviesRendered++;
+
+            // Check if we have rendered enough movies for this page
+            if (moviesRendered >= moviesPerPage) {
+                break;
+            }
+
         }
-      
-    }
 
-    return movieLists;
-  };
+        return movieLists;
+    };
 
-  const incrementPageNo = () => {
-    if (startIndex + moviesPerPage < props.allMovies.length) {
-      // Initialize moviesRendered
-      let moviesRendered = 0;
+    const incrementPageNo = () => {
+        if (startIndex + moviesPerPage < props.allMovies.length) {
+            // Initialize moviesRendered
+            let moviesRendered = 0;
 
-      // Find the index after the loop
-      let newStartIndex = startIndex;
-      let i = startIndex;
-      while (i < props.allMovies.length && moviesRendered < moviesPerPage) {
-        const movie = props.allMovies[i];
-        if (movie.status === props.stat) {
-          moviesRendered++;
+            // Find the index after the loop
+            let newStartIndex = startIndex;
+            let i = startIndex;
+            while (i < props.allMovies.length && moviesRendered < moviesPerPage) {
+                const movie = props.allMovies[i];
+                if (movie.status === props.stat) {
+                    moviesRendered++;
+                }
+                i++;
+            }
+            newStartIndex = i;
+
+            setStartIndex(newStartIndex);
+            setPageNo(pageNo + 1);
+            console.log("Start Index: ", newStartIndex);
         }
-        i++;
-      }
-      newStartIndex = i;
+    };
 
-      setStartIndex(newStartIndex);
-      setPageNo(pageNo + 1);
-      console.log("Start Index: ", newStartIndex);
-    }
-  };
+    const decrementPageNo = () => {
+        if (pageNo > 1) {
+            // Initialize moviesRendered
+            let moviesRendered = 0;
 
-  const decrementPageNo = () => {
-    if (pageNo > 1) {
-      // Initialize moviesRendered
-      let moviesRendered = 0;
+            // Find the index before the loop
+            let newStartIndex = startIndex;
+            let i = startIndex;
+            while (i > 0 && moviesRendered < moviesPerPage) {
+                i--;
+                const movie = props.allMovies[i];
+                if (movie.status === props.stat) {
+                    moviesRendered++;
+                }
+            }
+            newStartIndex = i;
 
-      // Find the index before the loop
-      let newStartIndex = startIndex;
-      let i = startIndex;
-      while (i > 0 && moviesRendered < moviesPerPage) {
-        i--;
-        const movie = props.allMovies[i];
-        if (movie.status === props.stat) {
-          moviesRendered++;
+            setStartIndex(newStartIndex);
+            setPageNo(pageNo - 1);
+            console.log("Start Index: ", newStartIndex);
         }
-      }
-      newStartIndex = i;
+    };
 
-      setStartIndex(newStartIndex);
-      setPageNo(pageNo - 1);
-      console.log("Start Index: ", newStartIndex);
-    }
-  };
+    return (
+        <div>
+            {renderMovieLists()}
 
-  return (
-      <div>
-        {renderMovieLists()}
-        
-        <div style={{marginLeft: '30%', color: 'white', display: 'flex'}}>
-          Page {pageNo}
-          <Button onClick={decrementPageNo} style={{ marginLeft: '10px', height: '40px', width: '45px', backgroundColor: 'lavender' }}>prev</Button>
-          <Button onClick={incrementPageNo} style={{ marginLeft: '10px', height: '40px', width: '45px', backgroundColor: 'lavender' }}>next</Button>
+            <div style={{marginLeft: '30%', color: 'white', display: 'flex'}}>
+                Page {pageNo}
+                <Button onClick={decrementPageNo} style={{
+                    marginLeft: '10px',
+                    height: '40px',
+                    width: '45px',
+                    backgroundColor: 'lavender'
+                }}>prev</Button>
+                <Button onClick={incrementPageNo} style={{
+                    marginLeft: '10px',
+                    height: '40px',
+                    width: '45px',
+                    backgroundColor: 'lavender'
+                }}>next</Button>
+            </div>
         </div>
-      </div>
-  );
+    );
 }
 
 export default ReleasedMovie;

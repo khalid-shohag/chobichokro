@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody } from "reactstrap";
+import {Card, CardBody} from "reactstrap";
 
 function RunningMovies() {
 
@@ -28,23 +28,28 @@ function RunningMovies() {
         }
     ]
 
-    return(
+    return (
         <div>
             {movie.map(m => (
-                
-                    <Card key={m.id} style={{backgroundColor: 'gray', height: '300px', width: '300px', marginRight: '10px', flexDirection: 'row'}}>
-                        <img src="" alt="Poster"/>
-                        <CardBody> 
-                           <p>{m.Genre}</p>
-                            <p>{m.Director}</p>
-                            <p>{m.rating}</p>
-                            <button>Tickets</button>
-                            <button>Details</button>
-                          </CardBody>
-                    </Card>
-                    
 
-                
+                <Card key={m.id} style={{
+                    backgroundColor: 'gray',
+                    height: '300px',
+                    width: '300px',
+                    marginRight: '10px',
+                    flexDirection: 'row'
+                }}>
+                    <img src="" alt="Poster"/>
+                    <CardBody>
+                        <p>{m.Genre}</p>
+                        <p>{m.Director}</p>
+                        <p>{m.rating}</p>
+                        <button>Tickets</button>
+                        <button>Details</button>
+                    </CardBody>
+                </Card>
+
+
             ))}
         </div>
     );

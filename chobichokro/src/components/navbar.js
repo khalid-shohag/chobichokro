@@ -1,24 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import './navbar.css'
+
 import { FaSearch, FaUser, FaCamera, FaFilm, FaBars, FaTimes, FaVideo, FaEye, FaSignOutAlt } from "react-icons/fa";
-import { useState } from "react";
+
 import Hamburger from 'hamburger-react'
+
 import DropdownMenu from "./SelectedLoginUser";
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 
-const Navbar = (props)=> {
+const Navbar = (props) => {
 
     const [click, setClick] = useState(false);
-    const navigate= useNavigate()
+    const navigate = useNavigate()
     const handleClick = () => setClick(!click);
 
     const [selectedItem, setSelectedItem] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 
-  const menuItems = ['Admin', 'Theatre', 'Audience'];
+    const menuItems = ['Admin', 'Theatre', 'Audience'];
 
     const goToPage = (item) => {
         setIsMenuOpen(false);
@@ -45,29 +47,28 @@ const Navbar = (props)=> {
         }
     };
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-    setIsMenuOpen(false);
-    // You can implement different actions for each item click here
-  };
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        setIsMenuOpen(false);
+        // You can implement different actions for each item click here
+    };
 
     async function handleSearch(value) {
         const url = `http://localhost:8080/api/movies/query/${value}`
-        alert(url)
+        // alert(url)
         await axios.get(url).then(res => {
             console.log(res.data)
-            if(res.data.length === 0) {
+            if (res.data.length === 0) {
                 alert("No movie found")
-            }
-            else{
+            } else {
                 // props.setMovies(res.data)
                 // props.setSearch(true)
-                alert("Movie found")
+                // alert("Movie found")
                 // props.setSearchLoad(false)
-                navigate('/search/'+value, {state: {data: res.data}})
+                navigate('/search/' + value, {state: {data: res.data}})
             }
-            
-            
+
+
             return res.data
 
         }).catch(err => {
@@ -76,18 +77,18 @@ const Navbar = (props)=> {
         })
     }
 
-    return(
+    return (
         <div className="header navbar" style={{backgroundColor: 'black'}}>
             <Link to='/'>
-            
+
                 <h1>ছবিচক্র</h1>
             </Link>
 
-            
+
             <ul className="nav-menu">
-               <li style={{display: 'flex'}}>
-                <FaUser style={{marginRight: '7px', color: 'greenyellow'}}></FaUser>
-                   <h4 style={{cursor: 'pointer'}} onClick={() => goToPage('Admin')}>Admin</h4>
+                <li style={{display: 'flex'}}>
+                    <FaUser style={{marginRight: '7px', color: 'greenyellow'}}></FaUser>
+                    <h4 style={{cursor: 'pointer'}} onClick={() => goToPage('Admin')}>Admin</h4>
                 </li>
 
                 <li style={{display: 'flex'}}><FaFilm style={{marginRight: '7px', color: 'greenyellow'}}></FaFilm>
@@ -106,29 +107,30 @@ const Navbar = (props)=> {
                     } }> LogOut </h4>
                 </li>
                 <li>
-                <input
-                    id={'search'}
-                    type="text"
-                    placeholder="Search..."
-                    style={{ border: 'none', outline: 'none', width: '100%', padding: '5px' }}
-                />
+                    <input
+                        id={'search'}
+                        type="text"
+                        placeholder="Search..."
+                        style={{border: 'none', outline: 'none', width: '100%', padding: '5px'}}
+                    />
                 </li>
                 <li>
                     <button
                         type="button"
-                        style={{ background: 'transparent', border: 'none', outline: 'none', cursor: 'pointer' }}
+                        style={{background: 'transparent', border: 'none', outline: 'none', cursor: 'pointer'}}
                         onClick={() => {
                             handleSearch(document.getElementById('search').value)
-                                .then(r => console.log(r)) }}
+                                .then(r => console.log(r))
+                        }}
                     >
-                        <FaSearch style={{ fontSize: '20px', color: 'blue' }} />
+                        <FaSearch style={{fontSize: '20px', color: 'blue'}}/>
                     </button>
                 </li>
                 <li>
-                    <DropdownMenu />
+                    <DropdownMenu/>
                 </li>
             </ul>
-            
+
         </div>
     );
 }

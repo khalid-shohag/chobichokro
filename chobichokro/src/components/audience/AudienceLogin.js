@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../navbar";
 import Login from "../Login";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 const AudienceLogin = (props) => {
 
@@ -13,18 +13,18 @@ const AudienceLogin = (props) => {
     console.log('\n\n\nPATHNAME', pathname);
     console.log("\n\n\nMovie Details", movieDetails)
 
-    return(
+    return (
         <div>
-            <Navbar />
+            <Navbar/>
 
-            {pathname==='' ? (
+            {pathname === '' ? (
                 <Login value={props.value} redirectStatus={'no'}/>
-            ): (
+            ) : (
                 <Login value={props.value} redirectStatus={'yes'} pathname={pathname} category={movieDetails.category}
-                id={movieDetails.id} allTheatre={movieDetails.allTheatre}/>
+                       id={movieDetails.id} allTheatre={movieDetails.allTheatre}/>
             )
             }
-            
+
         </div>
     );
 }

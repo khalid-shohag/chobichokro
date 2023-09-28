@@ -16,10 +16,10 @@
     /* flex: 1; 
     padding: 20px;  */
     flex: 1;
-    
-  }
 
-  .animation-container {
+}
+
+.animation-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,19 +27,19 @@
     width: 380px;
     background-color: #2A925E;
     border-radius: 32px;
-  }
-  
-  .animated-text {
+}
+
+.animated-text {
     animation: bounce 1s ease-in-out infinite;
-  }
-  
-  @keyframes bounce {
+}
+
+@keyframes bounce {
     0%, 100% {
-      transform: translateY(0);
+        transform: translateY(0);
     }
     50% {
-      transform: translateY(-20px);
+        transform: translateY(-20px);
     }
-  }
+}
   
   

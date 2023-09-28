@@ -41,7 +41,7 @@ ul {
 }
 
 .nav-menu {
-   display: flex; 
+    display: flex;
 }
 
 .nav-menu li {
@@ -81,10 +81,10 @@ ul {
 
     }
 
-    .nav-menu li a{
+    .nav-menu li a {
         font-size: 2rem;
     }
-    
+
     .hamburger {
         display: initial;
     }

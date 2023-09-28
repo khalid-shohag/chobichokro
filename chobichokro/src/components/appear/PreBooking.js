@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import Navbar from "../navbar";
 import {Card, CardBody} from "reactstrap";
-import { useLocation } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import axios from 'axios';
-import { FaLeaf } from 'react-icons/fa';
-import { Button } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 function PreBooking() {
 
@@ -26,7 +25,7 @@ function PreBooking() {
         } catch (error) {
             console.log("Error fetching data", error);
         }
-    
+
     }
 
     useEffect(() => {
@@ -40,44 +39,55 @@ function PreBooking() {
                     Authorization: `Bearer ${token}`
                 }
             }).then((response) => {
-            console.log("Response: ", response)
+                console.log("Response: ", response)
             })
             alert("Booking Approved")
-        }
-        catch(error) {
+        } catch (error) {
             console.log("Error fetching data", error);
         }
     }
-    
-    
-    return(
+
+
+    return (
         <div>
             {console.log("PRE BOOKING")}
-            <Navbar />
+            <Navbar/>
             <div style={{marginTop: '80px'}}>
                 <h1 style={{marginLeft: '40%'}}>Pre Booking List </h1>
                 {pendingBooking.map((rv) => {
-                    return(
-                        <Card key={rv.id} style={{marginTop: '2%', boxShadow: '0 0 10px seagreen', padding: '10px', marginLeft: '32%', fontStyle: 'italic', fontSize: '18px', marginBottom: '30px', borderRadius: '5px', height: 'auto', width: '35%', backgroundColor: 'lavender'}}>
+                    return (
+                        <Card key={rv.id} style={{
+                            marginTop: '2%',
+                            boxShadow: '0 0 10px seagreen',
+                            padding: '10px',
+                            marginLeft: '32%',
+                            fontStyle: 'italic',
+                            fontSize: '18px',
+                            marginBottom: '30px',
+                            borderRadius: '5px',
+                            height: 'auto',
+                            width: '35%',
+                            backgroundColor: 'lavender'
+                        }}>
                             <CardBody>
                                 <div style={{display: 'flex'}}>
                                     <div style={{flex: 1}}>
-                                    <h6>Movie- {rv.movie.movieName}</h6>
-                                    <h5>Theatre- {rv.theater.name}</h5>
-                                    <h5>Address- {rv.theater.address}</h5>
-                                    <h5>Total screen- {rv.theater.numberOfScreens}</h5>
+                                        <h6>Movie- {rv.movie.movieName}</h6>
+                                        <h5>Theatre- {rv.theater.name}</h5>
+                                        <h5>Address- {rv.theater.address}</h5>
+                                        <h5>Total screen- {rv.theater.numberOfScreens}</h5>
 
                                     </div>
                                     <div style={{flex: 1}}>
                                         <Button style={{background: 'seagreen', borderRadius: '50%', border: 'none'}}
-                                         onClick={() => approvePendingBooking(rv.id)}>
+                                                onClick={() => approvePendingBooking(rv.id)}>
                                             Approve
                                         </Button>
                                     </div>
                                 </div>
-                                
+
                             </CardBody>
-                            
+
                         </Card>
                     );
                 })}

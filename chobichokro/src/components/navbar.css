@@ -10,7 +10,7 @@
     background-color: black;
 }
 
-ul{
+ul {
     list-style-type: none;
 }
 
@@ -27,5 +27,5 @@ ul{
     color: white;
     padding: 10px;
     z-index: 1000; /* Set a high z-index to make sure it's above other content */
-  }
+}
   

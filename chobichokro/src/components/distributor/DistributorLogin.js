@@ -3,9 +3,9 @@ import Navbar from "../navbar";
 import Login from "../Login";
 
 const DistributorLogin = () => {
-    return(
+    return (
         <div>
-            <div><Navbar /></div>
+            <div><Navbar/></div>
             <Login value={'Distributor Login'} redirectStatus={'no'}/>
         </div>
     );

@@ -3,9 +3,9 @@ import Navbar from "../navbar";
 import Login from "../Login";
 
 const TheatreLogin = () => {
-    return(
+    return (
         <div>
-            <Navbar />
+            <Navbar/>
             <Login value={'Theatre Login'} redirectStatus={'no'}/>
         </div>
     );
