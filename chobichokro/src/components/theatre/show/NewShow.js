@@ -6,6 +6,7 @@ import ShowTime from './ShowTime';
 import Hall from './Hall';
 import axios from 'axios';
 import {TheatreDataLoading} from '../../appear/TheatreDataLoading';
+import { toast } from 'react-toastify';
 
 const NewShow = (props) => {
     const [name, setName] = useState('');
@@ -237,6 +238,7 @@ async function makeSchedule(sDate, eDate, time, movieName, hall, theaterId, toke
     console.log("Time Length: ", time.length)
     console.log("Movie Name: ", movieName)
     console.log("Hall: ", hall)
+    let success = true
 
     for (let i = 0; i < time.length; i++) {
         console.log("Time: ", time[i])
@@ -257,12 +259,15 @@ async function makeSchedule(sDate, eDate, time, movieName, hall, theaterId, toke
                         Authorization: `Bearer ${token}`
                     }
 
+                }).then((response) => {
+                    console.log("Successful", response.data)
+                    console.log("ALl date: ", usableDate(currentDate) + " " + time[i])
                 })
-                console.log("Successful", response.data)
-                console.log("ALl date: ", usableDate(currentDate) + " " + time[i])
+                
                 // currentDate.setDate(currentDate.getDate() + 1);
             } catch (error) {
                 console.log("Error: ", error)
+                success = false
             }
             currentDate.setDate(currentDate.getDate() + 1);
         }
@@ -271,4 +276,8 @@ async function makeSchedule(sDate, eDate, time, movieName, hall, theaterId, toke
 
 
     }
+    if (success)
+        toast('Successfully schedule added')
+    else
+        toast('Error adding schedule')
 }

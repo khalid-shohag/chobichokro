@@ -3,6 +3,7 @@ import Navbar from "./navbar";
 import {Button, Card} from "react-bootstrap";
 import axios from "axios";
 import {useLocation, useNavigate} from 'react-router-dom'
+import { toast } from "react-toastify";
 
 const bgImg = require('../assets/lic_reg_bg.jpg')
 
@@ -62,8 +63,10 @@ function LicenseStatus() {
             console.log('Server response:', response.data)
             if (response.data.message === 'Error: Username is already taken!') {
                 alert('Username is already taken!')
-            } else
+            } else {
+                toast('Registration success, Redirect to Login Page')
                 licenseType === 'theatre_owner' ? navigate('/theatre_login') : navigate('/distributor_login')
+            }
 
 
         } catch (error) {
@@ -73,14 +76,16 @@ function LicenseStatus() {
 
 
     const handleCodeRequest = async () => {
+        toast('Verification code is sent, Wait a bit')
         const formData = new FormData()
         try {
             const response = await axios.post(`http://localhost:8080/api/mail/get-mail-otp/${email}`).then((response) => {
                 console.log("OTP", response)
                 setVCode(response.data.toString())
-
+                setIsCodeSent(true);
+                
             })
-            setIsCodeSent(true);
+            
         } catch (e) {
             console.log('GET OTP ERROR: ', e)
 
@@ -190,7 +195,7 @@ function LicenseStatus() {
                             height: '120px',
                             marginLeft: '120px'
                         }}>
-                            <Card.Header><h6>Verify</h6></Card.Header>
+                            <Card.Header><h6>A verification code has been sent to your Email. Please check!</h6></Card.Header>
                             <Card.Body style={{marginTop: '20px'}}>
                                 <input
                                     type="text"

@@ -3,6 +3,7 @@ import Navbar from "./navbar";
 import axios from "axios";
 import './Login.css'
 import {useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 
 const bgImg = require('../assets/banner.jpg')
 
@@ -31,7 +32,7 @@ function Login() {
 
         } catch (error) {
             console.error('Error occured', error);
-            // alert('Phone/Email not found')
+            toast('Phone/Email not found')
         }
     };
 

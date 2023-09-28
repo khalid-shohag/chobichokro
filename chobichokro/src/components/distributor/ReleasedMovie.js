@@ -8,18 +8,15 @@ function ReleasedMovie(props) {
     const [pageNo, setPageNo] = useState(1);
     const moviesPerPage = 5;
     const [startIndex, setStartIndex] = useState(0);
-    const [load, setLoad] = useState(true)
 
-    useEffect(() => {
-        // After successful rendering, set load to false
-        if (load) {
-          setLoad(false);
-        }
-      }, [load]);
+    
+
+    
 
     const renderMovieLists = () => {
         const movieLists = [];
         let moviesRendered = 0;
+        
 
         for (let i = startIndex; i < props.allMovies.length; i++) {
             const movie = props.allMovies[i];
@@ -49,13 +46,17 @@ function ReleasedMovie(props) {
             // Check if we have rendered enough movies for this page
             if (moviesRendered >= moviesPerPage) {
                 // setLoad(false)
+                // alert('Load: ', load)
+                // load = false
                 break;
             }
 
         }
-
         return movieLists;
     };
+
+  
+
 
     const incrementPageNo = () => {
         if (startIndex + moviesPerPage < props.allMovies.length) {
@@ -104,10 +105,11 @@ function ReleasedMovie(props) {
     };
 
     return (
-        <div>
-            {load? (<TheatreDataLoading />): renderMovieLists()}
+        <div style={{position: 'relative', marginTop: '60px'}}>
+          
+           {renderMovieLists()}
 
-            <div style={{marginLeft: '30%', color: 'white', display: 'flex'}}>
+            <div style={{marginLeft: '30%', color: 'white', display: 'flex', }}>
                 Page {pageNo}
                 <Button onClick={decrementPageNo} style={{
                     marginLeft: '10px',

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Navbar from "./navbar";
 import '../components/design_file/LicenseRegistration.css'
 import axios from 'axios'
+import { toast } from "react-toastify";
 
 const bgImg = require('../assets/banner.jpg')
 
@@ -40,11 +41,14 @@ function LicenseRegistration() {
 
 
         try {
-            const response = await axios.post('http://localhost:8080/api/license/add', formData);
+            const response = await axios.post('http://localhost:8080/api/license/add', formData).then((response) => {
+                toast("Request has been sent to ADMIN!")
+            });
 
             console.log('Server response:', response.data);
         } catch (error) {
             console.error('Error:', error);
+            toast('Request Error, Try again!')
         }
     };
 
