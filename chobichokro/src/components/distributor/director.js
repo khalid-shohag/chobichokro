@@ -38,15 +38,16 @@ const Director = ({onDirectorSelect}) => {
 
     return (
         <div>
-            <h3 style={{color: 'gray', marginTop: '5px'}}>Directors</h3>
+            <h3 style={{color: 'white', marginTop: '5px'}}>Directors</h3>
             <input
                 type="text"
                 value={personName}
                 onChange={handleNameChange}
                 placeholder="Enter director"
-                style={{borderRadius: '7px'}}
+                style={{borderRadius: '7px', boxShadow: '0 0 5px wheat',
+                background: 'transparent', color: 'white',}}
             />
-            <button onClick={handleAddPersonClick} style={{borderRadius: '3px', marginLeft: '8px'}}>Add director
+            <button onClick={handleAddPersonClick} style={{borderRadius: '3px', marginLeft: '8px', background: 'lime', border: 'none'}}>Add director
             </button>
             {selectedPersons.length > 0 && (
                 <div>

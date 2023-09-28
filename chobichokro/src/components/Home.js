@@ -118,7 +118,7 @@ function Home() {
                                     };
 
                                     return (
-                                        <Link to={`/movie/${id}`} state={{id: movie.movieName, category: 'ticket'}}>
+                                        <Link to={`/movie/${id}`}  state={{id: movie.movieName, category: 'ticket'}}>
                                             <Wrap>
                                                 <img src={posterImageUrl} alt={movie.movieName}/>
                                             </Wrap>

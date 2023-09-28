@@ -336,7 +336,7 @@ function TheatrePage() {
 
 
                             {book && (
-                                <SeatBooking bgColor={'transparent'} theatre={id} theatreName={name} hall={hall}
+                                <SeatBooking audience_name = {'N/A'} bgColor={'transparent'} theatre={id} theatreName={name} hall={hall}
                                              show={showTime} movie={movieName} date={showTime} token={token}/>
                             )}
 

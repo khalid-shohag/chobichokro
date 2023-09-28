@@ -17,7 +17,8 @@ function MovieList(props) {
                 width: '300px',
                 borderRadius: '10px',
                 cursor: 'pointer',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                borderColor: 'palegoldenrod'
             }}
                     onClick={() => {
                         props.handleChange();

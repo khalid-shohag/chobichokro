@@ -43,15 +43,16 @@ const Cast = ({onCastsSelect}) => {
 
     return (
         <div>
-            <h3 style={{color: 'gray', marginTop: '5px'}}>Casts</h3>
+            <h3 style={{color: 'white', marginTop: '5px'}}>Casts</h3>
             <input
                 type="text"
                 value={personName}
                 onChange={handleNameChange}
                 placeholder="Enter a cast"
-                style={{borderRadius: '7px'}}
+                style={{borderRadius: '7px', boxShadow: '0 0 5px wheat',
+                background: 'transparent', color: 'white',}}
             />
-            <button onClick={handleAddPersonClick} style={{borderRadius: '3px', marginLeft: '8px'}}>Add cast</button>
+            <button onClick={handleAddPersonClick} style={{borderRadius: '3px', marginLeft: '8px', background: 'lime', border: 'none'}}>Add cast</button>
             {selectedPersons.length > 0 && (
                 <div>
                     <h3>Actors:</h3>

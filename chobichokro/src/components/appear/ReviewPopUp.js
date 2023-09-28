@@ -28,6 +28,8 @@ function ReviewPopUp(props) {
         // alert(token)
         // alert(movieName)
 
+        
+
         let url = `http://localhost:8080/api/user/add_review/${movieName}`
         let data = new FormData()
         data.append('opinion', opinion.toString())

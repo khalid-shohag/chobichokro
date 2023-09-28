@@ -4,6 +4,7 @@ import {Card} from 'react-bootstrap';
 import {CardBody, CardFooter, CardHeader} from 'reactstrap';
 import Reciept from '../appear/receipt';
 import axios from "axios";
+import {toast } from 'react-toastify';
 
 
 class SeatBooking extends React.Component {
@@ -53,10 +54,10 @@ class SeatBooking extends React.Component {
             this.scheduleIdName = this.props.scheduleId
 
            let scheduleIdGetFromMovieDetails = this.props.scheduleId
-            alert(scheduleIdGetFromMovieDetails)
+            // alert(scheduleIdGetFromMovieDetails)
             let useless_url = `http://localhost:8080/api/ticket/${scheduleIdGetFromMovieDetails}`
             console.log("ius" ,useless_url)
-            alert("url", useless_url);
+            // alert("url", useless_url);
 
             try {
                 response = await axios.get(`http://localhost:8080/api/ticket/${scheduleIdGetFromMovieDetails}`, {
@@ -69,7 +70,7 @@ class SeatBooking extends React.Component {
 
 
                     console.log("Ticket Response: ", response.data)
-            alert("Ticket Response: ", JSON.stringify(response.data))
+            // alert("Ticket Response: ", JSON.stringify(response.data))
 
             response.data.map((ticket) => {
 
@@ -93,7 +94,7 @@ class SeatBooking extends React.Component {
             }
 
             if(response == null)
-              alert("response is null")
+            //   alert("response is null")
                 return {
                     "available" : available,
                     "booked" : booked
@@ -285,6 +286,7 @@ class SeatBooking extends React.Component {
 
         return (
             <div style={{backgroundColor: this.props.bgColor,}}>
+                
                 <Card style={{marginLeft: '120px', borderRadius: '5px'}}>
                     <CardHeader style={{color: 'white'}}>
                         <label>
@@ -316,25 +318,30 @@ class SeatBooking extends React.Component {
                     </CardBody>
                     <CardFooter>
                         <button style={{
-                            marginLeft: '550px', cursor: 'pointer', backgroundColor: 'green', border: 'none',
-                            height: '70px', width: '90px', borderRadius: '10px'
+                            marginLeft: '550px', cursor: 'pointer', backgroundColor: '#00A86B', border: 'none',
+                            height: '70px', width: '90px', borderRadius: '10px',
                         }}
                                 onClick={this.handleReservationSubmit}>Submit
-                        </button>
+                        </button>{' '}
+                        {this.state.receipt ? (this.state.reservationCount>0 ? (
+                            <Reciept audience_name={this.props.audience_name} movie={movieName} date={date} theatre={theatreName} hall={hall} showTime={showTime}
+                            seats={this.state.seatReserved} theatreName={theatre}/>
+                         ): (<div>
+                            {toast('Select a seat first')}
+                         </div>)) :(<div>
+
+                        </div>)}
+                        {/* {
+                            this.state.seatReserved>0 ? ( this.state.receipt && (
+                        <Reciept audience_name={this.props.audience_name} movie={movieName} date={date} theatre={theatreName} hall={hall} showTime={showTime}
+                        seats={this.state.seatReserved} theatreName={theatre}/> )) : (<div></div>)
+                    
+                } */}
                         {/* <Reciept /> */}
 
                     </CardFooter>
                 </Card>
-                {
-                    this.state.receipt && (
-
-
-                        <div style={{marginTop: '7%'}}>
-                            <Reciept movie={movieName} date={date} theatre={theatreName} hall={hall} showTime={showTime}
-                                     seats={this.state.seatReserved}/>
-                        </div>
-                    )
-                }
+                
             </div>
         )
     }

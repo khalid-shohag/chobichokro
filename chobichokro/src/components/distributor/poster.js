@@ -32,10 +32,10 @@ const Poster = ({onPosterSelect}) => {
 
     return (
         <div>
-            <h3 style={{color: 'gray', marginTop: '5px'}}>Select Posters</h3>
+            <h3 style={{color: 'white', marginTop: '5px'}}>Select Posters</h3>
             <input type="file" accept="image/*" multiple onChange={handleImageChange}/>
             {selectedImages.length > 0 && (
-                <div style={{display: 'flex'}}>
+                <div style={{display: 'flex', }}>
                     {/* <ul style={{listStyleType: 'n'}}> */}
                     {selectedImages.map((imageDataUrl, index) => (
                         <div key={index} style={{flex: 0.15}}>
@@ -53,62 +53,3 @@ const Poster = ({onPosterSelect}) => {
 export default Poster;
 
 
-// import React, { useState } from 'react';
-// import { FaLeaf } from 'react-icons/fa';
-
-// const Poster = ({ onPosterSelect }) => {
-//   const [selectedImages, setSelectedImages] = useState([]);
-
-//   const handleImageChange = (event) => {
-//     const files = event.target.files;
-//     const imageFiles = Array.from(files);
-
-//     const imagePreviews = [];
-
-//     const readAndAddToPreviews = (file) => {
-//       console.log("File->", file);
-//       const reader = new FileReader();
-//       reader.readAsDataURL(file);
-//       reader.onload = () => {
-//         imagePreviews.push(reader.result);
-
-//         if (imagePreviews.length === imageFiles.length) {
-//           setSelectedImages(imagePreviews);
-//           onPosterSelect(imagePreviews); // Callback to parent component with base64 images
-//         }
-//       };
-//     };
-
-//     imageFiles.forEach(readAndAddToPreviews);
-//   };
-
-//   const handleRemoveImage = (index) => {
-//     const updatedImages = [...selectedImages];
-//     updatedImages.splice(index, 1);
-//     setSelectedImages(updatedImages);
-//     onPosterSelect(updatedImages); // Callback to parent component with updated base64 images
-//   };
-
-//   return (
-//     <div>
-//       <h3>Select Posters</h3>
-//       <input type="file" accept="image/*" multiple onChange={handleImageChange} />
-//       {selectedImages.length > 0 && (
-//         <div style={{ display: 'flex' }}>
-//           {selectedImages.map((imageDataUrl, index) => (
-//             <div key={index} style={{ flex: 0.15 }}>
-//               <img
-//                 src={imageDataUrl}
-//                 alt={`Image ${index + 1}`}
-//                 style={{ height: '50px', width: '50px' }}
-//               />
-//               <button onClick={() => handleRemoveImage(index)}>Remove</button>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Poster;

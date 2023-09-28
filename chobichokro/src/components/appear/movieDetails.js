@@ -75,7 +75,7 @@ const MovieDetails = (props) => {
     const theatreName = location.state?.theatreName || ''
     const status = location.state?.status || ''
     // const allTheatre = location.state?.allTheatre || []
-    const ticketBook = location.state?.ticketBook || []
+    const ticketBook = location.state?.ticketBook || [] // change token from local storage
 
     const [allTheatre, setAllTheatre] = useState([])
     //Extract Theatre List for a particular movie
@@ -481,7 +481,7 @@ const MovieDetails = (props) => {
                     <span >ADD REVIEWS</span>
                 
                     </BookTicket> */}
-                    <ReviewPopUp movieName={name} request_token={ticketToken}/>
+                    <ReviewPopUp movieName={name} request_token={localStorage.getItem('audience_token')}/>
                     </div>
                     )}
                     </div>
@@ -573,7 +573,7 @@ const MovieDetails = (props) => {
 
 
                 {book && ( 
-                <SeatBooking bgColor={'#0c111b'} theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={localStorage.getItem('audience_token')} scheduleId={scheduleId}/>
+                <SeatBooking audience_name = {localStorage.getItem('audience_name')} bgColor={'#0c111b'} theatre={theatre} hall={hall} show={show} movie={theatreMovieName} date={show} token ={localStorage.getItem('audience_token')} scheduleId={scheduleId}/>
                 
                 ) }
                 </div>)}

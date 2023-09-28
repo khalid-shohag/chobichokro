@@ -75,7 +75,7 @@ function Login(props) {
       else if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER') {
         localStorage.setItem('audience_token', token)
         localStorage.setItem('audience_name', name)
-        localStorage.audienceEmail('audience_email', email)
+        localStorage.setItem('audience_email', email)
         navigate('/audience_dashboard/'+response.data.id, {state: {token, name, email}});
       }
       else if (props.value==='Admin Login'  && response.data.roles[0]==='ROLE_ADMIN')

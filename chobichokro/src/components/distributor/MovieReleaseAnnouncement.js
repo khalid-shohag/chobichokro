@@ -6,6 +6,8 @@ import Poster from './poster';
 import './DistributorPage.css'
 import axios from 'axios';
 import Director from "./director";
+import { Card } from 'reactstrap';
+import { Input } from '@mui/icons-material';
 
 const MovieReleaseAnnouncement = (props) => {
     // const [movieDetails, setMovieDetails] = useState({
@@ -159,34 +161,40 @@ const MovieReleaseAnnouncement = (props) => {
 
         <div style={{position: 'relative', marginTop: '60px'}}>
 
-            <div style={{marginRight: 'auto', marginLeft: '70px'}}>
+
+            <Card style={{marginRight: '25%', borderRadius: '5px', background: 'navy', width: '37%', marginLeft: '25%', color: '#2A925E', fontStyle: 'bolder'}}>
                 <h2>Movie Release Announcement</h2>
-            </div>
+            </Card>
             <div style={{display: 'flex', marginTop: '50px', marginLeft: '80px'}}>
 
 
                 <div style={{flex: 1, marginRight: '70px'}}>
 
-                    <h3 style={{color: 'gray'}}>Movie Name </h3>
+                    <h3 style={{color: 'white'}}>Movie Name </h3>
                     <input
                         type="text"
                         placeholder="Movie Name"
                         value={movieDetails.movieName}
                         onChange={(e) => setMovieDetails({...movieDetails, movieName: e.target.value})}
-                        style={{borderRadius: '7px', width: '300px'}}
+                        style={{borderRadius: '7px', boxShadow: '0 0 5px wheat', width: '300px', background: 'transparent', color: 'white'}}
                     />
                     <div>
                         <Genre onGenreSelect={handleGenreSelect}/>
                     </div>
-                    <h3 style={{color: 'gray', marginTop: '5px'}}>Description</h3>
+                    <h3 style={{color: 'white', marginTop: '5px'}}>Description</h3>
                     <div>
           <textarea
               style={{
                   width: '400px',
-                  height: "2rem",
-                  backgroundColor: 'lightblue',
+                  height: "10rem",
+                  backgroundColor: 'transparent',
                   borderRadius: '7px',
-                  boxShadow: '5px 5px blue, 10px 10px red'
+                  boxShadow: '0 0 5px wheat',
+                  background: 'transparent', color: 'white',
+                  textAlign: 'left',
+                  direction: 'ltr',
+                  verticalAlign: 'top',
+                  
               }}
               onChange={handleInputChange}
               value={inputValue}
@@ -194,24 +202,26 @@ const MovieReleaseAnnouncement = (props) => {
           />
 
                     </div>
-                    <h3 style={{color: 'gray', marginTop: '5px'}}>Release Date</h3>
+                    <h3 style={{color: 'white', marginTop: '5px'}}>Release Date</h3>
                     <div>
                         <input
                             type="date"
                             value={d}
                             onChange={handleDateChange}
                             placeholder="Select a date"
-                            style={{borderRadius: '7px'}}
+                            style={{borderRadius: '7px', boxShadow: '0 0 5px wheat',
+                            background: 'transparent', color: 'white',}}
                         />
                     </div>
 
                 </div>
 
                 <div style={{flex: 1}}>
-                    <h3 style={{color: 'gray'}}>Trailer Link</h3>
+                    <h3 style={{color: 'white'}}>Trailer Link</h3>
                     <div>
                         <input
-                            style={{width: '550px', borderRadius: '7px'}}
+                            style={{width: '550px', borderRadius: '7px', boxShadow: '0 0 5px wheat',
+                            background: 'transparent', color: 'white',}}
                             type="trailer"
                             placeholder="Trailer"
                             value={movieDetails.trailer}
@@ -229,9 +239,10 @@ const MovieReleaseAnnouncement = (props) => {
                         <Poster onPosterSelect={handlePosterSelect}/>
                     </div>
                     <div>
-                        <h3 style={{color: 'gray', marginTop: '5px'}}>Total Cost.</h3>
+                        <h3 style={{color: 'white', marginTop: '5px'}}>Total Cost.</h3>
                         <input
-                            style={{width: '180px', borderRadius: '7px'}}
+                            style={{width: '220px', borderRadius: '7px', boxShadow: '0 0 5px wheat',
+                            background: 'transparent', color: 'white',}}
                             type="number"
                             placeholder="Taka"
                             value={cost}
@@ -246,12 +257,13 @@ const MovieReleaseAnnouncement = (props) => {
 
             </div>
             <button type="submit" style={{
-                marginLeft: '34%',
-                borderRadius: '3px',
+                marginLeft: '35%',
+                borderRadius: '8%',
                 cursor: 'pointer',
-                marginTop: '10%',
-                backgroundColor: 'yellow',
-                border: 'none'
+                marginTop: '5%',
+                backgroundColor: '#2A925E',
+                border: 'none',
+                height: '60px', width: '200px'
             }} onClick={sendMovieReleaseData}>Announce Release
             </button>
         </div>
