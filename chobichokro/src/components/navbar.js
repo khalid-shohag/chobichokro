@@ -1,6 +1,6 @@
 import React from "react";
 import './navbar.css'
-import { FaSearch, FaUser, FaCamera, FaFilm, FaBars, FaTimes, FaVideo, FaEye } from "react-icons/fa";
+import { FaSearch, FaUser, FaCamera, FaFilm, FaBars, FaTimes, FaVideo, FaEye, FaSignOutAlt } from "react-icons/fa";
 import { useState } from "react";
 import Hamburger from 'hamburger-react'
 import DropdownMenu from "./SelectedLoginUser";
@@ -37,6 +37,9 @@ const Navbar = (props)=> {
             case 'Distributor':
                 navigate('/distributor_login');
                 break;
+            case 'home':
+                navigate('/')
+                break
             default:
                 break;
         }
@@ -95,6 +98,12 @@ const Navbar = (props)=> {
                 </li>
                 <li style={{display: 'flex'}}><FaEye style={{marginRight: '7px', color: 'greenyellow'}}></FaEye>
                     <h4 style={{cursor: 'pointer'}} onClick={() => goToPage('Audience')}>Audience</h4>
+                </li>
+                <li style={{display: 'flex'}}><FaSignOutAlt style={{marginRight: '7px', color: 'greenyellow'}}></FaSignOutAlt>
+                    <h4 style={{cursor: 'pointer'}} onClick={() => {
+                        localStorage.clear()
+                        goToPage('home')
+                    } }> LogOut </h4>
                 </li>
                 <li>
                 <input

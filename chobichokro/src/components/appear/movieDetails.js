@@ -26,6 +26,9 @@ import Footer from '../Footer';
 import 'reactjs-popup/dist/index.css';
 import Popup from "reactjs-popup";
 import ReviewPopUp from './ReviewPopUp';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { async } from 'q';
 
 const MovieDetails = (props) => {
@@ -61,7 +64,7 @@ const MovieDetails = (props) => {
     
 
     // const category = location.state?.category || 'ticket'
-   
+    const reviewStatus = location.state?.review_status || ''
     const name = movie?.movieName || ''; 
     const id = movie?.id || '';
     const description = movie?.description || '';
@@ -225,7 +228,7 @@ const MovieDetails = (props) => {
 
         console.log('AXN', `Bearer ${token}`)
 
-        
+        console.log('url:', `http://localhost:8080/api/theater/want_to_buy/${name}`)
         
         try{
             const response = await axios.post(`http://localhost:8080/api/theater/want_to_buy/${name}`,{}, {
@@ -234,11 +237,14 @@ const MovieDetails = (props) => {
                     
                 }
                 
+            }).then((value) => { 
+                toast("Booked Request Sent")
             })
-            console.log('Successfull ', response.data)
+            console.log('Successfull ', JSON.type(response))
             // alert('Successfully added to your cart')
         } catch(e) {
             console.log("Error: ", e)
+            toast('Network Error or Already Request sent')
             // alert(`Network Error, can't add to your cart`)
         }
     }
@@ -409,6 +415,9 @@ const MovieDetails = (props) => {
     
     return (
         <div style={{background: 'black', height: '100vh'}}>
+            <ToastContainer position="top-center"
+                />
+
             <Navbar />
         <Container style={{marginTop: '65px'}}>
             <Details >
@@ -457,6 +466,9 @@ const MovieDetails = (props) => {
                      <span >BOOK TICKETS</span>
                      
                  </BookTicket>
+                 {reviewStatus==='no' ? (<div></div>): (
+
+                 
                  <div style={{display: 'flex'}}>
                     <BookTicket onClick={handleReviewClick}>
                     {/* <img src={ticketImage} alt="ticket" style={{height: '40px', width: '40px'}} /> */}
@@ -473,11 +485,11 @@ const MovieDetails = (props) => {
                     </BookTicket> */}
                     <ReviewPopUp movieName={name} request_token={ticketToken}/>
                     </div>
+                    )}
                     </div>
                 ): (category==='reel') ? (
                     <BookTicket onClick={handleReelBooking}>
                     <img src={reelImg} alt="ticket" style={{height: '40px', width: '40px'}} />
-                    {/* <FaTicketAlt></FaTicketAlt> */}
                     <span >BOOK REELS</span>
                     
                     </BookTicket>
@@ -498,15 +510,9 @@ const MovieDetails = (props) => {
                     
                 </div>
             ): (
-                // <Trailer>
-                // <MovieTrailerPlayer>
-                    <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true}  loop={true} poster={true} muted={false} controls={true} width='80%' height='85%' />
-                //    { console.log("Trailer: ",trailerLink)}
-                //     <UnMute onClick={() => setMute(!mute)}>
-                //         <img src={speakerImage} alt="mute" style={{height: '25px', width: '30px', borderRadius: '25px'}}/>
-                //     </UnMute>
-                // </MovieTrailerPlayer>
-            //    </Trailer>
+              
+              <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true}  loop={true} poster={true} muted={false} controls={true} width='80%' height='85%' />
+                
             )}
             
         </Container>
@@ -519,8 +525,8 @@ const MovieDetails = (props) => {
                     <CardBody>
                     {audienceName!=='' ? (
                     <div style={{display: 'flex', justifyContent: 'space-around', color: 'white'}}>
-                        <h3>Audience Name: {audienceName}</h3>
-                        <h3><FaEnvelope></FaEnvelope> {audienceEmail}</h3>
+                        <h3>Audience Name: {localStorage.getItem('audience_name')}</h3>
+                        <h3><FaEnvelope></FaEnvelope> {localStorage.getItem('audience_email')}</h3>
                     </div>
                 ): (
                     <h1>

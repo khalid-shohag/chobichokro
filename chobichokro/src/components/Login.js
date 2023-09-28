@@ -58,6 +58,9 @@ function Login(props) {
       if(props.redirectStatus==='yes') {
         console.log('LOCATION STATE: ', props.category, props.id, props.allTheatre)
         if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER') {
+          localStorage.setItem('audience_name', name)
+          localStorage.audienceEmail('audience_email', email)
+          localStorage.setItem('audience_token', token)
           navigate(props.pathname, {state: {category: props.category, id: props.id, allTheatre: props.allTheatre, ticketBook: 'yes',
           ticketToken: token, audienceName: name, audienceEmail: email}});
         }
@@ -72,6 +75,8 @@ function Login(props) {
         navigate('/theatre_page/'+response.data.id, {state: {token, theatreName, id, address}});
       else if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER') {
         localStorage.setItem('audience_token', token)
+        localStorage.setItem('audience_name', name)
+        localStorage.audienceEmail('audience_email', email)
         navigate('/audience_dashboard/'+response.data.id, {state: {token, name, email}});
       }
       else if (props.value==='Admin Login'  && response.data.roles[0]==='ROLE_ADMIN')

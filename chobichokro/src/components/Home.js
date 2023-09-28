@@ -117,13 +117,10 @@ function Home() {
                                     };
 
                                     return (
-                                        // <Link to={{ pathname: `/movie/${id}`, state: {he: '1254'} }}  key = {movie.id} movieName={movie.movieName} description={movie.description} trailer={movie.trailerLink}>
                                         <Link to={`/movie/${id}`} state={{id: movie.movieName, category: 'ticket'}}>
-                                            {/* <Button onClick={navigateAndPassData(movie.id, linkMovieDetails)}> */}
                                             <Wrap>
                                                 <img src={posterImageUrl} alt={movie.movieName}/>
                                             </Wrap>
-                                            {/* </Button> */}
                                         </Link>
                                     );
                                 }
@@ -159,7 +156,7 @@ function Home() {
                                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                                         return (
                                             <Link to={'/movie/' + movie.id}
-                                                  state={{id: movie.movieName, category: 'ticket'}}>
+                                                  state={{id: movie.movieName, category: 'ticket', review_status: 'yes'}}>
                                                 <Wrap>
                                                     <img src={posterImageUrl} alt={movie.name}/>
                                                 </Wrap>
@@ -198,7 +195,7 @@ function Home() {
                                         const posterImageUrl = `http://localhost:8080/api/movies/get/${poster}`;
                                         return (
                                             <Link to={'/movie/' + movie.id}
-                                                  state={{id: movie.movieName, category: 'ticket'}}>
+                                                  state={{id: movie.movieName, category: 'ticket', review_status: 'no'}}>
                                                 <Wrap>
                                                     <img src={posterImageUrl} alt={movie.name}/>
                                                 </Wrap>
