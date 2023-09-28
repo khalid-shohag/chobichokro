@@ -62,7 +62,7 @@ function LicenseStatus() {
             const token = response.data.token;
             console.log('Server response:', response.data)
             if (response.data.message === 'Error: Username is already taken!') {
-                alert('Username is already taken!')
+                toast('Username is already taken!')
             } else {
                 toast('Registration success, Redirect to Login Page')
                 licenseType === 'theatre_owner' ? navigate('/theatre_login') : navigate('/distributor_login')
@@ -70,7 +70,7 @@ function LicenseStatus() {
 
 
         } catch (error) {
-            console.error('Error occured', error);
+            console.error('Error occurred', error);
         }
     }
 
@@ -97,7 +97,7 @@ function LicenseStatus() {
         if (verificationCode === vCode)
             setIsVerified(true);
         else
-            alert('Verification Mismatch')
+            toast.error('Verification Mismatch')
     };
 
     return (

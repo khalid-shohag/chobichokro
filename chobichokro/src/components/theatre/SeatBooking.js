@@ -4,7 +4,7 @@ import {Card} from 'react-bootstrap';
 import {CardBody, CardFooter, CardHeader} from 'reactstrap';
 import Reciept from '../appear/receipt';
 import axios from "axios";
-import {toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 
 
 class SeatBooking extends React.Component {
@@ -12,6 +12,7 @@ class SeatBooking extends React.Component {
     hasGot = 0;
     scheduleIdName = ""
     token_token = ""
+
 
     constructor(props) {
         console.log(JSON.stringify(props))
@@ -46,122 +47,55 @@ class SeatBooking extends React.Component {
     }
 
     get_available_seats = async (props) => {
-        const token = "Bearer " + props.token;
-        let response = null
-        let available = []
-        let booked = []
-        if (this.props.scheduleId != null) {
-            this.scheduleIdName = this.props.scheduleId
-
-           let scheduleIdGetFromMovieDetails = this.props.scheduleId
-            // alert(scheduleIdGetFromMovieDetails)
-            let useless_url = `http://localhost:8080/api/ticket/${scheduleIdGetFromMovieDetails}`
-            console.log("ius" ,useless_url)
-            // alert("url", useless_url);
-
-            try {
-                response = await axios.get(`http://localhost:8080/api/ticket/${scheduleIdGetFromMovieDetails}`, {
-                    headers: {
-                        Authorization: localStorage.getItem('audience_token')
-                    }
-
-                }).then((response) => {
-                    console.log("VAlues", response)
-
-
-                    console.log("Ticket Response: ", response.data)
-            // alert("Ticket Response: ", JSON.stringify(response.data))
-
-            response.data.map((ticket) => {
-
-                // console.log("TICKET", ticket)
-                // console.log("BOOKED", ticket.booked)
-                // alert("ticket", ticket.seatNumber, ticket.booked)
-                if(ticket.booked) booked.push(ticket.seatNumber)
-
-                else available.push(ticket.seatNumber)
-            })
-            console.log("Booked: ", booked)
-            console.log("AVAIL", available)
-            return {
-                "available": available,
-                "booked": booked
-            }
-                    
-                })
-            }catch (e){
-                console.log(e)
-            }
-
-            if(response == null)
-            //   alert("response is null")
-                return {
-                    "available" : available,
-                    "booked" : booked
-                }
-
-            
-        }
-
         const theatre = props.theatre
         const hall = props.hall
         const movieName = props.movie
         const date = props.date
-
-
-        console.log("\n\nI am here\n\n")
-
-        let url = `http://localhost:8080/api/dropdown/get/schedule?movieName=${movieName}&theaterId=${theatre}&date=${date}&hallNumber=${hall}`;
-        console.log(url)
-        try {
-            response = await axios.get(url, {
-                headers: {
-                    Authorization: token
-                }
+        const token = "Bearer " + props.token;
+        if (this.props.scheduleId != null) {
+            this.scheduleIdName = this.props.scheduleId
+            await toast.promise( async () => {await this.get_seat().then().catch()}, {
+                pending: `Available ticket are loading for ${movieName}`,
+                error: `Some error arise`,
+                success: `Available seat loaded, select seat and press book button.`
             })
-        } catch (e) {
-            console.log(e)
-        }
-        console.log("type of response: ")
-
-        if (response == null) return ""
-        console.log(typeof response.data[0])
-        console.log("scheduleID :", response.data[0].scheduleId)
-        let scheduleId = response.data[0].scheduleId
-        this.scheduleIdName = scheduleId
-        url = `http://localhost:8080/api/ticket/${scheduleId}`
-        console.log("URL", url)
-        try {
-            response = await axios.get(url, {
-                headers: {
-                    Authorization: token
-                }
-
-            })
-        } catch (e) {
-            console.log(e)
+            return null;
         }
 
-        if (response == null)
-            return {
-                "available": available,
-                "booked": booked
-            }
 
-        console.log("Ticket Response: ", response.data)
+        let url_ = `http://localhost:8080/api/audience/get_schedule_id?movieName=${movieName}&theaterId=${theatre}&date=${date}&hallNumber=${hall}`
 
-        response.data.map((ticket) => {
-            console.log("TICKET", ticket)
-            console.log("BOOKED", ticket.booked)
-            if (ticket.booked) booked.push(ticket.seatNumber)
-            else available.push(ticket.seatNumber)
+        await axios.get(url_).then(async value => {
+            this.scheduleIdName = value.data
+            await toast.promise( async () => {await this.get_seat().then().catch()}, {
+                pending: `Available ticket are loading for ${movieName}`,
+                error: `Some error arise`,
+                success: `Available seat loaded, select seat and press book button.`
+            })
+
+        }).catch(e => console.log(e))
+    }
+
+    get_seat = async () => {
+        let url = `http://localhost:8080/api/ticket/${this.scheduleIdName}`
+        await axios.get(url).then(response => {
+            // alert(JSON.stringify(response))
+            let available = []
+            let booked = []
+            response.data.map((ticket) => {
+                // console.log("TICKET", ticket)
+                // console.log("BOOKED", ticket.booked)
+                if (ticket.booked) booked.push(ticket.seatNumber)
+                else available.push(ticket.seatNumber)
+            })
+
+            this.setState({
+                seatAvailable: available,
+                seatUnavailable: booked
+            })
+        }).catch(e => {
+            toast(e)
         })
-        console.log("Booked: ", booked)
-        console.log("AVAIL", available)
-        return {
-            "available": available,
-            "booked": booked
-        }
     }
 
     book_seat = async (url, seats, paymentId, token) => {
@@ -172,29 +106,26 @@ class SeatBooking extends React.Component {
         formData.append("seatNumbers", seats)
         console.log(seats, url, paymentId)
         console.log(token);
-        try {
+        // toast("Your request is being processed.")
+        return await toast.promise(async () => {
             await axios.post(url, formData,
                 {
                     headers: {
                         Authorization: token
                     }
                 }).then((value) => {
-                console.log(value.data)
-                if (value.data.length === n) {
-                    console.log("successfully get the seat");
-                    this.setState({
-                        receipt: true
-                    })
-                } else {
-                    alert("some problem arise");
-                }
 
+            }).catch((err) => {
+                toast(err)
             })
-        } catch (e) {
-            console.log(e)
-        }
+        }, {
+            pending: 'Your request is pending',
+            success: 'Your seat has been booked. please download your receipt',
+            error: 'Sorry for the inconvenience.'
+        });
+
     }
-    handleReservationSubmit = () => {
+    handleReservationSubmit = async () => {
         // Log the reservationCount value to the console
         console.log(`Total Reservations: ${this.state.reservationCount}`);
         console.log("Reserved Seats", this.state.seatReserved)
@@ -219,8 +150,10 @@ class SeatBooking extends React.Component {
         let url = `http://localhost:8080/api/user/book_multiple/${this.scheduleIdName}`
         const token = "Bearer " + this.token_token;
 
-        this.book_seat(url, seats, paymentId, token).then((value) => {
-            console.log("in the main function : ", value)
+        await this.book_seat(url, seats, paymentId, token).then((value) => {
+            this.setState({
+                receipt: true
+            })
         })
     };
 
@@ -244,29 +177,31 @@ class SeatBooking extends React.Component {
     componentDidMount() {
         let seats_data = this.get_available_seats(this.props)
 
-        console.log(seats_data.then((value) => {
-            this.setState({
-                seatAvailable: value.available,
-                seatUnavailable: value.booked
-            })
-        }))
+        // console.log(seats_data.then((value) => {
+        //     this.setState({
+        //         seatAvailable: value.available,
+        //         seatUnavailable: value.booked
+        //     })
+        // }))
         console.log('Got ', this.seatUnavailable)
         this.hasGot = 1
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.date === prevProps.date && this.props.show === prevProps.date && this.props.hall === prevProps.hall) {
+        if (this.props.date === prevProps.date && this.props.show === prevProps.show && this.props.hall === prevProps.hall) {
             return;
         }
+        console.log("props " + JSON.stringify(prevProps))
+        console.log("state " + JSON.stringify(prevState))
 
         let seats_data = this.get_available_seats(this.props)
 
-        console.log(seats_data.then((value) => {
-            this.setState({
-                seatAvailable: value.available,
-                seatUnavailable: value.booked
-            })
-        }))
+        // console.log(seats_data.then((value) => {
+        //     this.setState({
+        //         seatAvailable: value.available,
+        //         seatUnavailable: value.booked
+        //     })
+        // }))
         console.log('Got ', this.seatUnavailable)
         this.hasGot = 1
     }
@@ -286,7 +221,7 @@ class SeatBooking extends React.Component {
 
         return (
             <div style={{backgroundColor: this.props.bgColor,}}>
-                
+
                 <Card style={{marginLeft: '120px', borderRadius: '5px'}}>
                     <CardHeader style={{color: 'white'}}>
                         <label>
@@ -322,13 +257,15 @@ class SeatBooking extends React.Component {
                             height: '70px', width: '90px', borderRadius: '10px',
                         }}
                                 onClick={this.handleReservationSubmit}>Submit
-                        </button>{' '}
-                        {this.state.receipt ? (this.state.reservationCount>0 ? (
-                            <Reciept audience_name={this.props.audience_name} movie={movieName} date={date} theatre={theatreName} hall={hall} showTime={showTime}
-                            seats={this.state.seatReserved} theatreName={theatre}/>
-                         ): (<div>
+                        </button>
+                        {' '}
+                        {this.state.receipt ? (this.state.reservationCount > 0 ? (
+                            <Reciept audience_name={this.props.audience_name} movie={movieName} date={date}
+                                     theatre={theatreName} hall={hall} showTime={showTime}
+                                     seats={this.state.seatReserved} theatreName={theatre}/>
+                        ) : (<div>
                             {toast('Select a seat first')}
-                         </div>)) :(<div>
+                        </div>)) : (<div>
 
                         </div>)}
                         {/* {
@@ -341,7 +278,7 @@ class SeatBooking extends React.Component {
 
                     </CardFooter>
                 </Card>
-                
+
             </div>
         )
     }

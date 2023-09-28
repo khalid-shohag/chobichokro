@@ -5,6 +5,7 @@ import {Button} from 'reactstrap';
 import axios from "axios";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import {toast} from "react-toastify";
 
 export function BackdropModel(props) {
     const [show, setShow] = useState(false);
@@ -34,7 +35,7 @@ export function BackdropModel(props) {
         }).then(res => {
             // alert(JSON.stringify(res.data))
         }).catch(err => {
-            alert(err)
+            toast.error(err)
         })
 
 

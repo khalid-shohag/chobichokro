@@ -8,6 +8,7 @@ import axios from 'axios';
 import Director from "./director";
 import { Card } from 'reactstrap';
 import { Input } from '@mui/icons-material';
+import {toast} from "react-toastify";
 
 const MovieReleaseAnnouncement = (props) => {
     // const [movieDetails, setMovieDetails] = useState({
@@ -138,7 +139,7 @@ const MovieReleaseAnnouncement = (props) => {
 
             // Handle success and reset the form as needed
             console.log('Data sent successfully:', response.data);
-            alert("Movie Release Announced Successfully")
+            toast.success("Movie Release Announced Successfully")
 
 
         } catch (error) {
@@ -146,7 +147,7 @@ const MovieReleaseAnnouncement = (props) => {
             console.log("Check CMD")
             // Handle error
             console.error('Error sending data:', error);
-            alert("Movie Announcement Failed")
+            toast.error("Movie Announcement Failed")
         }
     };
 

@@ -139,7 +139,7 @@ const MovieDetails = (props) => {
             navigate('/movie/review/' + id, {state: {reviews: response.data, movieName: name}})
         }).catch(e => {
             console.log("Error: ", e)
-            alert('Error getting data')
+            toast.error('Error getting data')
         })
         // try {
         //     const response = await axios.get(`http://localhost:8080/api/review/movie/${id}`).then((response) => {
@@ -238,7 +238,7 @@ const MovieDetails = (props) => {
                 toast("Booked Request Sent")
 
             })
-            console.log('Successfull ', JSON.type(response))
+            console.log('Successfully ', JSON.type(response))
             // alert('Successfully added to your cart')
         } catch (e) {
             console.log("Error: ", e)
@@ -248,7 +248,7 @@ const MovieDetails = (props) => {
     }
 
     const [theatre, setTheatre] = useState('');
-    const hanldleTheatre = async (theatre) => {
+    const handleTheatre = async (theatre) => {
         console.log("Theatre: ", theatre)
         setTheatre(theatre)
         const formData = new FormData()
@@ -279,7 +279,7 @@ const MovieDetails = (props) => {
         data.append('hallNumber', hall);
         //http://localhost:8080/api/audience/get_schedule_id?movieName=string&theaterId=string&date=string&hallNumber=0
         let url = `http://localhost:8080/api/audience/get_schedule_id?movieName=${theatreMovieName}&theaterId=${theatre}&date=${show}&hallNumber=${hall}`
-        alert(url)
+        // alert(url)
         const response = await axios.get(url).then((value) => {
             console.log("Schedule ID: ", value.data)
             setScheduleId(value.data)
@@ -312,7 +312,7 @@ const MovieDetails = (props) => {
 
     const getTheatreMovieAnalysis = async (theatreName, theatreMovieName) => {
         // console.log("kmaol", myMovie)
-        if (theatreName != '') {
+        if (theatreName !== '') {
             console.log(theatreName)
             // console.log(myMovie)
             try {
@@ -391,7 +391,7 @@ const MovieDetails = (props) => {
     useEffect(() => {
         getShowDate().then(() => {
             console.log("data fetched, now work the next part")
-            setScreenNum(screenNum)
+            // setScreenNum(screenNum)
             console.log("screen number change kore felchi");
             setShowDate(showDate)
 
@@ -416,8 +416,6 @@ const MovieDetails = (props) => {
     
     return (
         <div style={{background: 'black', height: '100vh'}}>
-            <ToastContainer position="top-center"
-                />
 
             <Navbar />
 
@@ -548,7 +546,7 @@ const MovieDetails = (props) => {
                 <SeatBooking theatre={theatre} hall={hall} show={show}/> */}
             <div style={{display: 'flex'}}>
                 <div style={{flex: 1, marginLeft: '220px'}}>
-                    <h5>{<TicketBooking onSelectedOptions={hanldleTheatre} name={"Theatre"} val={allTheatre}
+                    <h5>{<TicketBooking onSelectedOptions={handleTheatre} name={"Theatre"} val={allTheatre}
                                         stat={'yes'}/>}</h5>
                 </div>
                 {/* {
