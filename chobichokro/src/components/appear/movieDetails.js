@@ -23,6 +23,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { async } from 'q';
+import { TheatreDataLoading } from './TheatreDataLoading';
 
 
 const MovieDetails = (props) => {
@@ -307,14 +308,15 @@ const MovieDetails = (props) => {
 
 
     const [footFalls, setFootFalls] = useState(0)
+    const [theatreLoad, setTheatreLoad] = useState(true)
 
-    const getTheatreMovieAnalysis = async (theatreName, myMovie) => {
-        console.log("kmaol", myMovie)
+    const getTheatreMovieAnalysis = async (theatreName, theatreMovieName) => {
+        // console.log("kmaol", myMovie)
         if (theatreName != '') {
             console.log(theatreName)
-            console.log(myMovie)
+            // console.log(myMovie)
             try {
-                let url = `http://localhost:8080/api/theater/get/analysis/${myMovie}`
+                let url = `http://localhost:8080/api/theater/get/analysis/${theatreMovieName}`
                 console.log(url)
                 const response = await axios.get(url, {
                     headers: {
@@ -322,6 +324,7 @@ const MovieDetails = (props) => {
 
                     }
                 }).then((value) => {
+                    setTheatreLoad(false)
                     console.log("data value")
                     console.log(value)
                     setFootFalls(value.data.body)
@@ -330,6 +333,7 @@ const MovieDetails = (props) => {
 
             } catch (e) {
                 console.log("Error: ", e)
+                setTheatreLoad(false)
             }
         }
     }
@@ -337,7 +341,7 @@ const MovieDetails = (props) => {
     useEffect(() => {
         console.log("GET TGE EFFE", name)
 
-        getTheatreMovieAnalysis(theatreName, name)
+        getTheatreMovieAnalysis(theatreName, theatreMovieName)
 
     }, [])
 
@@ -501,15 +505,15 @@ const MovieDetails = (props) => {
                 
 
             </Details>
-            {(theatreName != '' && movieStatus === 'running') ? (
-                <div style={{marginTop: '150px', color: 'yellowgreen'}}>
-                    <h2 style={{color: 'lavender'}}>Theatre Name: {theatreName}</h2>
-                    <h2>Total Footfalls: {footFalls}</h2>
+            {(theatreName != '' && movieStatus === 'running') ? (theatreLoad ? (<TheatreDataLoading value={'Analysis'}/>) : (
+                 <div style={{marginTop: '150px', color: 'yellowgreen'}}>
+                 <h2 style={{color: 'lavender'}}>Theatre Name: {theatreName}</h2>
+                 <h2>Total Footfalls: {footFalls}</h2>
 
-                    <h2>Total Net collection: {footFalls*100}</h2>
-                    
-                </div>
-            ): (
+                 <h2>Total Net collection: {footFalls*100}</h2>
+                 
+             </div>
+            )) : (
               
               <ReactPlayer id='MovieTrailer' url={trailerLink} playing={true}  loop={true} poster={true} muted={false} controls={true} width='80%' height='85%' />
                 

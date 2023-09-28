@@ -56,16 +56,18 @@ function Login(props) {
 
       if(props.redirectStatus==='yes') {
         console.log('LOCATION STATE: ', props.category, props.id, props.allTheatre)
+        // alert(props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER')
         if (props.value==='Audience Login'  && response.data.roles[0]==='ROLE_USER') {
           localStorage.setItem('audience_name', name)
-          localStorage.audienceEmail('audience_email', email)
+          localStorage.setItem('audience_email', email)
           localStorage.setItem('audience_token', token)
+          // alert('HI')
           navigate(props.pathname, {state: {category: props.category, id: props.id, allTheatre: props.allTheatre, ticketBook: 'yes',
           ticketToken: token, audienceName: name, audienceEmail: email}});
         }
         else
           alert('Invalid')
-        return null;
+        // return null;
       }
       
       if (props.value==='Distributor Login' && response.data.roles[0]==='ROLE_DISTRIBUTOR')

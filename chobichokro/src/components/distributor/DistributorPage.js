@@ -234,7 +234,7 @@ function DistributorPage() {
                     </Card>
                 </div>
 
-                <div className="column-dis first-content-dis">
+                <div className="column-dis">
                     {release && (
 
                         <ReleasedMovie handle={handleView} stat={'released'} sentMoviesData={handleMovieDetail}

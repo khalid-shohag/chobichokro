@@ -111,7 +111,7 @@ function Pagination(props) {
         return (
 
 
-            <div>
+            <div style={{position: 'relative', marginTop: '60px'}}>
                 <Card style={{width: '600px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
                     <CardHeader style={{color: 'black', fontWeight: 'bold'}}>{props.name}</CardHeader>
                     <CardBody>
@@ -182,7 +182,7 @@ function Pagination(props) {
         return (
 
 
-            <div>
+            <div style={{position: 'relative', marginTop: '60px'}}>
                 <Card style={{width: '600px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
                     <CardHeader style={{color: 'black', fontWeight: 'bold'}}>{props.name}</CardHeader>
                     <CardBody>
@@ -254,7 +254,7 @@ function Pagination(props) {
         return (
 
 
-            <div>
+            <div style={{position: 'relative', marginTop: '60px'}}>
                 <Card style={{width: '600px', height: 'auto', backgroundColor: 'white', borderRadius: '8px'}}>
                     <CardHeader
                         style={{color: 'black', fontWeight: 'bold', marginBottom: '20px'}}>{props.name}</CardHeader>
