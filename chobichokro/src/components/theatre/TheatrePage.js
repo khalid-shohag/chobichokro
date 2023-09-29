@@ -12,6 +12,7 @@ import ReelStatus from "./ReelStatus";
 import axios from "axios";
 import 'reactjs-popup/dist/index.css';
 import Popup from "reactjs-popup";
+import {toast} from "react-toastify";
 // import {delay} from "@reduxjs/toolkit/src/utils";
 
 const theatreImg = require('../../assets/theatre-studio-01.jpg');
@@ -25,18 +26,19 @@ function TheatrePage() {
     const name = location.state?.theatreName || ''
     const address = location.state?.address || ''
     const id = location.state?.id || ''
+    // alert(id)
 
     const [load, setLoad] = useState(true)
-
-    console.log("\n\n\n\nTheatre Page: ", location.pathname)
-    console.log('\n\n\nLocation state', location.state)
-
-
-    console.log("Kothay token")
-    console.log("Theatre DEtails: ", name, address, id)
-    console.log("Token TTT: ", token)
-    console.log('njfdjkn')
-
+    //
+    // console.log("\n\n\n\nTheatre Page: ", location.pathname)
+    // console.log('\n\n\nLocation state', location.state)
+    //
+    //
+    // console.log("Kothay token")
+    // console.log("Theatre DEtails: ", name, address, id)
+    // console.log("Token TTT: ", token)
+    // console.log('njfdjkn')
+    let movie_loaded = false;
 
     const [show, setShow] = useState(false);
     const [runningShow, setRunningShow] = useState(true);
@@ -49,26 +51,23 @@ function TheatrePage() {
     // const [screenNo, setScreenNo] = useState([])
 
     const getAllTheatreMovies = async () => {
-        try {
-            const response = await axios.get('http://localhost:8080/api/theater/get/all_my_movie', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            setMovies(response.data)
-            //   console.log("Running Movies: ", response.data)
-        } catch (error) {
+        await axios.get('http://localhost:8080/api/theater/get/all_my_movie', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(value => {
+            // toast("movie loaded for selection")
+            setMovies(value.data);
+        }).catch(error => {
             console.log("Not getting Movies: ", error)
-        }
+        })
 
     }
 
 
     useEffect(() => {
-        getAllTheatreMovies().then(r => console.log("Movies: ", movies)).catch(e => console.log("Error: ", e))
-    }, [])
-
-    console.log("Running Movies: ", movies)
+        getAllTheatreMovies().then(r => movie_loaded = true).catch(e => console.log("Error: ", e))
+    }, [movie_loaded])
 
     const handleTicket = () => {
         setTicket(true);
@@ -128,8 +127,15 @@ function TheatrePage() {
     }
 
     const [showTime, setShowTime] = useState('')
-    const handleShowTime = (show) => {
+    const handleShowTime = async (show) => {
         setShowTime(show);
+        let url = `http://localhost:8080/api/audience/get_hall_list?movieName=${movieName}&theaterId=${id}&date=${show}`
+        await axios.get(url).then(value => {
+            setScreenNum(value.data)
+        }).catch(e => {
+            toast(e)
+        })
+
     }
     const [movieName, setMovieName] = useState('')
 
@@ -143,54 +149,26 @@ function TheatrePage() {
 
     }
 
-    const showDateSet = new Set()
-    const screenNumSet = new Set()
-    // const shwDate = []
     let [screenNum, setScreenNum] = useState([])
     let [showDate, setShowDate] = useState([])
     const getShowDate = async () => {
-        const formData = new FormData();
-        console.log('Form Date', movieName, id)
-        formData.append('movieName', movieName)
-        formData.append('theaterId', id)
-        let response = null
-        try {
-            response = await axios.get(`http://localhost:8080/api/dropdown/movie/theater?movieName=${movieName}&theaterId=${id}`)
-            console.log("Show Date: ", response.data)
-            // setShowDate(response.data.showtime)
-            // setScreenNo(response.data.hallNumber)
+        let url = `http://localhost:8080/api/audience/get_showtime_list?movieName=${movieName}&theaterId=${id}`
 
-            response.data.map((val) => {
-                console.log("VAl", val)
-                showDateSet.add(val.showtime)
-                screenNumSet.add(val.hallNumber)
-            })
-            showDate = []
-            showDateSet.forEach((val) => {
-                showDate.push(val)
-            })
-            screenNum = []
-            screenNumSet.forEach((val) => {
-                screenNum.push(val)
-            })
-
-        } catch (e) {
-            console.log("Error getting Schedule ID: ", e)
-        }
-        console.log("\n\\n\n\n\n\n\n")
-        console.log(response.data)
-        console.log("\n\\n\n\n\n\n\n")
-        console.log("Show DATE", showDate)
-        console.log('\n\n')
-        console.log('HAll\n\n', screenNum)
-
+        await axios.get(url).then(value => {
+            if(value.data.length === 0)
+                toast("there are " + "no " + "show available" + "for " + movieName)
+            setShowDate(value.data)
+            return value;
+        }).catch(e => {
+            toast(e);
+        })
     }
     useEffect(() => {
+        if(movieName === "") return
+        if(movieName === null) return;
+        toast('now need to load the movie')
         getShowDate().then(() => {
-            console.log("data fetched, now work the next part")
-            setScreenNum(screenNum)
-            console.log("screen number change kore felchi");
-            setShowDate(showDate)
+            console.log("showtime updated")
 
         })
     }, [movieName])
@@ -318,13 +296,14 @@ function TheatrePage() {
                                     }, 2500)
                                 }
                                 <div style={{flex: 1}}>
-                                    <h5>{<TicketBooking onSelectedOptions={handleHall} name={"Hall"} val={screenNum}
-                                                        stat={'no'}/>}</h5>
-                                </div>
-                                <div style={{flex: 1}}>
                                     <h5> {<TicketBooking onSelectedOptions={handleShowTime} name={"Show"} val={showDate}
                                                          stat={'no'}/>}</h5>
                                 </div>
+                                <div style={{flex: 1}}>
+                                    <h5>{<TicketBooking onSelectedOptions={handleHall} name={"Hall"} val={screenNum}
+                                                        stat={'no'}/>}</h5>
+                                </div>
+
                                 <div style={{flex: 1}}>
                                     <Button onClick={handleBook} style={{backgroundColor: 'yellowgreen'}}>
                                         Book
@@ -336,7 +315,8 @@ function TheatrePage() {
 
 
                             {book && (
-                                <SeatBooking audience_name = {'N/A'} bgColor={'transparent'} theatre={id} theatreName={name} hall={hall}
+                                <SeatBooking audience_name={'N/A'} bgColor={'transparent'} theatre={id}
+                                             theatreName={name} hall={hall}
                                              show={showTime} movie={movieName} date={showTime} token={token}/>
                             )}
 

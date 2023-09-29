@@ -8,6 +8,7 @@ import Hamburger from 'hamburger-react'
 import DropdownMenu from "./SelectedLoginUser";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
+import {toast} from "react-toastify";
 
 
 const Navbar = (props) => {
@@ -59,7 +60,7 @@ const Navbar = (props) => {
         await axios.get(url).then(res => {
             console.log(res.data)
             if (res.data.length === 0) {
-                alert("No movie found")
+                toast("No movie found")
             } else {
                 // props.setMovies(res.data)
                 // props.setSearch(true)

@@ -4,7 +4,9 @@ import {Button} from 'react-bootstrap';
 import Navbar from '../navbar';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+
 import { toast } from 'react-toastify';
+
 
 function AudienceRegistration() {
 
@@ -59,7 +61,7 @@ function AudienceRegistration() {
                 toast('Error in registration process')
             }
         } else
-            alert('Wrong Verification Code')
+            toast.warning('Wrong Verification Code')
 
         setVerificationCard(false)
         setRegistrationCard(true)
