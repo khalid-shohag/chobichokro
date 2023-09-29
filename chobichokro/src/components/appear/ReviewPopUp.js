@@ -29,23 +29,25 @@ function ReviewPopUp(props) {
         // alert(token)
         // alert(movieName)
 
-        await toast.promise(async () => {
-            let url = `http://localhost:8080/api/user/add_review/${movieName}`
-            let data = new FormData()
-            data.append('opinion', opinion.toString())
-            await axios.post(url, data, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then(res => {
-                // alert(JSON.stringify(res.data))
-            }).catch(err => {
-                toast.error(err)
-            })
-        }, {
-            pending: "Your review is being posted.",
-            success: "Review posted",
-            error: "Review failed."
+        const toastID = toast.loading("Please wait... Review is being posted...")
+        let url = `http://localhost:8080/api/user/add_review/${movieName}`
+        let data = new FormData()
+        data.append('opinion', opinion.toString())
+        await axios.post(url, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            toast.update(toastID, { render: "Review Posted", type: "success", isLoading: false, autoClose: 5000 });
+        }).catch(err => {
+            console.log(err)
+
+            if(err.response.status !== 500 && err.response.data){
+                toast.update(toastID, { render: `${err.response.data}`, type: "error", isLoading: false, autoClose: 5000 });
+
+
+            }
+            else toast.update(toastID, { render: `Please Log in to review the movie.`, type: "error", isLoading: false, autoClose: 5000 });
         })
 
 

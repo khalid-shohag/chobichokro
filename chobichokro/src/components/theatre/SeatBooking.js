@@ -54,10 +54,22 @@ class SeatBooking extends React.Component {
         const token = "Bearer " + props.token;
         if (this.props.scheduleId != null) {
             this.scheduleIdName = this.props.scheduleId
-            await toast.promise( async () => {await this.get_seat().then().catch()}, {
-                pending: `Available ticket are loading for ${movieName}`,
-                error: `Some error arise`,
-                success: `Available seat loaded, select seat and press book button.`
+            const load_toast = toast.loading("Pleasing Wait... ticket for the schedule is loading")
+            this.get_seat().then(() => {
+                toast.update(load_toast, {
+                    render: `Tickets are ready. Select and book the ticket`,
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 5000
+                })
+            }).catch(() => {
+                toast.update(load_toast, {
+                    render: `Please try again.`,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 5000
+                })
+
             })
             return null;
         }
@@ -67,11 +79,25 @@ class SeatBooking extends React.Component {
 
         await axios.get(url_).then(async value => {
             this.scheduleIdName = value.data
-            await toast.promise( async () => {await this.get_seat().then().catch()}, {
-                pending: `Available ticket are loading for ${movieName}`,
-                error: `Some error arise`,
-                success: `Available seat loaded, select seat and press book button.`
+
+            const load_toast = toast.loading("Pleasing Wait... ticket for the schedule is loading")
+            this.get_seat().then(() => {
+                toast.update(load_toast, {
+                    render: `Tickets are ready. Select and book the ticket`,
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 5000
+                })
+            }).catch(() => {
+                toast.update(load_toast, {
+                    render: `Please try again.`,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 5000
+                })
+
             })
+
 
         }).catch(e => console.log(e))
     }
@@ -106,23 +132,26 @@ class SeatBooking extends React.Component {
         formData.append("seatNumbers", seats)
         console.log(seats, url, paymentId)
         console.log(token);
-        // toast("Your request is being processed.")
-        return await toast.promise(async () => {
-            await axios.post(url, formData,
-                {
-                    headers: {
-                        Authorization: token
-                    }
-                }).then((value) => {
+        const toast_load = toast.loading("Your request is being processed.")
 
-            }).catch((err) => {
-                toast(err)
+        await axios.post(url, formData,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }).then((value) => {
+            toast.update(toast_load, {
+                render: `Seat booked successfully. Enjoy the movie on time.`,
+                type: "success",
+                isLoading: false,
+                autoClose: 5000
             })
-        }, {
-            pending: 'Your request is pending',
-            success: 'Your seat has been booked. please download your receipt',
-            error: 'Sorry for the inconvenience.'
-        });
+
+        }).catch((err) => {
+            toast.update(toast_load, {render: `${err.response.data}`, type: "error", isLoading: false, autoClose: 5000})
+
+        })
+
 
     }
     handleReservationSubmit = async () => {
