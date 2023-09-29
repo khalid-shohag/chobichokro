@@ -4,6 +4,7 @@ import {Button} from 'react-bootstrap';
 import Navbar from '../navbar';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function AudienceRegistration() {
 
@@ -51,9 +52,11 @@ function AudienceRegistration() {
                 const response = await axios.post('http://localhost:8080/api/auth/signup', formData).then((response) => {
                     console.log("Response", response)
                     setVCode('')
+                    toast('Audience Registration done')
                 })
             } catch (e) {
                 console.log("Error", e)
+                toast('Error in registration process')
             }
         } else
             alert('Wrong Verification Code')
@@ -63,7 +66,7 @@ function AudienceRegistration() {
     }
 
     return (
-        <div>
+        <div >
             <Navbar/>
             {registrationCard && (<div>
 
@@ -81,7 +84,7 @@ function AudienceRegistration() {
                     <CardTitle style={{background: 'lavender'}}>
                         <h2 style={{marginLeft: '25%', marginTop: '10px'}}>Audience Registration</h2>
                     </CardTitle>
-                    <CardBody style={{background: 'cadetblue', borderRadius: '10px', marginTop: '10px'}}>
+                    <CardBody style={{background: 'cadetblue', borderRadius: '10px', marginTop: '10px', padding: '10px'}}>
 
                         <form>
                             <label style={{display: 'flex', color: 'black'}}>
@@ -172,7 +175,7 @@ function AudienceRegistration() {
                         width: '650px'
                     }}>
 
-                        <CardTitle><h6>Verify</h6></CardTitle>
+                        <CardTitle><h6>A verification code has been sent to your email. Please check!</h6></CardTitle>
                         <CardBody style={{marginTop: '20px', marginLeft: '30%'}}>
                             <input
                                 type="text"

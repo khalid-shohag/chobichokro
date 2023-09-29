@@ -161,22 +161,24 @@ const MovieDetails = (props) => {
     const [addReview, setAddReview] = useState(false)
 
     const handleAddReview = () => {
-        // const movieDetails = {
-        //     category: 'ticket',
-        //     id: theatreMovieName,
-        //     theatreName: theatreName,
-        //     status: status,
-        //     allTheatre: allTheatre
-        // };
+        const movieDetails = {
+            category: 'ticket',
+            id: theatreMovieName,
+            theatreName: theatreName,
+            status: status,
+            allTheatre: allTheatre
+        };
 
-        // const customState = {
-        //     locationPathname: location.pathname,
-        //     movieDetails: movieDetails,
-        // };
+        const customState = {
+            locationPathname: location.pathname,
+            movieDetails: movieDetails,
+        };
+        
+        if (localStorage.getItem('audience_token')!='') {
+            setAddReview(true)
 
-        setAddReview(true)
-
-        // navigate('/audience_login', { state: customState });
+            navigate('/audience_login', { state: customState });
+        }
     }
 
     const genreString = genre.map((genreItem) => genreItem).join(' ');

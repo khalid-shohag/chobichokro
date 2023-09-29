@@ -4,6 +4,7 @@ import 'reactjs-popup/dist/index.css';
 import {Button} from 'react-bootstrap';
 import axios from 'axios';
 import {FaPlus} from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 function ReviewPopUp(props) {
     const [show, setShow] = useState(false);
@@ -28,7 +29,7 @@ function ReviewPopUp(props) {
         // alert(token)
         // alert(movieName)
 
-        
+
 
         let url = `http://localhost:8080/api/user/add_review/${movieName}`
         let data = new FormData()
@@ -38,9 +39,15 @@ function ReviewPopUp(props) {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
+            toast('review added')
             // alert(JSON.stringify(res.data))
         }).catch(err => {
-            alert(err)
+            // alert(err)
+            if (token!=null) {
+                toast("You can't add review, not an audience of the movie")
+            }
+            else
+                toast('Log in First')
         })
 
 
