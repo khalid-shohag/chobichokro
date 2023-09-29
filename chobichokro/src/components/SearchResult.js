@@ -14,7 +14,7 @@ export function SearchResult() {
     const searchLoad = false
 
     return (
-        <div style={{background: 'black', height: '100vh'}}>
+        <div style={{background: 'black', height: '100vw'}}>
             <Navbar/>
             <Container>
                 <Card style={{
@@ -30,10 +30,10 @@ export function SearchResult() {
                         <h1 style={{color: 'black',}}>Search Result</h1>
                     </CardBody>
                 </Card>
-                <Content>
+                <div>
                     {searchLoad ? (<div style={{justifyContent: "center",}}>
                         <DataLoading value={'Search results'}/>
-                    </div>) : (<div style={{display: 'flex'}}>
+                    </div>) : (<Content >
 
 
                         {movies.map((movie, key) => {
@@ -71,9 +71,9 @@ export function SearchResult() {
                                 );
                             }
                         })}
-                    </div>)}
+                    </Content>)}
 
-                </Content>
+                </div>
             </Container>
         </div>
     )
