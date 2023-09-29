@@ -1,23 +1,15 @@
-![home_page](https://github.com/khalid-shohag/chobichokro/assets/52879463/bf15fed2-5058-458e-a4d2-de61fe89d484)# chobichokro
-This repository will contain the all the codes regarding therap javafest competition.
-
-
-## The backend of the project is [Chobichokro](https://github.com/Kamol-Paul/chobichokro-api)
-
-
-
-## Chobichokro for Therap Java Fest 2023 ##
-
-# **Chobichokro**
+![home_page](https://github.com/khalid-shohag/chobichokro/assets/52879463/bf15fed2-5058-458e-a4d2-de61fe89d484)
+## Chobichokro
+The Chobichokro Web App is a comprehensive platform that aims to streamline the movie distribution
+and theater management process within the Bangladeshi film industry. This web app will facilitate interactions among distributors, theater owners, and audiences, providing an efficient and user-friendly way to
+manage movie releases, ticket bookings, financial transactions, and performance analysis.
 
 [![MIT License](https://badgen.net/npm/license/lodash?color=yellow&label=License)](https://opensource.org/licenses/)
 [![Data Base](https://badgen.net/badge/icon/mongodb?color=4D2EA5&icon=mongodb&label=Database)](https://opensource.org/licenses/)
 ![frontend-react](https://img.shields.io/badge/Frontend-React-informational?style=flat&logo=react&logoColor=00D8FF&color=00D8FF)
 
+## The backend of the project is [Chobichokro](https://github.com/Kamol-Paul/chobichokro-api)
 
-The Chobichokro Web App is a comprehensive platform that aims to streamline the movie distribution
-and theater management process within the Bangladeshi film industry. This web app will facilitate interactions among distributors, theater owners, and audiences, providing an efficient and user-friendly way to
-manage movie releases, ticket bookings, financial transactions, and performance analysis.
 
 # Screenshot of Chobichokro #
 ## home page ##
@@ -36,6 +28,8 @@ manage movie releases, ticket bookings, financial transactions, and performance 
 ## search result movie name ##
 ![search_result](https://github.com/khalid-shohag/chobichokro/assets/52879463/6d142296-77d1-4f80-a08c-328e087f8c25)
 
+## Theatre Home Page ##
+![Screenshot 2023-09-29 232421](https://github.com/khalid-shohag/chobichokro/assets/52879463/f1da3915-d9a9-44d5-886d-5a1a4c952755)
 
 ## seat booking request ##
 ![theatre_seat_booking_submit](https://github.com/khalid-shohag/chobichokro/assets/52879463/4f170d7f-8779-44b0-ba68-61352f9bd0e9)
@@ -50,7 +44,8 @@ manage movie releases, ticket bookings, financial transactions, and performance 
 
 
 ## Movie review ##
-![movie review](./chobichokropictures/movie_review.png)
+![movie_review](https://github.com/khalid-shohag/chobichokro/assets/52879463/4e4586e5-1713-42da-abe9-2a085bb008d6)
+
 
 ## review adding ##
 ![movie_review](https://github.com/khalid-shohag/chobichokro/assets/52879463/ea202683-a05c-4605-a694-4a8051af795a)
@@ -84,6 +79,7 @@ manage movie releases, ticket bookings, financial transactions, and performance 
 - pytorch 1.9
 - flask 2.0
 - RobertaForSequenceClassification
+  
 **Frontend**
 - react
 - emotion
@@ -98,13 +94,6 @@ manage movie releases, ticket bookings, financial transactions, and performance 
 
 - MongoDB
 
-## REST API Documentation
-![1](./images/1.png)
-![2](./images/2.png)
-![4](./images/4.png)
-![5](./images/5.png)
-![6](./images/6.png)
-![8](./images/8.png)
 |
 ## Project Structure
 
