@@ -112,7 +112,7 @@ const Navbar = (props) => {
                         id={'search'}
                         type="text"
                         placeholder="Search..."
-                        style={{border: 'none', outline: 'none', width: '100%', padding: '5px'}}
+                        style={{border: 'none', borderRadius: '10px',  color: 'white', boxShadow: '0 0 3px white', background: 'black', outline: 'none', width: '100%', padding: '5px'}}
                     />
                 </li>
                 <li>

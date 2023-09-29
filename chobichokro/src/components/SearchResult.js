@@ -33,7 +33,7 @@ export function SearchResult() {
                 <Content>
                     {searchLoad ? (<div style={{justifyContent: "center",}}>
                         <DataLoading value={'Search results'}/>
-                    </div>) : (<div>
+                    </div>) : (<div style={{display: 'flex'}}>
 
 
                         {movies.map((movie, key) => {
