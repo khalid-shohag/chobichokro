@@ -155,6 +155,7 @@ function Login(props) {
                 // toast(roles)
                 console.log(roles)
                 let role = roles[0]
+                alert(role)
                 if (props.value === 'Distributor Login' && role === 'ROLE_DISTRIBUTOR')
                     navigate('/distributor_page/' + response.data.id, {state: {token, name}});
                 else if (props.value === 'Theatre Login' && role === 'ROLE_THEATER_OWNER')
