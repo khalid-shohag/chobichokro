@@ -240,7 +240,6 @@ function LicenseStatus() {
                                         <h5>User Name: {name}</h5>
                                         <h5>Address: {address}</h5>
                                         <h5>License No: {licenseNumber}</h5>
-                                        <h5>ID: {identificationNumber}</h5>
                                         <h5>Email: {email}</h5>
                                     </div>
 

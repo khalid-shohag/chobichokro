@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Button, Card, CardBody} from 'reactstrap'
 import {FaCheck, FaEnvelope, FaPhone, FaTimes} from "react-icons/fa";
-import {ToastContainer} from 'react-custom-alert';
+import {ToastContainer, toast} from 'react-custom-alert';
 import {DataLoading} from "../appear/DataLoading";
 
 function LicensePending(props) {
@@ -39,25 +39,20 @@ function LicensePending(props) {
         const formData = new FormData()
         formData.append('licenseId', id)
         formData.append('status', 'approved')
-        try {
-            const response = await axios.put('http://localhost:8080/api/license/update_status', formData, {
+        
+            await axios.put('http://localhost:8080/api/license/update_status', formData, {
                 headers: {
                     Authorization: `Bearer ${props.token}`
                 }
+            }).then(() =>{
+                getAllPendingReq().then(() =>{
+                    toast.success("request approved")
+                })
             })
-            // getAllPendingReq()
-            // gs(false)
-            console.log("Update status: ", response.data)
-        } catch (e) {
-            console.log("Error updating status", e)
-        }
+            .catch( (e) => {
+            console.log("Error updating status", e)})
     }
 
-
-    // if (s===false) {
-    //     getAllPendingReq()
-    //     gs(true)
-    // }
 
     return (
 
@@ -77,12 +72,12 @@ function LicensePending(props) {
                         return (
                             <Card key={license.id} style={{
                                 padding: '20px',
-                                marginLeft: '26%',
+                                marginLeft: '13%',
                                 backgroundColor: 'honeydew',
                                 borderRadius: '10px',
                                 boxShadow: '0 0 10px black',
                                 height: 'auto',
-                                width: '700px',
+                                width: '70%',
                                 marginTop: '60px'
                             }}>
                                 <CardBody>
@@ -90,8 +85,10 @@ function LicensePending(props) {
                                         <div style={{flex: 1}}>
                                             <h4 style={{color: 'black'}}>License Type: {license.licenseType}</h4>
                                             <h3>{license.username}</h3>
+                                            <div>
                                             <FaPhone></FaPhone> {license.phoneNumber}
-                                            <FaEnvelope style={{marginLeft: '10px'}}></FaEnvelope> {license.email}
+                                            </div>
+                                            <FaEnvelope></FaEnvelope> {license.email}
                                             <h4>Transaction No. {license.transactionNumber}</h4>
                                         </div>
                                         <div style={{flex: 1, marginLeft: '220px'}}>

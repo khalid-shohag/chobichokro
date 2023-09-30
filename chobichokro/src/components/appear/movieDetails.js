@@ -33,6 +33,8 @@ const MovieDetails = (props) => {
     const {value} = useParams()
     const token = location.state?.token || ''
     const theatreMovieName = location.state?.id || ''
+    // console.log("\n\n\nTheatre Mopvie Name", theatreMovieName)
+    // alert(theatreMovieName)
     const navigate = useNavigate()
 
     console.log("TOken Theatre", token)
@@ -42,13 +44,18 @@ const MovieDetails = (props) => {
 
     const [movie, setMovie] = useState(null);
     useEffect(() => {
+    
         const getMovie = async () => {
-            try {
-                const response = await axios.get(`http://localhost:8080/api/movies/get/movie/${location.state.id}`);
+           
+                await axios.get(`http://localhost:8080/api/movies/get/movie/${location.state.id}`).then((response) =>{    
                 setMovie(response.data);
-            } catch (error) {
-                console.log("Errors: ", error);
-            }
+                    // alert(JSON.stringify(response.data))
+
+                }).catch((err) =>{
+                    // toast(JSON.stringify(err))
+                    toast("Error getting movie details")
+                })
+            
         };
 
         getMovie();
@@ -225,7 +232,7 @@ const MovieDetails = (props) => {
 
         console.log('url:', `http://localhost:8080/api/theater/want_to_buy/${name}`)
         
-        try{
+     
             const response = await axios.post(`http://localhost:8080/api/theater/want_to_buy/${name}`,{}, {
 
 
@@ -237,16 +244,12 @@ const MovieDetails = (props) => {
 
                 
             }).then((value) => { 
-                toast("Booked Request Sent")
+                toast.success("Booked Request Sent")
 
+            }).catch((err) => {
+                toast.error("some problem in getting the reel")
             })
-            console.log('Successfully ', JSON.type(response))
-            // alert('Successfully added to your cart')
-        } catch (e) {
-            console.log("Error: ", e)
-            toast('Network Error or Already Request sent')
-            // alert(`Network Error, can't add to your cart`)
-        }
+     
     }
 
     const [theatre, setTheatre] = useState('');
@@ -318,7 +321,7 @@ const MovieDetails = (props) => {
             console.log(theatreName)
             // console.log(myMovie)
             try {
-                let url = `http://localhost:8080/api/theater/get/analysis/${theatreMovieName}`
+                let url = `http://localhost:8080/api/theater/get_analysis/${theatreMovieName}`
                 console.log(url)
                 const response = await axios.get(url, {
                     headers: {
@@ -329,7 +332,8 @@ const MovieDetails = (props) => {
                     setTheatreLoad(false)
                     console.log("data value")
                     console.log(value)
-                    setFootFalls(value.data.body)
+                    alert(value.data.totalTicket)
+                    setFootFalls(value.data.totalTicket)
                 })
                 // response.then()
 
@@ -424,7 +428,7 @@ const MovieDetails = (props) => {
         <Container style={{marginTop: '65px'}}>
             <Details>
                 <h1 style={{color: '#680C07'}}>
-                    {name}
+                    {theatreMovieName}
                 </h1>
 
                 <Card style={{background: 'white', borderRadius: '5px', padding: '10px'}}>

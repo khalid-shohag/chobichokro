@@ -118,12 +118,8 @@ function Login(props) {
         let current_page = props.value
         current_page = current_page.replace(" Login", "");
         await axios.post('http://localhost:8080/api/auth/signin', formData
-            // {
-            //   username,
-            //   password
-            // }
         ).then(response => {
-            // toast("we get the response");
+            toast("we get the response");
             console.log(response)
             const token = response.data.token;
             const type = response.data.tokenType;
@@ -154,18 +150,21 @@ function Login(props) {
                 let roles = response.data.roles;
                 // toast(roles)
                 console.log(roles)
-                let role = roles[0]
+                let d_role = roles
+                let t_role = roles[0]
+                let a_role = roles[0]
+                let ad_role = roles[0]
                 // alert(role)
-                if (props.value === 'Distributor Login' && role === 'ROLE_DISTRIBUTOR')
+                if (props.value === 'Distributor Login' && d_role.includes('ROLE_DISTRIBUTOR'))
                     navigate('/distributor_page/' + response.data.id, {state: {token, name}});
-                else if (props.value === 'Theatre Login' && role === 'ROLE_THEATER_OWNER')
+                else if (props.value === 'Theatre Login' && t_role === 'ROLE_THEATER_OWNER')
                     navigate('/theatre_page/' + response.data.id, {state: {token, theatreName, id, address}});
-                else if (props.value === 'Audience Login' && role === 'ROLE_USER') {
+                else if (props.value === 'Audience Login' && a_role === 'ROLE_USER') {
                     localStorage.setItem('audience_token', token)
                     localStorage.setItem('audience_name', name)
                     localStorage.setItem('audience_email', email)
                     navigate('/audience_dashboard/' + response.data.id, {state: {token, name, email}});
-                } else if (props.value === 'Admin Login' && role === 'ROLE_ADMIN')
+                } else if (props.value === 'Admin Login' && ad_role === 'ROLE_ADMIN')
                     navigate('/admin', {state: {token}});
                 else{
 

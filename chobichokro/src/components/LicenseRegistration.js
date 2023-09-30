@@ -44,8 +44,6 @@ function LicenseRegistration() {
             const response = await axios.post('http://localhost:8080/api/license/add', formData).then((response) => {
                 toast("Request has been sent to ADMIN!")
             });
-
-            console.log('Server response:', response.data);
         } catch (error) {
             console.error('Error:', error);
             toast('Request Error, Try again!')

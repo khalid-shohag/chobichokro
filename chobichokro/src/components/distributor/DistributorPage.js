@@ -120,11 +120,13 @@ function DistributorPage() {
 
     const getUpcomingMovies = async () => {
         try {
-            const response = await axiosInstance.get('/api/distributor/get/upcoming_movie');
+            const response = await axiosInstance.get('/api/distributor/get/upcoming_movie').then((response) => {
+                console.log(response.data) ;
 
             // Handle the response data here, e.g., set it in your component state.
             setUpcomingMovie(response.data);
             console.log('All Movies:', response.data);
+            })
         } catch (error) {
             // Handle any errors that occur during the request
             console.log('fix the errors');

@@ -44,7 +44,7 @@ function ReleasedMovie(props) {
             moviesRendered++;
 
             // Check if we have rendered enough movies for this page
-            if (moviesRendered >= moviesPerPage) {
+            if (moviesRendered == moviesPerPage) {
                 // setLoad(false)
                 // alert('Load: ', load)
                 // load = false
@@ -75,9 +75,9 @@ function ReleasedMovie(props) {
             }
             newStartIndex = i;
 
-            setStartIndex(newStartIndex);
+            setStartIndex(newStartIndex-1);
             setPageNo(pageNo + 1);
-            console.log("Start Index: ", newStartIndex);
+            console.log("Start Index check: ", newStartIndex-1);
         }
     };
 
@@ -109,7 +109,7 @@ function ReleasedMovie(props) {
           
            {renderMovieLists()}
 
-            <div style={{marginLeft: '30%', color: 'white', display: 'flex', }}>
+            <div style={{marginLeft: '30%', marginTop: '10%', color: 'white', display: 'flex', }}>
                 Page {pageNo}
                 <Button onClick={decrementPageNo} style={{
                     marginLeft: '10px',
