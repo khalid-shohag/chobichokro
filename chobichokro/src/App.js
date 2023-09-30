@@ -19,6 +19,7 @@ import PreBooking from "./components/appear/PreBooking";
 import RunningShowList from "./components/appear/RunningShowList";
 import AudienceRegistration from './components/audience/AudienceRegistration';
 import {SearchResult} from './components/SearchResult';
+import { About } from './components/About';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/admin' element={<Admin/>}/>
+                <Route path='/about' element={<About/>}/>
 
                 {/*Route for different Login users*/}
                 <Route path='/admin_login' element={<AdminLogin value='Admin Login'/>}/>

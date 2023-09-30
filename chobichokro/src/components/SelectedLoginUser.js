@@ -10,7 +10,7 @@ const DropdownMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    const menuItems = ['Admin', 'Distributor', 'Theatre', 'Audience', 'Get License', 'License Status check'];
+    const menuItems = ['Admin', 'Distributor', 'Theatre', 'Audience', 'Get License', 'License Status check', 'About'];
 
     const handleItemClick = (item) => {
         setIsMenuOpen(false);
@@ -34,6 +34,9 @@ const DropdownMenu = () => {
                 break;
             case 'License Status check':
                 navigate('/license_status_check');
+                break;
+            case 'About':
+                navigate('/about');
                 break;
             default:
                 break;
