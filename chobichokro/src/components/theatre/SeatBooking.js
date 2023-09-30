@@ -60,14 +60,14 @@ class SeatBooking extends React.Component {
                     render: `Tickets are ready. Select and book the ticket`,
                     type: "success",
                     isLoading: false,
-                    autoClose: 5000
+                    autoClose: 100
                 })
             }).catch(() => {
                 toast.update(load_toast, {
                     render: `Please try again.`,
                     type: "error",
                     isLoading: false,
-                    autoClose: 5000
+                    autoClose: 100
                 })
 
             })
