@@ -332,7 +332,7 @@ const MovieDetails = (props) => {
                     setTheatreLoad(false)
                     console.log("data value")
                     console.log(value)
-                    alert(value.data.totalTicket)
+                    // alert(value.data.totalTicket)
                     setFootFalls(value.data.totalTicket)
                 })
                 // response.then()
